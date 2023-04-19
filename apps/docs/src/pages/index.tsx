@@ -40,7 +40,7 @@ function HomepageHeader() {
             <Link
               style={{ margin: mq(['.5rem', '1rem']), flex:1, fontSize: mq(['1rem', '1.2rem']), padding: mq(['.25rem', '.5rem'])}}
               className="button button--primary button--lg homepage-btn"
-              to="docs/hooks/index.md">
+              to="docs/hooks/">
               Hooks
             </Link>
             {/* <Link

@@ -24,6 +24,7 @@ import useStateArray from './hooks/useStateArray'
 import useStateMap from './hooks/useStateMap'
 import useStateSet from './hooks/useStateSet'
 import useStateWithHistory from './hooks/useStateWithHistory'
+import useStateWithValidation from './hooks/useStateWithValidation'
 import useTemperature from './hooks/useTemperature'
 import useWindow from './hooks/useWindow'
 import useStorage, { useSessionStorage, useLocalStorage } from './hooks/useStorage'
@@ -55,6 +56,7 @@ export {
     useStateMap,
     useStateSet,
     useStateWithHistory,
+    useStateWithValidation,
     useTemperature,
     useWindow,
 
