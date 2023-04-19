@@ -41,8 +41,6 @@
     "entry": [
       "./src/index.ts",
       "./src/hooks/**/*.tsx",
-      "./src/utils/**/*.jsx",
-      "./src/utils/**/*.tsx",
       "./src/utils/**/*.js",
       "./src/utils/**/*.ts"
     ],

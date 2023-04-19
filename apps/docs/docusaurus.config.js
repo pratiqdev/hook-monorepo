@@ -14,7 +14,8 @@ const config = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'pratiqdev', // Usually your GitHub org/user name.
-  projectName: 'custom-hooks', // Usually your repo name.
+  projectName: '@pratiq/hooks', // Usually your repo name.
+  trailingSlash: false,
 
   presets: [
     [
