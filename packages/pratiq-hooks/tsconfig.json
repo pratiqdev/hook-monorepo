@@ -1,0 +1,21 @@
+{
+  "extends": "@pratiq/config/react-library.json",
+  "include": [".", "../../_deprecated/metaCollector.js"],
+  "compilerOptions": {
+    "target": "ES2022",
+    "checkJs": false,
+    "module": "ES2022",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "lib": ["ES2019","DOM"],
+    "allowJs": true
+    // "paths": {
+        // "/src/components/*": ["./src/components/*"],
+        // "@utils/*": ["utils/*"]
+    // }
+  },
+  "exclude": ["dist", "build", "node_modules", "cypress", "_deprecated"],
+  "types": ["cypress"],
+}

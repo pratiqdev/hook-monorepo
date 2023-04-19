@@ -1,0 +1,5 @@
+declare module 'utils'
+declare module 'utils/'
+declare module 'utils/*'
+declare module '@site../utils/logger'
+declare module 'utils/isBrowser.js' 

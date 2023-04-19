@@ -1,0 +1,40 @@
+---
+title: refaze
+description: real-time application monitoring and analytics
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import { HeadlessTable, RelatedTable, Card, MainText, DemoGallery } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>refaze</h1>
+Get real-time updates from your applications via sockets with <code>refaze-logger</code>, aggregate and analyze
+presistent logs and trigger actions via <code>refaze-server</code> then monitor them in real-time 
+with <code>refaze-gui</code>
+</MainText>
+</Card>
+
+:::caution ACTIVE DEVELOPMENT
+This utility is still in early stages of research, testing and development. The current repos are
+private and will likely be squashed or opened as a new monorepo when a public release is resonable.
+:::
+
+
+
+## Usage
+
+node/browser logging
+```
+yarn add @pratiq/refaze-logger 
+```
+socket server
+```
+yarn add @pratiq/refaze-server
+```
+web-app gui
+```
+yarn add @pratiq/refaze-gui
+```

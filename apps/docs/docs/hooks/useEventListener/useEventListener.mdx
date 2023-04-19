@@ -1,0 +1,173 @@
+---
+title: useEventListener
+description: Use event listeners that automatically register and unregister on component mount
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useEventListener'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useEventListener</h1>
+Use event listeners that automatically register and unregister on component mount
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```js 
+import { useEventListener } from '@pratiq/hooks'
+
+useEventListener('click', (e) => {
+    // do work
+})
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+import { useEventListener } from '@pratiq/hooks'
+
+const elementRef = useRef<any>(null)
+const [isEnabled, toggle] = useEventListener('click', (e) => {
+    // do work
+}, elementRef.current)
+
+<div ref={elementRef}>
+    Click Me!
+</div>
+
+<button onClick={remove}>
+    Optionally remove listener
+</button>
+```
+
+</TabItem>
+
+</Tabs>
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+### Config Example
+
+```ts
+const [isEnabled, toggle] = useEventListener('click', () => {
+     // ... 
+}, myRef)
+```
+
+<!-- ignore-return-values -->
+<!-- ignore-hook-methods -->
+
+
+### Return Values
+
+<HeadlessTable items={[
+    ['@isEnabled', 'boolean', 'True if the eventListener is currently registered and active'],
+]}/>
+
+### Interfaces
+
+```ts
+type T_UseEventListener = (event:string, callback:Function, element: any) => [
+    isEnabled:boolean,
+    toggle: () => void
+]
+```
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+<Card>
+
+### toggle
+Add or remove the event listener
+
+```ts
+() => void 
+```
+```ts
+const [isEnabled, toggle] = useEventListener('click', () => {})
+
+toggle()
+```
+
+</Card>
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+
+<RelatedTable hooks={['useState', 'useRef', 'useEffect']} />
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useWindow', 'useMousePosition', 'useKeyboard']} />

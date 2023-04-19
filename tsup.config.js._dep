@@ -1,0 +1,29 @@
+// tsup.config.ts
+import path from "path";
+import { defineConfig } from "tsup";
+
+export default [
+  {
+    clean: true,
+    sourcemap: true,
+    tsconfig: path.resolve(__dirname, "./tsconfig.json"),
+    entry: ["./src/hooks/**/*.ts"],
+    format: ["esm"],
+    outDir: "dist/hooks",
+    esbuildOptions(options, context) {
+      options.outbase = "./";
+    },
+  },
+  {
+    clean: true,
+    sourcemap: true,
+    tsconfig: path.resolve(__dirname, "./tsconfig.json"),
+    entry: ["./src/index.ts"],
+    bundle: false,
+    format: ["esm"],
+    outDir: "dist",
+    esbuildOptions(options, context) {
+      options.outbase = "./";
+    },
+  },
+];

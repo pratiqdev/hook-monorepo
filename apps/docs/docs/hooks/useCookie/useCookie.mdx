@@ -1,0 +1,208 @@
+---
+title: useCookie
+description: Manage and store cookies in state
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useCookie'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useCookie</h1>
+Manage and store cookies in state
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```js 
+import { useCookie } from '@pratiq/hooks'
+
+const [cookie, setCookie] = useCookie('COOKIE_KEY')
+
+<button onClick={() => setCookie('Alice')}>Set cookie 'Alice'</button>
+<button onClick={() => setCookie('Bobby', 100_000)}>Set cookie 'Bobby'</button>
+
+// cookie: null
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+import { useCookie } from '@pratiq/hooks'
+
+const [cookie, setCookie, removeCookie] = useCookie('COOKIE_KEY', 'Initial Value')
+
+<button onClick={() => setCookie('Alice')}>Set cookie 'Alice'</button>
+<button onClick={() => setCookie('Bobby', 100_000)}>Set cookie 'Bobby'</button>
+<button onClick={() => removeCookie()}>Remove cookie</button>
+
+// cookie: 'Initial Value'
+```
+
+</TabItem>
+
+<!-- 
+<TabItem value='full' label='Full'>
+
+```js
+import { useClamp } from '@pratiq/hooks'
+
+const [value, setValue, reset] = useClamp({
+    min: 0,
+    max: 10,
+    value: 7
+})
+
+value        // 7
+setValue(-1) // 0
+setValue(20) // 10
+reset()      // 7
+```
+
+</TabItem>
+-->
+</Tabs>
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+Values used for initial state and internal settings are provided as standard arguments
+
+### Config Example
+
+```ts
+const {cookie, setCookie, removeCookie} = useCookie('KEY', 'Hello, World!')
+```
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@cookie','string','The current value of internal state, set from the value of the cookie'],
+    ['@setCookie','Function','Set a new value of the cookie and internal state'],
+    ['@removeCookie','Function','Remove this cookie from cookies storage'],
+]} />
+
+
+### Interfaces
+```ts
+export interface I_UseCookieConfig {
+    key: string;
+    initialValue?: string;
+}
+export interface I_UseCookieReturn {
+    cookie: string;
+    setCookie: Function;
+    removeCookie: Function;
+}
+```
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+
+<Card>
+
+### setCookie
+Set a cookie and store the current state.
+
+```ts
+(value:string) => void 
+```
+```ts
+const [cookie, setCookie] = useCookie('MY_KEY')
+
+setCookie('Save this cookie @ "MY_KEY"')
+
+// cookie: 'Save this cookie @ "MY_KEY"'
+```
+
+</Card>
+<Card>
+
+### removeCookie
+Delete a cookie and empty the current state.
+
+```ts
+(value:string) => void 
+```
+```ts
+const [cookie, setCookie, removeCookie] = useCookie('MY_KEY')
+
+removeCookie()
+
+// cookie: null
+```
+
+</Card>
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+This hook internally uses the `useState` hook to store the...
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useStorage', 'useIDB', 'useClipboard']} />

@@ -1,0 +1,292 @@
+---
+title: useDynamic
+description: Dynamically load components with built-in pagination and navigation controls
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useDynamic'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useDynamic</h1>
+Dynamically load components with built-in pagination and navigation controls
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+## Usage
+
+<Tabs>
+<TabItem value='simple' label='Simple'>
+
+```js 
+const DYN = useDynamic({
+    'Dynamic Page 1': './PageOne',
+    'Dynamic Page 2': './PageTwo',
+    'Dynamic Page 3': './PageThree',
+    'Dynamic Page 4': './PageFour',
+})
+
+
+return (
+    <div>
+        <button onClick={DYN.next}>Next</button>
+        <p>{DYN.index + 1}</p>
+        <button onClick={DYN.prev}>Previous</button>
+
+        <DYN.Component />
+    </div>
+)
+```
+
+</TabItem>
+<TabItem value='advanced' label='Advanced'>
+
+```js
+import LoaderPage from './LoaderPage'
+
+const DYN = useDynamic({
+    'Dynamic Page 1': './PageOne',
+    'Dynamic Page 2': './PageTwo',
+    'Dynamic Page 3': './PageThree',
+    'Dynamic Page 4': './PageFour',
+}, <LoaderPage />)
+
+
+return (
+    <div>
+        {DYN.names.map((name) => <button onClick={() => DYN.goto(name)}>{'> '+name}</button>)}
+
+        <button onClick={DYN.next}>Next</button>
+        <p>{DYN.index + 1}</p>
+        <p>{DYN.name}</p>
+        <button onClick={DYN.prev}>Previous</button>
+
+        <DYN.Component />
+    </div>
+)
+```
+
+</TabItem>
+</Tabs>
+
+
+
+:::note
+Be aware of the automatic sorting of keys in an object. Use a consistent naming convention 
+or manual numerical values for keys (component names) so the indices are consistent when using the
+`next`, `prev` and `goto` methods
+
+*Object.keys() returns an array whose elements are strings corresponding to the enumerable
+properties found directly upon object. The ordering of the properties is the same as that
+given by looping over the properties of the object manually. *
+\- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
+:::
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+This hook takes a map of components and options object as arguments
+
+
+
+### Config Example
+
+```tsx
+const LoaderPage = () => <p>Loading...</p>
+
+const { name, next, prev } = useDynamic({
+    'Dynamic Page 1': './dyn_1',
+    'Dynamic Page 2': './dyn_2',
+    'Dynamic Page 3': './dyn_3',
+    'Dynamic Page 4': './dyn_4',
+},{
+    fallback: <LoaderPage />,
+    preload: [1,2],
+    default: 0
+})
+```
+
+
+### Return Values
+
+<HeadlessTable code items={[
+    ['@Component','React.JSXElementConstructor<any>', 'The memoized React component'],
+    ['@index','number', 'The current index - used to select the current component'],
+    ['@names','string[]', 'The names of the provided components'],
+    ['@name','string', 'The name of the current component'],
+]}/>
+
+
+### Interfaces
+
+```ts
+type UseDynamicComponents = {
+    // The name and path to the component, default export expected
+    [key:string | number]: string;
+}
+
+type UseDymamicOptions = {
+    // The component to load and display first
+    default?: string | number;
+    // Array of names/indeces to preload, after the first (or default) is loaded
+    preload?: Array<string | number>;
+    // Fallback component to render while loading
+    fallback?: React.ReactNode;
+}
+
+type UseDynamic = (
+    list: UseDynamicComponents, 
+    options: UseDymamicOptions
+) => ({
+    Component: React.JSXElementConstructor<any>;
+    next: () => void;
+    prev: () => void;
+    goto: (path: string | number) => void;
+    index: number;
+    names: string[];
+    name: string;
+})
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ignore-return-values -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+
+<Card>
+
+### next
+Switch to the next component in the list, or around to the first component
+
+```ts
+() => void 
+```
+```ts
+const { next } = useDynamic({
+    'Dynamic Page 1': './dyn_1',
+    'Dynamic Page 2': './dyn_2',
+}, <LoaderPage />)
+
+next()
+```
+</Card>
+<Card>
+
+### prev
+Switch to the previous component in the list, or around to the last component
+
+```ts
+() => void 
+```
+```ts
+const { prev } = useDynamic({
+    'Dynamic Page 1': './dyn_1',
+    'Dynamic Page 2': './dyn_2',
+}, <LoaderPage />)
+
+prev()
+```
+</Card>
+<Card>
+
+### goto
+Switch to a component with the provided name or index
+
+```ts
+(path: string | number) => void 
+```
+```ts
+const { goto } = useDynamic({
+    'Dynamic Page 1': './dyn_1',
+    'Dynamic Page 2': './dyn_2',
+}, <LoaderPage />)
+
+goto(1)
+goto('Dynamic Page 2')
+```
+</Card>
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+<RelatedTable hooks={['useState', 'useEffect', 'useRef', 'useMemo']} />
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useVibration']} />

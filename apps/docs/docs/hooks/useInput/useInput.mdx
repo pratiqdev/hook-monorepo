@@ -1,0 +1,488 @@
+---
+title: useInput
+description: Store and manage complex objects in client-side storage using IndexedDB
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useInput'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useInput</h1>
+Store and manage complex objects in client-side storage using IndexedDB
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+## Usage
+
+<Tabs>
+<TabItem value='simple' label='Simple'>
+
+```js 
+import { useInput } from '@pratiq/hooks'
+
+const myInput = useInput({
+    placeholder: '1234 Street Road',
+    name: 'request-form-address',
+    className: 'my-input'
+})
+
+<input {...myInput.bind} />
+<p>{myInput.value}</p>
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+import { useInput } from '@pratiq/hooks'
+
+const {
+    value,
+    setValue,
+    validate,
+    reset,
+    bind
+} = useInput({
+        value: 'Default',
+        placeholder: 'A placeholder',
+        validOnDefault: false,
+        validator: /^[a-z0-9]+$/,
+        className: 'default-classname',
+        rootStyle: {
+            background: '#444',
+            marginRight: '.5rem',
+        },
+        style: {
+            'valid': 'valid!!',
+            'invalid': 'invalid!!',
+            'default': {color: 'blue'},
+        },
+        onValidated?: (v) => console.log('validated! current value:', v);
+        onActive?: (v) => console.log('active! current value:', v);
+        onHover?: (v) => console.log('hovered! current value:', v);
+        onFocus?: (v) => console.log('focused! current value:', v);
+        onBlur?: (v) => console.log('blurred! current value:', v);
+    })
+
+<input {...bind} />
+<p>{value}</p>
+
+```
+
+</TabItem>
+
+<TabItem value='full' label='Full'>
+
+```js
+import { useInput } from '@pratiq/hooks'
+
+const {
+    value,
+    setValue,
+    validate,
+    reset,
+    isValid,
+    isEmpty,
+    isHovered,
+    isFocused,
+    wasValidated,
+    bind
+} = useInput({
+        value: 'Default',
+        placeholder: 'A placeholder',
+        validOnDefault: false,
+        validator: /^[a-z0-9]+$/,
+        className: 'default-classname',
+        rootStyle: {
+            background: '#444',
+            marginRight: '.5rem',
+        },
+        style: {
+            'valid': 'valid!!',
+            'valid-active': 'valid-active!!',
+            'valid-focus': 'valid-focus!!',
+            'valid-hover': 'valid-hover!!',
+            
+            'invalid': 'invalid!!',
+            'invalid-active': {color: 'red'},
+            'invalid-focus': 'invalid-focus!!',
+            'invalid-hover': 'invalid-hover!!',
+            
+            'default': {color: 'blue'},
+            'default-active': 'default-active!!',
+            'default-focus': 'default-focus!!',
+            'default-hover': 'default-hover!!',
+        },
+        onValidated?: (v) => console.log('validated! current value:', v);
+        onActive?: (v) => console.log('active! current value:', v);
+        onHover?: (v) => console.log('hovered! current value:', v);
+        onFocus?: (v) => console.log('focused! current value:', v);
+        onBlur?: (v) => console.log('blurred! current value:', v);
+    })
+
+<input {...bind} />
+<p>{value}</p>
+
+```
+
+</TabItem>
+</Tabs>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+<hr />
+
+
+## API
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+
+### Config Example
+
+```ts
+useInput({
+    value: 'Default',
+    placeholder: 'A placeholder',
+    validateOnChange: true,
+    validOnDefault: false,
+    validateOnBlur: true,
+    validator: /^[a-z0-9]+$/,
+    invalidMessage: 'Only lowercase letters and numbers allowed...',
+    className: 'default-classname',
+    rootStyle: {
+        background: '#aaa',
+        marginRight: '.5rem',
+    },
+    style: {
+        'valid': 'valid!!',
+        'valid-active': 'valid-active!!',
+        'valid-focus': 'valid-focus!!',
+        'valid-hover': 'valid-hover!!',
+        
+        'invalid': 'invalid!!',
+        'invalid-active': {color: 'red'},
+        'invalid-focus': 'invalid-focus!!',
+        'invalid-hover': 'invalid-hover!!',
+        
+        'default': {color: 'blue'},
+        'default-active': 'default-active!!',
+        'default-focus': 'default-focus!!',
+        'default-hover': 'default-hover!!',
+    },
+    onValidated?: (v) => console.log('validated! current value:', v),
+    onActive?: (v) => console.log('active! current value:', v),
+    onHover?: (v) => console.log('hovered! current value:', v),
+    onFocus?: (v) => console.log('focused! current value:', v),
+    onBlur?: (v) => console.log('blurred! current value:', v),
+})
+```
+
+
+### Return Values
+
+
+<HeadlessTable code={3}
+    items={[
+        ['value','string','','Current state of the input value'],
+        ['setValue','Function', '', 'Set the current value of the input'],
+        ['validate','Function', '', 'Run the validation function or test the RegExp pattern'],
+        ['reset','Function', '', 'Reset all internal state to initial values'],
+        ['isValid','boolean', '', 'True if value is valid according to the validator'],
+        ['isEmpty','boolean', '', 'True if the input value string is empty'],
+        ['isHovered','boolean', '', 'True if the clients cursor is over the input'],
+        ['isFocused','boolean', '', 'True if the input element is currently focused'],
+        ['wasValidated','boolean', '', 'True if the validator function has been run at least once'],
+        ['invalidMessage','string', '', 'The message returned if the value is invalid'],
+        ['bind','Object', '','The object used to bind with the input element'],
+        ['','value', 'string', 'The objec t used to bind with the input element'],
+        ['','style', 'CSSProperties', 'An object of CSS styles applied to the input element'],
+        ['','classname','string','The original CSS class of this input. Will be joined with valid-state classnames'],
+        ['','type','string','The type of html element to render (text, number, radio, checkbox, range)'],
+        ['','name','string','The name applied to the html element'],
+        ['','readOnly','boolean','Set to true to prevent user input. Sent with form events can be focused and tabbed'],
+        ['','disabled','boolean','Set to true to prevent user input. Not sent with form events, not focusable'],
+        ['','placeholder','string','The placeholder text to display when there is no value in the input'],
+        ['','onFocus','Function','Focus event - bound to internal functions'],
+        ['','onBlur','Function','Blur event - bound to internal functions'],
+        ['','onMouseEnter','Function','Mouse Enter event - bound to internal functions'],
+        ['','onMouseLeave','Function','Mouse Leave event - bound to internal functions'],
+        ['','onMouseUp','Function','Mouse Up event - bound to internal functions'],
+        ['','onMouseDown','Function','Mouse Down event - bound to internal functions'],
+        ['','onReset','Function','Input onReset event - bound to internal functions'],
+        ['','onChange','Function','Input onChange event - bound to internal functions'],
+        ['','onClick','Function','Input onClick event - bound to internal functions'],
+    ]}
+/>
+
+
+
+### Interfaces
+
+```ts
+export enum StyleGroupNames {
+    
+    DEFAULT = 'default',
+    DEFAULT_HOVER = 'default-hover',
+    DEFAULT_FOCUS = 'default-focus',
+    DEFAULT_ACTIVE = 'default-active',
+    
+    VALID = 'valid',
+    VALID_HOVER = 'valid-hover',
+    VALID_FOCUS = 'valid-focus',
+    VALID_ACTIVE = 'valid-active',
+    
+    INVALID = 'invalid',
+    INVALID_HOVER = 'invalid-hover',
+    INVALID_FOCUS = 'invalid-focus',
+    INVALID_ACTIVE = 'invalid-active',
+}
+
+export type T_UseInputReturn = {
+    value: string;
+    setValue: (value:string) => void;
+
+    validate: () => void;
+    reset: () => void;
+    save: (value:string) => void;
+    remove: () => void;
+
+    
+    isValid: boolean;
+    isEmpty: boolean;
+    isHovered: boolean;
+    isFocused: boolean;
+    wasValidated: boolean;
+    invalidMessage: string;
+
+    bind: {
+        value: string;
+        style: { [key: string]: CSSProperties };
+        className: string;
+        type: string;
+        name: string;
+        readOnly: boolean;
+        disabled: boolean;
+        placeholder: string;
+        onFocus: (e:any) => void;
+        onBlur: (e:any) => void;
+        onMouseEnter: (e:any) => void;
+        onMouseLeave: (e:any) => void;
+        onMouseUp: (e:any) => void;
+        onMouseDown: (e:any) => void;
+        onReset: (e:any) => void;
+        onChange: (e:any) => void;
+        onClick: (e:any) => void;
+    },
+};
+
+export type T_UseInputConfig = {
+    /** The type of HTML input element to render. */
+    type?: string;
+
+    /** The name of this input - used for form handling */
+    name?: string;
+
+    /** The key used for local / session storage */
+    storageKey?: string;
+
+    /** Which storage medium to use */
+    storageObject?: any;
+
+    /** Set to true to enable auto-saving on change */
+    saveOnChange?: boolean;
+
+    /** Array of options that the value must match to be valid */
+    options?: string[];
+
+    styleGroup?: { [Property in StyleGroupNames]: { [key: string]: CSSProperties } };
+    style?: { [key: string]: CSSProperties };
+    className?: string;
+    value?: string;
+    placeholder?: string;
+    readOnly?: boolean;
+    disabled?: boolean;
+    invalidMessage?: string;
+    /** Set isValid to true using the default input value. default = false */
+    validOnDefault?: boolean;
+    /** Validate the value when the input loses focus. default = false */
+    validateOnBlur?: boolean;
+    /** Validate the value on any change event. default = false */
+    validateOnChange?: boolean;
+    validator?: (value: string) => boolean | RegExp | string;
+    onValidated?: (value: string) => void;
+    onActive?: (value: string) => void;
+    onHover?: (value: string) => void;
+    onFocus?: (value: string) => void;
+    onBlur?: (value: string) => void;
+}
+
+type T_UseInput = (config?: T_UseInputConfig) => T_UseInputReturn;
+```
+
+
+
+<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+State modification methods returned from `useInput()`
+
+
+### reset 
+
+Set the input value to the initial value.
+
+```ts
+reset: () => void
+```
+
+
+```ts
+const myInput = useInput({
+    value: 'The default'
+})
+
+myInput.reset()  // 'The default'
+```
+
+<br />
+
+
+### validate
+Validate the input value using the provided validator function or RegExp
+
+```ts
+validator: (value) => boolean | RegExp
+validate: () => void
+```
+
+```ts
+const myInput = useInput({
+    validator: (v) => v.length > 4,
+    // validator: /^[a-z0-9]+$/,
+})
+
+myInput.validate() // []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+<RelatedTable hooks={[
+    'useState', 
+    'useEffect', 
+    'useRef',
+    'useMemo', 
+    'useCallback',
+]} />
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+<RelatedTable hooks={[
+    'useStateWithValidation'
+]} />

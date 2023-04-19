@@ -1,0 +1,253 @@
+---
+title: useAsync
+description: Run an async function and access internal loading and error state
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useAsync'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useAsync</h1>
+Run an async function and access internal loading and error state
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+:::warning possible deprecation / removal
+This hook may be deprecated and replaced with a more configurable `useFetch()` (for React 17.x)
+or `use(usable)` (for React 18.x). 
+
+This function being converted to use the `Observable` pattern instead of the original `Promise` based
+approach to gain the ability to abort the async action and invoke the action again with the updated 
+dependencies.
+
+Note how the `item id` can be rapidly increased while the request for the original `item id` is 
+still pending...
+::: 
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```jsx
+import { useAsync } from '@pratiq/hooks'
+
+const pkg = useAsync({
+    callback: async () => { ... }
+})
+
+<p>Result: {pkg.data}</p>
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```jsx
+import { useAsync } from '@pratiq/hooks'
+
+const pkg = useAsync({
+    autoLoad: false,
+    callback: async () => { ... }
+})
+
+<p>Loading: {pkg.loading}</p>
+<p>Result: {pkg.data}</p>
+<button onClick={pkg.reload}>Reload</button>
+```
+
+</TabItem>
+
+<TabItem value='full' label='Full'>
+
+```jsx
+import { useAsync } from '@pratiq/hooks'
+
+const pkg = useAsync({
+    autoLoad: false,
+    defaultData: ['default','data']
+    deps: [],
+    callback:  async () => { 
+        const result = await fetch('...');
+        return result;
+    }
+})
+    
+<p>Loading: {pkg.loading}</p>
+<p>Error: {pkg.error}</p>
+<p>Result: {pkg.data}</p>
+<button onClick={pkg.reload}>Reload</button>
+```
+
+</TabItem>
+</Tabs>
+
+
+
+
+
+<!-- this alert makes more sense with the useFetch hook
+
+:::warning
+This hook does not handle offline events. When offline - the default data will 
+show and no error will appear
+::: 
+
+-->
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+
+### Config Example
+
+```ts
+const getThatData = useAsync(
+    async () => {}, // an async callback function
+    {
+        // options
+        autoLoad: true,
+    }
+)
+```
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@loading','boolean', 'True if the async function is running and has not returned a value yet'],
+    ['@error','null&nbsp;|&nbsp;Error','Truthy if the async function throws an error',],
+    ['@data','null&nbsp;|&nbsp;any','The return values from the async function',],
+]}/>
+
+
+### Interfaces
+```ts
+export interface I_UseAsyncConfig {
+    callback?: Function;
+    defaultData?: any;
+    autoLoad?: boolean;
+    deps?: any[];
+}
+
+interface I_UseAsyncReturnObject {
+    loading: boolean;
+    error: any;
+    data: any;
+}
+
+type UseAsyncType = (config: I_UseAsyncConfig) => I_UseAsyncReturnObject;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Hook Methods
+
+
+<Card>
+
+### reload
+
+```ts
+pkg.reload() // () => void
+```
+Set the internal state back to its initial values and re-invoke the async
+callback function.
+
+</Card>
+<Card>
+
+
+### reset
+```ts
+pkg.reset() // () => void
+```
+Set all states back to the initial values.
+
+</Card>
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Internal 
+
+This hook handles async callbacks by setting data, error and loading states within
+then / catch / finally blocks. React refs are used to prevent multiple simultanious
+invokations of the callback function.
+
+<RelatedTable hooks={[
+    'useState',
+    'useEffect',
+    'useRef'
+]} />
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Related Hooks 
+
+
+<br />
+<RelatedTable hooks={[
+    'useFetch'
+]} />
