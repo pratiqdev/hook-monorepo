@@ -1,0 +1,202 @@
+---
+title: useFetch
+description: Manage fetch requests with loading and error state
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useFetch'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useFetch</h1>
+Manage fetch requests with loading and error state
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```js 
+import { useClamp } from '@pratiq/hooks'
+
+const [value, setValue] = useClamp({
+    min: 0,
+})
+
+value        // 0
+setValue(-1) // 0
+setValue(1)  // 1
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+import { useClamp } from '@pratiq/hooks'
+```
+
+</TabItem>
+
+<TabItem value='full' label='Full'>
+
+```js
+
+```
+
+</TabItem>
+</Tabs>
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+### Config Example
+
+```ts
+const response = useFetch(<url>, <options>)
+```
+
+
+### Return Values
+
+<HeadlessTable code items={[
+    ["value",'any', 'The current state of the fetch request (response.data)'],
+    ["loading",'boolean', 'True if the request is currently loading'],
+    ["loaded",'boolean', 'True if the request was made successfully'],
+    ["error",'null | any', 'Null if successful, error object if an error occurred'],
+    ["reload",'Function','Clear state and send fetch request again'],
+    ["reset",'Function','Reset internal state to initial values'],
+]}/>
+
+
+### Interfaces
+```ts
+export interface I_Fetch {
+    watch?: any[];
+    expire?: number;
+    options?: object;
+    initialData?: any;
+    autoLoad?: boolean;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+### reload
+Reset the internal state and send the fetch request again.
+
+```ts
+() => void 
+```
+```ts
+const res = useFetch('https://jsonplaceholder.typicode.com/todos')
+
+res.reload()
+```
+
+<br />
+
+
+### reset
+Reset the internal state.
+
+```ts
+() => void 
+```
+```ts
+const res = useFetch('https://jsonplaceholder.typicode.com/todos')
+
+res.reset()
+```
+
+<br />
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+This hook internally uses the `useState` hook to store the array and provides 
+a wrapper around common array modification methods. 
+
+Methods in `useStateArray` do not provide access to the current state for callback 
+functions.
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useAsync','useDebounceEffect']} />

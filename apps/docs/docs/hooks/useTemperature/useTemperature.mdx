@@ -1,0 +1,143 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useTemperature'
+import {Card, MainText, HeadlessTable, RelatedTable } from '/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const data = getHookDataByTitle('useTemperature')
+
+<Card><MainText>{data.description}</MainText></Card>
+
+
+
+
+
+## Usage    
+
+```js 
+import { useTemperature } from '@pratiq/hooks'
+
+const { value, setValue, isValid, lastValidValue } = useStateWithValidation({
+  value: 25,
+  validator: (v:T) => typeof v === 'number' && v > 20
+})
+```
+
+
+
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## API
+
+
+### Config Example
+
+```ts
+const temp = useTemperature({
+    value: 212,
+    scale: 'f',
+    decimals: 1
+})
+```
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@value','T','The current state of the value'],
+]}/>
+
+
+
+### Interfaces
+
+```ts
+interface I_UseTemperatureConfig { 
+    scale?: string;
+    value?: number;
+    decimals?: number;
+}
+
+type T_UseTemperature = (config?: I_UseTemperatureConfig) => {
+    value: number; 
+    setValue: (value:number) => void;
+
+    scale: string;
+    setScale: (scale:string) => void;
+
+    celsius: number;
+    fahrenheit: number;
+    kelvin: number;
+    rankine: number;
+
+    relative: string;
+
+    increment: () => void;
+    decrement: () => void;
+
+    c_to_f: (value:number) => number;
+    c_to_k: (value:number) => number;
+    c_to_r: (value:number) => number;
+    
+    f_to_c: (value:number) => number;
+    f_to_k: (value:number) => number;
+    f_to_r: (value:number) => number;
+    
+    k_to_c: (value:number) => number;
+    k_to_f: (value:number) => number;
+    k_to_r: (value:number) => number;
+    
+    r_to_c: (value:number) => number;
+    r_to_k: (value:number) => number;
+    r_to_f: (value:number) => number;
+}
+```
+
+
+
+
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## Internal
+
+<RelatedTable hooks={[
+  'useState',
+  'useEffect',
+  'useCallback',
+  'useMemo'
+]} />
+
+
+
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## Related Hooks
+
+<RelatedTable hooks={[
+  'useStateWithHistory',
+  'useInput',
+  'useStateArray'
+]} />

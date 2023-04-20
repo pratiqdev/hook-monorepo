@@ -1,0 +1,254 @@
+---
+title: useNotifications
+description: Send notifications to the client device for info, status updates, alerts or anything!
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useNotifications'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useNotifications</h1>
+Send notifications to the client device for info, status updates, alerts or anything!
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+## Usage
+
+<Tabs>
+<TabItem value='simple' label='Simple'>
+
+```js 
+```
+
+</TabItem>
+<TabItem value='advanced' label='Advanced'>
+
+```js
+```
+
+</TabItem>
+</Tabs>
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+
+### Interfaces
+
+```ts
+export type I_UseNotificationOptions = {    // example
+    dir?: string;                           // 'rtl'
+    lang?: string;                          // 'en:US'
+    badge?: string;                         //  'path/to/image' ?
+    body?: string;                          // 'This is the notification body!'
+    tag?: string;                           // 'tag' ?
+    icon?: string;                          // 'image-url-string'
+    image?: string;                         // 'image-url-string'
+    data?: any;                             // { some: 'data' }
+    vibrate?: boolean;                      // true
+    renotify?: boolean;                     // false
+    requireInteraction?: boolean;           // true
+    actions?: I_ActionObject[];             // [ { action:'', title:'', icon:'' },  ]       
+    silent?: boolean;                       // false
+}
+
+export type I_UseNotificationReturn = {     // example
+    notify: Function;                       // notify(text, options)
+    request: Function;                      // request()
+    available: boolean;                     // true
+    permission: string;                     // "granted" | "denied"
+}
+
+export type I_ActionObject = {
+    action: string;
+    title: string;
+    icon: string;
+}
+
+export type T_UseNotifications = (I_UseNotificationOptions) => I_UseNotificationReturn;
+```
+
+
+
+
+
+#### `<I_UseNotificationOptions>`
+
+<HeadlessTable code items={[
+    ['dir','string', "The direction in which to display the notification. It defaults to auto, which just adopts the browser's language setting behavior, but you can override that behavior by setting values of ltr and rtl (although most browsers seem to ignore these settings)."],
+    ['lang','string',"The notification's language, as specified using a string representing a language tag according to RFC 5646: Tags for Identifying Languages (also known as BCP 47). See the Sitepoint ISO 2 letter language codes page for a simple reference."],
+    ["badge","string","A string containing the URL of the image used to represent the notification when there isn't enough space to display the notification itself."],
+    ["body","string","A string representing the body text of the notification, which is displayed below the title."],
+    ["tag","string","A string representing an identifying tag for the notification."],
+    ["icon","string","A string containing the URL of an icon to be displayed in the notification."],
+    ["image","string","a string containing the URL of an image to be displayed in the notification."],
+    ["data","any","Arbitrary data that you want associated with the notification. This can be of any data type."],
+    ["vibrate","boolean","A vibration pattern for the device's vibration hardware to emit with the notification."],
+    ["renotify","boolean","A boolean value specifying whether the user should be notified after a new notification replaces an old one. The default is false, which means they won't be notified."],
+    ["requireInteraction","boolean","Indicates that a notification should remain active until the user clicks or dismisses it, rather than closing automatically. The default value is false."],
+    ["actions","<I_ActionObject>","An array of actions to display in the notification. Appropriate responses are built using event.action within the notificationclick event."],
+    ["silent","boolean","A boolean value specifying whether the notification is silent (no sounds or vibrations issued), regardless of the device settings. The default is false, which means it won't be silent."],
+]}/>
+
+
+#### `<I_ActionObject>`
+
+<HeadlessTable code items={[
+    ['action','string', 'A string identifying a user action to be displayed on the notification.'],
+    ['title','string', 'A string containing action text to be shown to the user.'],
+    ['icon','string', 'A string containing the URL of an icon to display with the action.'],
+]}/>
+
+
+#### `<I_UseNotificationReturn>`
+
+<HeadlessTable code items={[
+    ['notify','Function', 'The function used to emit a notification'],
+    ['request','Function', 'Request permission to use notifications if permission is false.'],
+    ['available','boolean', 'True if notifications are available on this clients device.'],
+    ['permission','boolean', 'True if the user has granted permission to use notifications.'],
+]}/>
+
+
+
+
+
+
+
+### Config Example
+
+```ts
+const <I_UseNotificationReturn> = useNotifications(<I_UseNotificationOptions> | undefined)
+
+const notifications = useNotifications({
+    body: 'You have been notified!',
+    icon: 'https://picsum.photos/200/300',
+    actions: [
+        {
+            action: 'dismiss',
+            title: 'Whatever',
+            icon: '',
+        }
+    ]
+})
+```
+
+
+<!-- ignore-return-values -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+<div className='slim-hr'/>
+
+### method
+Do thing
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.start()
+```
+
+<br />
+
+<div className='slim-hr'/>
+
+### method
+Do thing
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.start()
+```
+
+<br />
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+This hook internally uses the `useState`, `useEffect`, `useRef` and `useMemo` hook to store...
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useVibration']} />

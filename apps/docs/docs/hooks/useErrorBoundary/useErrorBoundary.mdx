@@ -1,0 +1,198 @@
+---
+title: useErrorBoundary
+description: Wrap components in an error boundary and render a fallback component on error.
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useErrorBoundary'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useErrorBoundary</h1>
+Wrap components in an error boundary and render a fallback component on error.
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```js 
+const ErrorBoundary = useErrorBoundary()
+
+<ErrorBoundary>
+    <ComponentThatMayThrow />
+</ErrorBoundary>
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+const fallback = ({error, resetErrorBoundary}) => {
+    return (
+        <div style={{background: '#F004'}}>
+            <h3>Fallback Component</h3>
+            <p>Name: {error.name}</p>
+            <p>Message: {error.message}</p>
+            <p>Stack Length: {error.stack.length}</p>
+            <button onClick={resetErrorBoundary}>Try again</button>
+        </div>
+    )
+}
+
+
+const ErrorBoundary = useErrorBoundary({ fallback })
+
+<ErrorBoundary>
+    <ComponentThatMayThrow />
+</ErrorBoundary>
+```
+
+</TabItem>
+
+<TabItem value='full' label='Full'>
+
+```js
+const [shouldThrow, setShouldThrow] = useState(false)
+
+const fallback = ({error, resetErrorBoundary}) => {
+    return (
+        <div style={{background: '#F004'}}>
+            <h3>Fallback Component</h3>
+            <p>Name: {error.name}</p>
+            <p>Message: {error.message}</p>
+            <p>Stack Length: {error.stack.length}</p>
+            <button onClick={resetErrorBoundary}>Try again</button>
+        </div>
+    )
+}
+
+const handleError = (error: Error, info: React.ErrorInfo) => {
+    console.log('handleError:', { error, info })
+}
+
+const handleReset = () => {
+    setShouldThrow(false)
+}
+
+const ErrorBoundary = useErrorBoundary({
+    fallback,
+    handleError,
+    handleReset
+})
+
+<ErrorBoundary>
+    {shouldThrow && <ComponentThatWillThrow />}
+    <ComponentThatMayThrow />
+</ErrorBoundary>
+```
+
+</TabItem>
+</Tabs>
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+
+### Config Example
+
+```ts
+const ErrorBoundary = useErrorBoundary({
+    fallback,
+    handleError,
+    handleReset
+})
+```
+
+
+### Return Values
+
+<HeadlessTable code={1} items={[
+    ['@ErrorBoundary','React.Fragment','A React component used to wrap child components that may throw']
+]}/>
+
+
+### Interfaces
+
+```ts
+type T_UseErrorBoundaryConfig = {
+    children?: React.ReactNode;
+    fallback?: React.JSXElementConstructor<any>;
+    handleError?: ErrorHandler;
+    handleReset?: Function;
+}
+
+type T_UseErrorBoundary = (config?: T_UseErrorBoundaryConfig) => React.JSXElementConstructor<any>
+```
+
+
+
+
+<!-- ignore-hook-methods -->
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+This hook internally uses the `useState` hook to store the array and provides 
+a wrapper around common array modification methods. 
+
+Methods in `useStateArray` do not provide access to the current state for callback 
+functions.
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useLogWall']} />

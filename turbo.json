@@ -12,6 +12,7 @@
     },
     "lint": {},
     "dev": {
+      "outputs": ["dist/**", ".next/**"],
       "cache": false,
       "dependsOn": ["^dev"]
     },

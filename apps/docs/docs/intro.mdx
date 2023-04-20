@@ -1,0 +1,48 @@
+import {version} from 'react'
+
+# Introduction 
+
+
+The package provided at `@pratiq/hooks` contains a collection of hooks and utilities for 
+simplifying the React development experience. 
+
+
+
+> Feature rich hooks can simplify the developer experience while providing advanced features
+> to the developer and the client
+
+
+## Server Side Rendering
+
+Most hooks are targeted towards front-end development, with a focus on client-side rendering while 
+maintaining full compatibility with server-side rendering.
+
+:::note alternate returns
+Hooks that return **components** in CSR will return null in SRR.  
+Hooks that return **data** is CSR will return initial or default values of the hook in SSR.
+:::
+
+## Development Progress
+
+:::warning Active-development
+This project is currently in alpha development. The package available at <a href='https://www.npmjs.com/package/@pratiq/hooks'>npm</a>
+is not up to date with the newest version (featured here). 
+
+If you would like to use features of the newest version of `@pratiq/hooks`
+cloning the repo is the only was to access this package until this version is released.
+
+There will be bugs and errors. Do not use anything 
+from this collection in a production environment, unless heavily tested. Keep an eye on the 
+[GitHub Repo (documentation site)](https://github.com/pratiqdev/hook-docs) or
+[GitHub Repo (npm package)](https://github.com/pratiqdev/pratiq-hooks) for the official release.
+<p>React version 16.x.x - 17.x.x - Compatibility with React @18.x.x is currently being tested</p>
+
+<a href='/docs/contributing' style={{background:'#2248', padding:'.5rem 1rem', borderRadius:'.5rem', textDecoration:'none'}}>Contributing</a>
+<br />
+<br />
+<a href='https://github.com/pratiqdev/hook-docs' style={{background:'#2248', padding:'.5rem 1rem', borderRadius:'.5rem', textDecoration:'none'}}>GitHub Repo</a>
+<br />
+<br />
+<a href='https://github.com/pratiqdev/hook-docs/issues' style={{background:'#2248', padding:'.5rem 1rem', borderRadius:'.5rem', textDecoration:'none'}}>Report Issues</a>
+
+:::

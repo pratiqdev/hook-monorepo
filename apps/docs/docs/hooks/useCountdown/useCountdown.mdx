@@ -1,0 +1,306 @@
+---
+title: useCountdown
+description: Run a countdown timer with state and optional callbacks 
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useCountdown'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useCountdown</h1>
+Run a countdown timer with state and optional callbacks 
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```js 
+const { time, start, stop } = useCountdown({ duration: 10_000 })
+
+<p>{time.realSeconds}</p>
+
+<button onClick={start}>Start</button>
+<button onClick={stop}>Stop</button>
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+const { 
+    time,                    
+    done,                        
+    start,                     
+    stop,                             
+    reset,                               
+} = useCountdown({
+    duration: 10_000,           
+    interval: 10,              
+})
+
+<p>{time.realSeconds}</p>
+
+<button onClick={start}>Start</button>
+<button onClick={stop}>Stop</button>
+```
+
+</TabItem>
+
+<TabItem value='full' label='Full'>
+
+```js
+const [log, setLog] = useState('no-log')
+const { 
+    time,                    
+    done,                        
+    running,                    
+    started,                     
+    start,                     
+    stop,                             
+    reset,                               
+} = useCountdown({
+    duration: 10_000,           
+    interval: 10,              
+    callbacks: {                     
+        'start':() => setLog('started'),
+        'end':  () => setLog('over'),  
+        7000:   () => setLog('7000ms'),
+        3000:   () => setLog('3000ms'),
+    },
+})
+
+<p>{running ? 'Running' : 'Stopped'}</p>
+{done
+    ? <p>Done</p>
+    : <p>{time.hours}:{time.minutes}:{time.seconds}</p>
+}
+
+<p>{log}</p>
+
+<button onClick={start}>Start</button>
+<button onClick={stop}>Stop</button>
+<button onClick={reset}>Stop</button>
+```
+
+</TabItem>
+</Tabs>
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+Values used for initial state and internal settings are provided as a config
+object 
+
+
+### Config Example
+
+```ts
+const timer = useCountdown({
+    duration: 10_000,           
+    interval: 10,              
+    callbacks: {                     
+        'start':() => console.log('started'),
+        'end':  () => console.log('over'),  
+        7000:   () => console.log('7000ms'),
+        3000:   () => console.log('3000ms'),
+    },
+})
+```
+
+
+### Return Values
+
+
+<HeadlessTable code={3} items={[
+    ['@time','', 'Object','An object containing the current time in different intervals'],
+    ['','@days','number',''],
+    ['','@hours','number',''],
+    ['','@minutes','number',''],
+    ['','@seconds','number',''],
+    ['','@realSeconds','number',''],
+    ['','@milliseconds','number',''],
+    ['','@total','number',''],
+    ['@done','','boolean',''],
+    ['@running','','boolean',''],
+    ['@started','','boolean',''],
+    ['@start','','Function',''],
+    ['@stop','','Function',''],
+    ['@reset','','Function',''],
+    ['@interval','','number',''],
+    ['@duration','','number',''],
+]}/>
+
+
+
+
+
+### Interfaces
+
+```ts
+export interface I_UseCountdownConfig {        // example
+  duration?: number;                        // 10_000
+  interval?: number;                        // 100
+  callbacks?: { [key: string]: Function };  // { 5000: () => fn() }
+}
+
+export interface I_CountdownTimeObject {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    realSeconds: number;
+    milliseconds: number;
+    total: number;
+}
+
+export interface I_UseCountdownReturn{
+    time: <I_CountdownTimeObject>;
+    start: Function;
+    stop: Function;
+    reset: Function;
+    done: boolean;
+    started: boolean;
+    running: boolean;
+    interval: number;
+    duration: number;
+  };
+```
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Hook Methods
+
+<Card>
+
+### start
+Start the countdown, if not already started or done
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.start()
+```
+
+</Card>
+<Card>
+
+### stop
+Stop the countdown, if not already done or not running
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.stop()
+```
+
+</Card>
+<Card>
+
+
+### reset
+Reset the countdown, if already started
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.reset()
+```
+
+</Card>
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+This hook internally uses the `useState`, `useEffect`, `useRef` and `useMemo` hook to .....
+
+<RelatedTable hooks={[
+    'useState',
+    'useEffect',
+    'useRef',
+    'useMemo'
+]}/>
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useTime']} />
