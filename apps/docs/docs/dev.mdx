@@ -1,0 +1,45 @@
+import {version} from 'react'
+import StatusBadge from '@site/src/components/StatusBadge'
+import ClientBadge from '@site/src/components/ClientBadge'
+import Button from '@site/src/components/Button'
+import { Card, HeadlessTable, MainText, IntroList, HooksByTags, RandomHookButton, HookWheel } from '/src/components/'
+
+
+# Development Notes
+
+<div style={{ display: 'flex', gap: 15, marginTop:'1rem' }}>
+<Button href='/docs/contributing' style={{background:'#2248', padding:'.5rem 1rem', borderRadius:'.5rem', textDecoration:'none'}}>Contributing</Button>
+<Button href='https://github.com/pratiqdev/hook-docs' style={{background:'#2248', padding:'.5rem 1rem', borderRadius:'.5rem', textDecoration:'none'}}>GitHub Repo</Button>
+<Button href='https://github.com/pratiqdev/hook-docs/issues' style={{background:'#2248', padding:'.5rem 1rem', borderRadius:'.5rem', textDecoration:'none'}}>Report Issues</Button>
+</div>
+
+
+## Status Badges
+
+
+
+### Active Development
+
+This project is currently in development. Each hook documentation page displays its status and 
+information about its development status in a badge like:
+
+<StatusBadge status={0} />
+<StatusBadge status={1} />
+<StatusBadge status={2} />
+<StatusBadge status={3} />
+<StatusBadge status={4} />
+
+These badges will be removed once a hook is well tested, fully documented and ready for production.
+
+
+### Server Side Rendering
+
+Most hooks are targeted towards front-end development, with a focus on client-side rendering while 
+attempting to maintain full compatibility with server-side rendering.
+Some hooks have dependancies to global variables that are only available in the browser.
+These hooks will have the CSR badge:
+
+<ClientBadge />
+
+Hooks that return **components in CSR** will return *null in SRR*.  
+Hooks that return **data in CSR** will return *initial or default values of the hook in SSR*.

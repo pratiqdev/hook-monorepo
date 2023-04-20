@@ -116,12 +116,21 @@ const sidebars = {
     {
       type: 'doc',
       label: 'Introduction',
-      id: 'intro'
+      id: 'index'
+    },
+    {
+      type: 'doc',
+      label: 'Development',
+      id: 'dev'
     },
 
     {
       type: 'category',
       label: 'Getting Started',
+      link: {
+        type: 'doc',
+        id: 'getting-started/index',
+      },
       items: [
         'getting-started/installation',
         'getting-started/usage'
@@ -130,6 +139,10 @@ const sidebars = {
     {
       type: 'category',
       label: 'Hooks',
+      link: {
+        type: 'doc',
+        id: 'hooks/index',
+      },
       items: hookFiles
     },
     // {

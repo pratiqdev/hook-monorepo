@@ -15,6 +15,8 @@ import HooksByTags from './HooksByTags'
 import RandomHookButton from './RandomHookButton'
 import HookWheel from './HookWheel'
 import Icons from './Icons'
+import StatusBadge from './StatusBadge'
+import ClientBadge from './ClientBadge'
 
 export {
     Card,
@@ -33,5 +35,7 @@ export {
     HooksByTags,
     RandomHookButton,
     HookWheel,
-    Icons
+    Icons,
+    StatusBadge,
+    ClientBadge
 }

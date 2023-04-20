@@ -4,47 +4,6 @@ layout: true
 
 import { Card, HeadlessTable, MainText, IntroList, HooksByTags, RandomHookButton, HookWheel } from '/src/components/'
 
-# Intro to hooks
+# Hook documentation
 
-
-:::note BEGINNERS ONLY!
-
-If you are already familiar with hooks, skip ahead => <b><RandomHookButton /></b>
-
-There are infinite courses, articles, videos and guides available for React 
-hooks if you are interested in learning more about the *behind-the-scenes* of hooks.
-
-<a href="https://reactjs.org/docs/hooks-intro.html" style={{textDecoration:'underline'}}>Reacts official 'Intro to Hooks' documentation</a>
-
-:::
-
-
-
-
-
-
-## What is a hook?
-
-A hook is a function or functional-component that isolates reusable pieces 
-of logic or state. You have likely seen a hook or function resemling the following
-example:
-
-```ts
-const useSomething = (initialState, options) => {
-    // store some state
-    const [value, setValue] = useState(initialState)
-    
-    // handle the new value
-    const handleValue = (newValue) => {
-        if ( typeof newValue === 'string' && newValue.length > 5 ){
-            setValue(newValue)
-            return true
-        }else{
-            return false
-        }
-    }
-
-    // return the state and the handler
-    return [value, handleValue]
-}
-````
+Each hook

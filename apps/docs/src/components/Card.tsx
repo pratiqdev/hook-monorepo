@@ -8,7 +8,7 @@ type T_CardProps = {
 
 const Card = (props:T_CardProps) => {
     return (
-        <div className={'card' + ' ' + props.className} style={props.style}>
+        <div className={'card' + ' ' + props.className} {...props.style}>
             {props.children}
         </div>
     )

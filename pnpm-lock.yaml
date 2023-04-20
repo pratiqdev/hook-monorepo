@@ -23,9 +23,11 @@ importers:
       '@docusaurus/preset-classic': 2.4.0
       '@emotion-icons/bootstrap': ^3.27.0
       '@emotion-icons/boxicons-regular': ^3.19.0
+      '@emotion-icons/boxicons-solid': ^3.19.0
       '@emotion-icons/entypo': ^3.14.0
       '@emotion-icons/evaicons-solid': ^3.14.0
       '@emotion-icons/fa-solid': ^3.14.0
+      '@emotion-icons/fluentui-system-filled': ^3.15.0
       '@emotion-icons/ionicons-solid': ^3.14.0
       '@emotion-icons/remix-fill': ^3.14.0
       '@mdx-js/react': ^1.6.22
@@ -41,9 +43,11 @@ importers:
       '@docusaurus/preset-classic': 2.4.0_7ljrkadwtbllwpgmpw5cb2k34e
       '@emotion-icons/bootstrap': 3.27.0_zc6uy6i6ttehedii47aio4ko3u
       '@emotion-icons/boxicons-regular': 3.19.0_zc6uy6i6ttehedii47aio4ko3u
+      '@emotion-icons/boxicons-solid': 3.19.0_zc6uy6i6ttehedii47aio4ko3u
       '@emotion-icons/entypo': 3.14.0_zc6uy6i6ttehedii47aio4ko3u
       '@emotion-icons/evaicons-solid': 3.14.0_zc6uy6i6ttehedii47aio4ko3u
       '@emotion-icons/fa-solid': 3.14.0_zc6uy6i6ttehedii47aio4ko3u
+      '@emotion-icons/fluentui-system-filled': 3.15.0_zc6uy6i6ttehedii47aio4ko3u
       '@emotion-icons/ionicons-solid': 3.14.0_zc6uy6i6ttehedii47aio4ko3u
       '@emotion-icons/remix-fill': 3.14.0_zc6uy6i6ttehedii47aio4ko3u
       '@mdx-js/react': 1.6.22_react@17.0.2
@@ -2868,6 +2872,20 @@ packages:
       react: 17.0.2
     dev: false
 
+  /@emotion-icons/boxicons-solid/3.19.0_zc6uy6i6ttehedii47aio4ko3u:
+    resolution: {integrity: sha512-sJfOhIKf92rqhn/dpHTTWkmW8mn16GJHnXVXGyTNNFNJyBzV6fmu1WXBd/fhNyWnTZ5s5Hox9JBSin/P5qpt+g==}
+    peerDependencies:
+      '@emotion/react': '>=11.0.0 <12'
+      '@emotion/styled': '>=11.0.0 <12'
+      react: '*'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@emotion-icons/emotion-icon': 4.1.0_zc6uy6i6ttehedii47aio4ko3u
+      '@emotion/react': 11.10.6_react@17.0.2
+      '@emotion/styled': 11.10.6_lppulqnmkkrmfes7eqrbphxjnm
+      react: 17.0.2
+    dev: false
+
   /@emotion-icons/emotion-icon/4.1.0_zc6uy6i6ttehedii47aio4ko3u:
     resolution: {integrity: sha512-bOUbWj8DPjUK5MtRx2ApMudOnh/tasqJwa+sdRbqsZD0g0hYf0jCsTDNs/57VvGOJH2PfWDKD1jbLjwajAYT9A==}
     peerDependencies:
@@ -2911,6 +2929,20 @@ packages:
 
   /@emotion-icons/fa-solid/3.14.0_zc6uy6i6ttehedii47aio4ko3u:
     resolution: {integrity: sha512-NEmiShaIsHouBfKcTxke1CYpzHrgZA20YXDN/c8dqxPpm6TIVS8dga/cJWBBlAxsR+2PbWMBMtC1z6Ie42zuCg==}
+    peerDependencies:
+      '@emotion/react': '>=11.0.0 <12'
+      '@emotion/styled': '>=11.0.0 <12'
+      react: '*'
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@emotion-icons/emotion-icon': 4.1.0_zc6uy6i6ttehedii47aio4ko3u
+      '@emotion/react': 11.10.6_react@17.0.2
+      '@emotion/styled': 11.10.6_lppulqnmkkrmfes7eqrbphxjnm
+      react: 17.0.2
+    dev: false
+
+  /@emotion-icons/fluentui-system-filled/3.15.0_zc6uy6i6ttehedii47aio4ko3u:
+    resolution: {integrity: sha512-uyt375yGNXGihNY8PMzvrwTLlg/ADNvIYGw1xvnThRLiOzyvXpYWkcFMdT8IzyPhBqmoDn0Sff0x2sMwP9sr5A==}
     peerDependencies:
       '@emotion/react': '>=11.0.0 <12'
       '@emotion/styled': '>=11.0.0 <12'
