@@ -17,9 +17,12 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
+    "patch": "npm version patch --no-git-tag-release",
 
     "pre":"pnpm install && pnpm run build && clear",
-    "test-node":"pnpm run pre && pnpm --filter @pratiq/core run test-node"
+    "test-node":"pnpm run pre && pnpm --filter @pratiq/core run test-node",
+
+    "change":"pnpm run changeset"
   },
   "devDependencies": {
     "@pratiq/config": "workspace:*",

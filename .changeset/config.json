@@ -6,5 +6,6 @@
   "linked": [],
   "access": "public",
   "updateInternalDependencies": "patch",
-  "ignore": ["@pratiq/docs"]
+  "ignore": ["@pratiq/docs"],
+  "baseBranch": "main"
 }
