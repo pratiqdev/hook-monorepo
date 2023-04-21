@@ -1,4 +1,11 @@
 {
+  "homepage":"https://hooks.pratiq.dev",
+  "bugs": "https://github.com/pratiqdev/hook-monorepo/issues",
+  "keywords": [
+    "React",
+    "hooks"
+  ],
+
   "private": true,
   "type":"module",
   "scripts": {
