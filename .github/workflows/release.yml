@@ -46,5 +46,3 @@ jobs:
         uses: elgohr/Github-Release-Action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          title: Release ${{ steps.tag.outputs.tagname }}
