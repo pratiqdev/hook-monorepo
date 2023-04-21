@@ -116,6 +116,16 @@ aside{
 button {
   font-size: 1rem;
   padding: .5rem 1rem !important;
+  background: #67c4;
+}
+.pagination-nav__link {
+  border: 0px solid transparent;
+  background: #67c4;
+  transition: background .3s;
+}
+.pagination-nav__link:hover {
+  border: 0px solid transparent;
+  background: #67c6;
 }
 
 .footer{

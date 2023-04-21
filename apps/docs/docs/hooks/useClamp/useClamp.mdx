@@ -23,73 +23,68 @@ Clamp numerical values within the provided range
 
 ## Usage
 
+
 <Tabs>
 
-<TabItem value='simple' label='Simple'>
+<TabItem value='sim' label="Simple">
 
-```js 
-import { useClamp } from '@pratiq/hooks'
+```jsx live 
+function ClampedCounter(props) {
+  const { container, button, row, column, display } = styles.useClamp
+  
+  const [value, setValue, reset] = useClamp({
+    value: 0,
+    min: 1,
+    max: 10
+  })
 
-const [value, setValue] = useClamp({
-    min: 0,
-})
-
-value        // 0
-setValue(-1) // 0
-setValue(1)  // 1
-```
-
-</TabItem>
-
-<TabItem value='advanced' label='Advanced'>
-
-```js
-import { useClamp } from '@pratiq/hooks'
-
-const [value, setValue, reset] = useClamp({
-    min: 0,
-    value: 7
-})
-
-value        // 7
-setValue(-1) // 0
-reset()      // 7
-```
+  return (
+    <div style={container}>
+    <div style={row}>
+        <button onClick={() => setValue(n => n - 1)} style={button}>-</button>
+        <p style={display}>{value}</p>
+        <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
+    </div>
+    </div>
+  );
+}
+``` 
 
 </TabItem>
 
-<TabItem value='full' label='Full'>
+<TabItem value='adv' label="Advanced">
 
-```js
-import { useClamp } from '@pratiq/hooks'
-
-const [value, setValue, reset] = useClamp({
+```jsx live 
+function ClampedCounter(props) {
+  const { container, button, row, column, display } = styles.useClamp
+  
+  const [value, setValue, reset] = useClamp({
+    value: 0,
     min: 0,
-    max: 10,
-    value: 7
-})
+    max: 10
+  })
 
-value        // 7
-setValue(-1) // 0
-setValue(20) // 10
-reset()      // 7
-```
+  return (
+    <div style={container}>
+        <div style={row}>
+            <button onClick={() => setValue(n => n - 1)} style={button}>-</button>
+            <p style={display}>{value}</p>
+            <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
+        </div>
+        <div style={column}>
+            <button style={button} onClick={() => setValue(10)}>Set 10</button>
+            <button style={button} onClick={() => setValue(0)}>Set 0</button>
+            <button style={button} onClick={reset}>Reset</button>
+        </div>
+    </div>
+  );
+}
+``` 
 
 </TabItem>
 </Tabs>
 
 
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 
