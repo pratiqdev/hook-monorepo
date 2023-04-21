@@ -61,14 +61,22 @@ Now that the packages have info about the next intended versions - bump them wit
 npx changeset version
 ```
 
-3. Push changes to github
+3. Commit the changes and changeset
 
-Add, commit and push all changes, with an annotated tag
 
 ```bash
 git add .
 git commit -m 'Ready to publish'
-git tag -a v1.2.3 -m "Release version 1.2.3"
-git push origin main --follow-tags
 ```
  
+4. Create an annotated tag with a message. Try to match highest package version to release/tag version
+
+```bash
+git tag -a v1.2.3 -m "Release version 1.2.3"
+```
+
+5. Push the changes
+
+```bash
+git push origin main --follow-tags
+```

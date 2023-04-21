@@ -1,5 +1,14 @@
 # @pratiq/hooks
 
+## 1.1.3
+
+### Patch Changes
+
+- ff0280c: Testing new release workflow
+- 5f6b3fb: Updated github action permissions for pull requests
+- Testing new workflow...
+- b2700ba: Reverted pnpm/action-setup to last known version @2
+
 ## 1.1.2
 
 ### Patch Changes
