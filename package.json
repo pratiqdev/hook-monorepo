@@ -20,7 +20,7 @@
     "patch": "npm version patch --no-git-tag-release",
     "pre": "pnpm install && pnpm run build && clear",
     "test-node": "pnpm run pre && pnpm --filter @pratiq/core run test-node",
-    "change": "pnpm run changeset"
+    "patchy": "npx changeset ?? How to say patch only from cli? pass arg to changeset and asdf for identical summaries"
   },
   "devDependencies": {
     "@changesets/cli": "^2.22.0",
