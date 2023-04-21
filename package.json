@@ -1,14 +1,14 @@
 {
-  "homepage":"https://hooks.pratiq.dev",
+  "homepage": "https://hooks.pratiq.dev",
   "bugs": "https://github.com/pratiqdev/hook-monorepo/issues",
   "keywords": [
     "React",
     "hooks"
   ],
-
   "private": true,
-  "type":"module",
+  "type": "module",
   "scripts": {
+    "what": "node markout",
     "build": "turbo run build",
     "dev": "turbo run dev --no-cache --continue",
     "lint": "turbo run lint",
@@ -18,16 +18,19 @@
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
     "patch": "npm version patch --no-git-tag-release",
-
-    "pre":"pnpm install && pnpm run build && clear",
-    "test-node":"pnpm run pre && pnpm --filter @pratiq/core run test-node",
-
-    "change":"pnpm run changeset"
+    "pre": "pnpm install && pnpm run build && clear",
+    "test-node": "pnpm run pre && pnpm --filter @pratiq/core run test-node",
+    "change": "pnpm run changeset"
   },
   "devDependencies": {
-    "@pratiq/config": "workspace:*",
     "@changesets/cli": "^2.22.0",
+    "@pratiq/config": "workspace:*",
+    "@pratiq/utils": "workspace:*",
+    "chalk": "^5.2.0",
     "eslint": "^7.32.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^4.3.0",
+    "marked-terminal": "^5.1.1",
     "prettier": "^2.5.1",
     "turbo": "latest"
   },
