@@ -1,5 +1,11 @@
 # @pratiq/hooks
 
+## 1.1.2
+
+### Patch Changes
+
+- Testing build pipeline 1
+
 ## 1.1.1
 
 ### Patch Changes
