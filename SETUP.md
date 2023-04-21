@@ -68,5 +68,6 @@ Add, commit and push all changes, with an annotated tag
 ```bash
 git add .
 git commit -m 'Ready to publish'
+git tag v1.2.3
 git push origin main --follow-tags
 ```
