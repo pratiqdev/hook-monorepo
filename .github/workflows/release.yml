@@ -15,6 +15,9 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
 
+      - name: Publish release
+        uses: eloquent/github-release-action@v3
+        
       - name: Setup pnpm 7
         uses: pnpm/action-setup@v2
         with:
@@ -37,6 +40,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish release
-        uses: eloquent/github-release-action@v3
