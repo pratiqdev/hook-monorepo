@@ -1,6 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect, } from 'react'
 import { useKeyboard } from '@pratiq/hooks'
 // @ts-nocheck
+
+
+
+const MemoizedComponent = React.memo(({ element }) => {
+  return <>{element}</>;
+});
+
+
 
 interface I_DemoGalleryProps{
     demos: any[];
@@ -18,18 +26,6 @@ const DemoGallery = (props: I_DemoGalleryProps) => {
         'shift-up': () => handlePrev(),
     }})
 
-    const handlePrevPage = () => {
-        console.log('prev page')
-        if(typeof document !== 'undefined'){
-            let el = document.querySelector('pagination-nav__link--next')
-            if(el){
-                // el.click()
-            }
-        }
-    }
-
-    const handleNextPage = () => {}
-
 
     const handleNext = () => {
         // currentIndex < demos.length - 1 ? setCurrentIndex(n => n + 1) : setCurrentIndex(0)
@@ -40,6 +36,11 @@ const DemoGallery = (props: I_DemoGalleryProps) => {
         // currentIndex > 0 ? setCurrentIndex(n => n - 1) : setCurrentIndex(demos.length - 1)
         setCurrentIndex(n => n > 0 ? n - 1 : demos.length - 1)
     }
+    const prevRef= useRef()
+
+    useEffect(() => {
+        prevRef.current = demos[currentIndex - 1];
+    }, [currentIndex, demos]);
 
     return (
         <div>
@@ -48,7 +49,12 @@ const DemoGallery = (props: I_DemoGalleryProps) => {
                 {currentIndex + 1} / {demos.length}
                 <button onClick={handleNext} className='right-chev'/>
             </div>
-            {demos[currentIndex]}
+            {/* {demos[currentIndex]} */}
+            {/* <MemoizedComponent element={demos[currentIndex]} /> */}
+            {prevRef.current && currentIndex > 0 && (
+                <MemoizedComponent element={prevRef.current} />
+            )}
+            <MemoizedComponent element={demos[currentIndex]} />
         </div>
     )
 

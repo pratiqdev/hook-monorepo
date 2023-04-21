@@ -8,7 +8,6 @@ import { getHookDataByTitle } from '/utils/getHooks'
 const data = getHookDataByTitle('useClamp')
 
 
-//+ useAsync
 const DemoComponent = (props:any) => {
 
     const [value, setValue, reset] = useClamp({
@@ -43,13 +42,26 @@ const DemoComponent = (props:any) => {
 
 <CodeBlock language='ts' className='demo-display' >
 {
-`const [value, setValue, reset] = useClamp({
-    value: 9,
-    min: 2,
-    max: 7
-})
+`function Clock(props) {
+    const [date, setDate] = useState(new Date());
+    useEffect(() => {
+        const timerID = setInterval(() => tick(), 1000);
 
-// value: ${value}
+        return function cleanup() {
+            clearInterval(timerID);
+        };
+    });
+
+    function tick() {
+        setDate(new Date());
+    }
+
+    return (
+        <div>
+            <h2>It is {date.toLocaleTimeString()}.</h2>
+        </div>
+    );
+}
 `
 }
 </CodeBlock>

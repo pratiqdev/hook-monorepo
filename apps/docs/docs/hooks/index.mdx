@@ -2,8 +2,80 @@
 layout: true
 ---
 
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
 import { Card, HeadlessTable, MainText, IntroList, HooksByTags, RandomHookButton, HookWheel } from '/src/components/'
 
 # Hook documentation
 
-Each hook
+Each hook provides detailed documentation, explanations, demos and code samples, as well as detailed information about its types and API.
+
+:::note Keyboard Shortcuts
+Any page with a demo includes a focused view, with simplified access to the demo and its code.
+
+`SHIFT + /` Open the focused view  
+`SHIFT + up-arrow` Show the next demo  
+`SHIFT + down-arrow` Show the previous demo  
+`SHIFT + right-arrow` Navigate to the next page  
+`SHIFT + left-arrow` Navigate to the previous page  
+:::
+
+
+<Tabs>
+
+<TabItem value='sim' label="Simple">
+
+```jsx live 
+function ClampedCounter(props) {
+  const { container, button, row, column, display } = styles.useClamp
+  
+  const [value, setValue, reset] = useClamp({
+    value: 0,
+    min: 1,
+    max: 10
+  })
+
+  return (
+    <div style={row}>
+            <button onClick={() => setValue(n => n - 1)} style={button}>-</button>
+            <p style={display}>{value}</p>
+            <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
+    </div>
+  );
+}
+``` 
+
+</TabItem>
+
+<TabItem value='adv' label="Advanced">
+
+```jsx live 
+function ClampedCounter(props) {
+  const { container, button, row, column, display } = styles.useClamp
+  
+  const [value, setValue, reset] = useClamp({
+    value: 0,
+    min: 0,
+    max: 10
+  })
+
+  return (
+    <div style={container}>
+        <div style={row}>
+            <button onClick={() => setValue(n => n - 1)} style={button}>-</button>
+            <p style={display}>{value}</p>
+            <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
+        </div>
+        <div style={column}>
+            <button style={button} onClick={() => setValue(10)}>Set 10</button>
+            <button style={button} onClick={() => setValue(0)}>Set 0</button>
+            <button style={button} onClick={reset}>Reset</button>
+        </div>
+    </div>
+  );
+}
+``` 
+
+</TabItem>
+</Tabs>

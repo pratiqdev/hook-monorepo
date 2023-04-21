@@ -9,7 +9,7 @@ type T_NothingnessProps = {
     children?: React.ReactNode;
 }
 const Nothingness = (props:T_NothingnessProps) => {
-    const [isOpen, setIsOpen] = useSessionStorage('@pratiq/hooks-demo-open-status', false)
+    const [isOpen, setIsOpen] = useSessionStorage('@pratiq/hooks-demo-open-status', true)
     
     const handleNavNext = () => {
         console.log('next page')
@@ -41,13 +41,14 @@ const Nothingness = (props:T_NothingnessProps) => {
     
     
     useKeyboard({ combos: { 
-        'shift-slash': () => setIsOpen(b => !b) ,
+        'shift-slash': () => setIsOpen((b:boolean) => !b) ,
         'shift-right': handleNavNext ,
         'shift-left': handleNavPrev ,
     }})
+    
 
     return (
-        <div  className={isOpen ? 'nothingness-open' : 'nothingness-closed'}>
+        <div className={isOpen ? 'nothingness nothingness-open' : 'nothingness nothingness-closed'}>
             {isOpen && 
                 <div style={{margin:'-1rem', marginBottom:'1rem', padding: '1rem', background:'#88a3', display: 'flex', justifyContent:'space-between'}}>
                     <div>

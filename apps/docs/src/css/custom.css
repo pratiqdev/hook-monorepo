@@ -130,6 +130,7 @@ pre code{
   font-size: .8rem !important; 
 }
 
+
 /* HEADINGS ----------------------------------------------------------------- */
 
 h1, h2, h3, h4, h5, h6{
@@ -758,7 +759,7 @@ input:focus{
   margin: .5rem
 }
 
-.standard-button{
+button{
   border: 0px solid transparent;
   border-radius: .25rem;
   padding: .25rem .5rem !important;
@@ -965,6 +966,8 @@ a:hover{
 }
 
 
+
+
 .nothingness-open{
   position:fixed;
   height: calc(100vh - 3.7rem);
@@ -977,7 +980,7 @@ a:hover{
   z-index: 1000;
   background: #18181f;
   padding: 1rem;
-  /* transition: background .3s; */
+    /* transition: background .3s; */
 }
 
 .nothingness-closed{
@@ -1087,31 +1090,30 @@ a:hover{
 .left-chev{
   background: var(--ifm-menu-link-sublist-icon) 50% / 2rem 2rem;
   /* margin-left: auto; */
-  min-width: 1.25rem;
+  min-width: 2rem;
   background: var(--ifm-menu-link-sublist-icon) 50% / 2rem 2rem;
   filter: var(--ifm-menu-link-sublist-icon-filter);
-  height: 1.25rem;
+  height: 2rem;
   transform: rotate(-90deg);
-  width: 1.25rem;
+  width: 2rem;
   transition: transform var(--ifm-transition-fast) linear;
 }
 
 .right-chev{
   background: var(--ifm-menu-link-sublist-icon) 50% / 2rem 2rem;
   /* margin-left: auto; */
-  min-width: 1.25rem;
+  min-width: 2rem;
   background: var(--ifm-menu-link-sublist-icon) 50% / 2rem 2rem;
   filter: var(--ifm-menu-link-sublist-icon-filter);
-  height: 1.25rem;
+  height: 2rem;
   transform: rotate(90deg);
-  width: 1.25rem;
+  width: 2rem;
   transition: transform var(--ifm-transition-fast) linear;
 }
 
 
 
-
-
+/*~ DEMO STYLES                                                                                         */
 
 
 

@@ -39,6 +39,9 @@ const config = {
     ]
   ],
 
+  plugins: ['@docusaurus/theme-live-codeblock'],
+
+  
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -46,7 +49,15 @@ const config = {
         defaultMode: 'dark',
         disableSwitch: false,
         respectPrefersColorScheme: true
+        
+      },
 
+      liveCodeBlock: {
+        /**
+         * The position of the live playground, above or under the editor
+         * Possible values: "top" | "bottom"
+         */
+        playgroundPosition: 'bottom',
       },
 
       navbar: {
