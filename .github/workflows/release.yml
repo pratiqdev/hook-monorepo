@@ -50,9 +50,14 @@ jobs:
       #   with:
       #     title: Release ${{ steps.tag.outputs.tagname }}
       
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "Release ${{ github.ref_name }}"
-          prerelease: false
+      # - uses: "marvinpinto/action-automatic-releases@latest"
+      #   with:
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     automatic_release_tag: "Release ${{ github.ref_name }}"
+      #     prerelease: false
+
+      - name: release-please-action
+        uses: google-github-actions/release-please-action@v3.1.2
+        package_name: "Release ${{ github.ref_name }}"
+
   
