@@ -9,9 +9,15 @@ description: ${data.description}
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_${data.title}'
 
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { 
+  Card, 
+  MainText, 
+  RelatedTable, 
+  HeadlessTable, 
+  ClientBadge, 
+  StatusBadge 
+} from '@site/src/components'
 
 # 
 
@@ -40,7 +46,7 @@ const metaReplacer = (name) => {
     return
   }
   try {
-    const fileName = `${_dir}/docs/hooks/${name}/${name}.mdx`
+    const fileName = `${_dir}/apps/docs/docs/hooks/${name}/${name}.mdx`
     let fileContents = fs.readFileSync(fileName, { encoding: 'utf-8' })
     if (!fileContents.includes('<!--meta-section-break-->')) {
       console.log('No "<!--meta-section-break-->" found')

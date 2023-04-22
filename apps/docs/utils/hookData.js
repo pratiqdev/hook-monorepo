@@ -170,7 +170,7 @@ const data = {
     },
     useWindow: {
         title: 'useWindow',
-        description: 'Get info about the current windows size, rotation scroll depth, mouse position and more',
+        description: 'Get info about the current windows size, rotation, scroll depth, mouse position and more',
         tags: [E_Tags.device]
     }
 

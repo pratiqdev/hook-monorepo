@@ -1,0 +1,80 @@
+---
+title: useMousePosition
+description: Get the current coordinates of the cursor in the window or a selected element
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useMousePosition'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useMousePosition</h1>
+Get the current coordinates of the cursor in the window or a selected element
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+## Usage
+
+
+<!-- ======================================================================= -->
+
+<hr />
+
+## Demo
+
+
+<DemoComponent />
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## API
+
+### Interfaces
+
+```js
+type ...
+```
+
+### Config Example
+
+```js
+const <T_MouseCoords> = useMousePosition()
+
+const { x, y, bind } = useMousePosition()
+```
+
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@isMatched','boolean','The currently pressed key. Null when no key is pressed'],
+]}/>
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## Internal
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## Related Hooks
+
+<RelatedTable hooks={[
+  'useWindow'
+]} />

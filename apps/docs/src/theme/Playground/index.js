@@ -1,70 +1,16 @@
 import React from 'react';
 import clsx from 'clsx';
 import useIsBrowser from '@docusaurus/useIsBrowser';
+import ErrorBoundary from '@docusaurus/ErrorBoundary';
 import {LiveProvider, LiveEditor, LiveError, LivePreview} from 'react-live';
 import Translate from '@docusaurus/Translate';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import {usePrismTheme} from '@docusaurus/theme-common';
 import styles from './styles.module.css';
-function Header({children}) {
-  return <div className={clsx(styles.playgroundHeader)}>{children}</div>;
-}
-function LivePreviewLoader() {
-  // Is it worth improving/translating?
-  // eslint-disable-next-line @docusaurus/no-untranslated-text
-  return <div>Loading...</div>;
-}
-function ResultWithHeader() {
-  return (
-    <>
-      {/* <Header>
-        <Translate
-          id="theme.Playground.result"
-          description="The result label of the live codeblocks">
-          Result
-        </Translate>
-      </Header> */}
-      {/* https://github.com/facebook/docusaurus/issues/5747 */}
-      <div className={styles.playgroundPreview}>
-        <BrowserOnly fallback={<LivePreviewLoader />}>
-          {() => (
-            <>
-              <LivePreview />
-              <LiveError />
-            </>
-          )}
-        </BrowserOnly>
-      </div>
-    </>
-  );
-}
-function ThemedLiveEditor() {
-  const isBrowser = useIsBrowser();
-  return (
-    <LiveEditor
-      // We force remount the editor on hydration,
-      // otherwise dark prism theme is not applied
-      key={String(isBrowser)}
-      className={styles.playgroundEditor}
-    />
-  );
-}
-function EditorWithHeader() {
-  return (
-    <>
-      {/* <Header>
-        <Translate
-          id="theme.Playground.liveEditor"
-          description="The live editor label of the live codeblocks">
-          Live Editor
-        </Translate>
-      </Header> */}
-      <ThemedLiveEditor />
-    </>
-  );
-}
-export default function Playground({children, transformCode, ...props}) {
+
+
+function Playground({children, transformCode, ...props}) {
   const {
     siteConfig: {themeConfig},
   } = useDocusaurusContext();
@@ -72,28 +18,53 @@ export default function Playground({children, transformCode, ...props}) {
     liveCodeBlock: {playgroundPosition},
   } = themeConfig;
   const prismTheme = usePrismTheme();
+  const isBrowser = useIsBrowser();
   const noInline = props.metastring?.includes('noInline') ?? false;
   return (
-    <div className={styles.playgroundContainer}>
+    <div className='demo-container'>
       {/* @ts-expect-error: type incompatibility with refs */}
+
       <LiveProvider
         code={children.replace(/\n$/, '')}
         noInline={noInline}
         transformCode={transformCode ?? ((code) => `${code};`)}
         theme={prismTheme}
         {...props}>
-        {playgroundPosition === 'top' ? (
-          <>
-            <ResultWithHeader />
-            <EditorWithHeader />
-          </>
-        ) : (
-          <>
-            <ResultWithHeader />
-            <EditorWithHeader />
-          </>
-        )}
+          <div className='demo-preview'>
+            <BrowserOnly fallback={<div>Loading...</div>}>
+              {() => (
+                <>
+                  <LivePreview />
+                  <LiveError />
+                </>
+              )}
+            </BrowserOnly>
+          </div>
+          <LiveEditor
+            // We force remount the editor on hydration,
+            // otherwise dark prism theme is not applied
+            key={String(isBrowser)}
+            className='demo-editor'
+            />
       </LiveProvider>
     </div>
   );
 }
+
+
+const PlaygroundWrapper = (props) => {
+  return (
+
+    <ErrorBoundary fallback={({error, tryAgain}) => (
+      <div>
+        <p>This component crashed because of error: {error.message}.</p>
+        <button onClick={tryAgain}>Try Again!</button>
+      </div>
+    )}>
+
+      <Playground {...props}/>
+    </ErrorBoundary>
+  )
+}
+
+export default PlaygroundWrapper

@@ -38,29 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # - name: Get current tag name 
-      #   id: tag
-      #   run: echo ::set-output name=tagname::$(basename ${GITHUB_REF#refs/tags/})
-
-  
-      # - name: Create a Release
-      #   uses: elgohr/Github-Release-Action@v4
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     title: Release ${{ steps.tag.outputs.tagname }}
-      
-      # - uses: "marvinpinto/action-automatic-releases@latest"
-      #   with:
-      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
-      #     automatic_release_tag: "Release ${{ github.ref_name }}"
-      #     prerelease: false
-
-      # - name: release-please-action
-      #   uses: google-github-actions/release-please-action@v3.1.2
-      #   with:
-      #     package_name: "Release ${{ github.ref_name }}"
-
       - uses: CupOfTea696/gh-action-auto-release@v1.0.2
         with:
           title: "Release: $version"

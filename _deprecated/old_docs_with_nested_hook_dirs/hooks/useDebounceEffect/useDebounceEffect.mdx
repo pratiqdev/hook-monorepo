@@ -1,0 +1,144 @@
+---
+title: useDebounceEffect
+description: Use effect with a debounced callback
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import DemoComponent from './demo_useDebounceEffect'
+
+import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+
+# 
+
+<Card>
+<MainText>
+<h1>useDebounceEffect</h1>
+Use effect with a debounced callback
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='simple' label='Simple'>
+
+```js
+useDebounceEffect(()=>{
+    // calback invoked on any state change
+    // default debounce time is 250ms
+})
+```
+
+</TabItem>
+
+<TabItem value='advanced' label='Advanced'>
+
+```js
+useDebounceEffect(()=>{
+    // calback invoked once on mount
+    // default debounce time is 250ms
+}, [])
+```
+
+</TabItem>
+
+
+<TabItem value='full' label='Full'>
+
+```js
+useDebounceEffect(()=>{
+    // calback invoked once on mount
+    // and on dep change
+    // debounce time is 1s
+}, [dep], 1000)
+```
+
+</TabItem>
+
+</Tabs>
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## Demo
+
+<DemoComponent />
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+## API 
+
+
+### Config Example
+
+```ts
+useDebounceEffect(() => {
+    // do work
+}, [], 250)
+```
+
+### Interfaces
+```ts
+type T_UseDebounceEffect = ( 
+    cb: () => void, 
+    deps: any[], 
+    delay: number 
+) => void
+```
+
+
+
+
+<!-- ignore-### Return Values -->
+<!-- ignore-## Hook Methods -->
+
+
+
+
+
+
+
+
+
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Internal
+
+<RelatedTable hooks={['useState', 'useRef', 'useEffect']} />
+
+
+<!--=========================================================================-->
+
+<hr />
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useErrorBoundary', 'useAsync', 'useFetch']} />

@@ -4,7 +4,6 @@ description: Clamp numerical values within the provided range
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useCalculator'
 
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
@@ -23,4 +22,15 @@ import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/
 
 
 
-<DemoComponent />
+<Tabs>
+
+<TabItem value='sim' label="Simple">
+
+```jsx live 
+const data = useWindow()
+<pre>{JSON.stringify(data, null, 2)}
+``` 
+
+</TabItem>
+
+</Tabs>

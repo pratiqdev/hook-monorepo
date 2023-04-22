@@ -1,6 +1,7 @@
 import React from 'react';
 import * as hooks from '@pratiq/hooks'
 // Add react-live imports you need here
+import * as components from '@site/src/components'
 
 
 const styles = {
@@ -17,6 +18,7 @@ const ReactLiveScope = {
   React,
   ...React,
   ...hooks,
+  ...components,
   styles,
 };
 export default ReactLiveScope;

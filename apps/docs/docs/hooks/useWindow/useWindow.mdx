@@ -1,14 +1,60 @@
+---
+title: useWindow
+description: Get info about the current windows size, rotation scroll depth, mouse position and more
+---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import DemoComponent from './demo_useWindow'
-import RelatedTable from '/src/components/RelatedTable'
 
-# useWindow
+import { Card, MainText, RelatedTable, HeadlessTable, ClientBadge, StatusBadge } from '@site/src/components'
 
-<DemoComponent />
+# 
+
+<Card>
+<MainText>
+<h1>useWindow</h1>
+Get info about the current windows size, rotation scroll depth, mouse position and more
+</MainText>
+</Card>
+
+<!--meta-section-break-->
+
+<ClientBadge />
+<StatusBadge status={1} />
 
 
 
-<RelatedTable items={{
-  'useMousePosition':'Get mouse location within a specific dom element'
-}} />
+
+
+<Tabs>
+
+<TabItem value='sim' label="Simple">
+
+```jsx live 
+function UseWindow() {
+  const { width, height, x, y } = useWindow()
+  return (
+    <ul>
+      <li>Screen Width: {width}</li>
+      <li>Screen Height: {height}</li>
+      <li>Mouse X: {x}</li>
+      <li>Mouse Y: {y}</li>
+    </ul>
+  )
+}
+``` 
+
+</TabItem>
+
+<TabItem value='adv' label="Advanced">
+
+```jsx live 
+function UseWindow() {
+  const data = useWindow()
+  return <pre>{JSON.stringify(data, null, 2)}</pre>
+}
+``` 
+
+</TabItem>
+
+</Tabs>
