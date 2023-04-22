@@ -1,5 +1,11 @@
 # @pratiq/hooks
 
+## 1.1.7
+
+### Patch Changes
+
+- Testing release action 3
+
 ## 1.1.6
 
 ### Patch Changes
