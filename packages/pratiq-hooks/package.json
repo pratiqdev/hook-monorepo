@@ -1,6 +1,6 @@
 {
   "name": "@pratiq/hooks",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "main": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "sideEffects": false,

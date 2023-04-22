@@ -56,9 +56,18 @@ jobs:
       #     automatic_release_tag: "Release ${{ github.ref_name }}"
       #     prerelease: false
 
-      - name: release-please-action
-        uses: google-github-actions/release-please-action@v3.1.2
+      # - name: release-please-action
+      #   uses: google-github-actions/release-please-action@v3.1.2
+      #   with:
+      #     package_name: "Release ${{ github.ref_name }}"
+
+      - uses: CupOfTea696/gh-action-auto-release@v1.0.2
         with:
-          package_name: "Release ${{ github.ref_name }}"
+          title: "Release: $version"
+          tag: "v$semver"
+          draft: false
+          regex: "/^Release: #{semver}$/i"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   

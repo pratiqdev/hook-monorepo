@@ -1,5 +1,11 @@
 # @pratiq/utils
 
+## 1.1.11
+
+### Patch Changes
+
+- Testing release action 7
+
 ## 1.1.10
 
 ### Patch Changes
