@@ -1,5 +1,15 @@
 # @pratiq/utils
 
+## 1.1.5
+
+### Patch Changes
+
+- 0da5a7b: Release title change
+- 71c4b5d: Releasing with version number in title
+- 86fe868: Testing workflow 2
+- 5ca6d17: New workflow release title
+- 52ed5d5: Removed title
+
 ## 0.0.5
 
 ### Patch Changes
