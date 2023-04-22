@@ -80,3 +80,12 @@ git tag -a v1.2.3 -m "Release version 1.2.3"
 ```bash
 git push origin main --follow-tags
 ```
+
+
+
+> The typical flow is:
+> changeset
+> changeset version
+> asdf
+> git tag v1.2.3
+> git push origin main --follow-tags
