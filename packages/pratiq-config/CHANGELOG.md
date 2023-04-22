@@ -1,5 +1,11 @@
 # @pratiq/config
 
+## 1.1.6
+
+### Patch Changes
+
+- Testing new release action 2
+
 ## 1.1.5
 
 ### Patch Changes
