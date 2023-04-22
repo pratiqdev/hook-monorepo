@@ -42,13 +42,10 @@ jobs:
         id: tag
         run: echo ::set-output name=tagname::$(basename ${GITHUB_REF#refs/tags/})
 
-      - name: Extract version number from tag name
-        id: version
-        run: echo ::set-output name=version::$(echo ${{ steps.tag.outputs.tagname }} | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+")
-
+  
       - name: Create a Release
         uses: elgohr/Github-Release-Action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          title: Release ${{ steps.version.outputs.version }}
+          title: Release ${{ steps.tag.outputs.tagname }}
