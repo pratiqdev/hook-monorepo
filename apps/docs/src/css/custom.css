@@ -298,44 +298,6 @@ table{
   background: #4458 !important;
 }
 
-.footer-related-table td:nth-child(1) {
-  white-space: nowrap;
-}
-
-.footer-related-table {
-  margin-top: 1rem;
-  background: rgb(100,100,100,.02);
-  text-align: left;
-}
-
-
-/* force the footers related tables second column to take up the remaining space */
-
-/* .footer-headless-table td:nth-child(2) { */
-/* } */
-.footer-headless-table, table  {
-  white-space: nowrap;
-  max-width: 100%;
-  border: 1px solid #6662 !important;
-  border-radius: .5rem;
-}
-.footer-headless-table td{
-  border-color: #6662 !important;
-  white-space: wrap;
-}
-
-.footer-headless-table td:last-child, table td:last-child{
-  width: 100%;
-  word-break: break-all;
-  white-space: wrap;
-  /* color: #444; */
-}
-
-table th{
-  text-align: left;
-}
-
-
 .footer-headless-table {
   margin-top: 1rem;
   background: rgb(100,100,100,.02);
@@ -354,6 +316,44 @@ table th{
   word-break: normal !important;
   overflow-wrap: break-word;
 }
+
+.footer-related-table td:nth-child(1) {
+  white-space: nowrap;
+}
+
+.footer-related-table {
+  margin-top: 1rem;
+  background: rgb(100,100,100,.02);
+  text-align: left;
+}
+
+
+/* force the footers related tables second column to take up the remaining space */
+
+/* .footer-headless-table td:nth-child(2) { */
+/* } */
+/* .footer-headless-table, table  {
+  white-space: nowrap;
+  max-width: 100%;
+  border: 1px solid #6662 !important;
+  border-radius: .5rem;
+}
+.footer-headless-table td{
+  border-color: #6662 !important;
+  white-space: wrap;
+}
+
+.footer-headless-table td:last-child, table td:last-child{
+  width: 100% !important;
+  word-break: break-all !important;
+  white-space: wrap !important;
+  overflow: hidden;
+} */
+
+table th{
+  text-align: left;
+}
+
 
 .code-table {
   font-family: monospace;

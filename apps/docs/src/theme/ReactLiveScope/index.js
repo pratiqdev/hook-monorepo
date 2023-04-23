@@ -18,7 +18,6 @@ const ReactLiveScope = {
   React,
   ...React,
   ...hooks,
-  ...components,
   styles,
 };
 export default ReactLiveScope;

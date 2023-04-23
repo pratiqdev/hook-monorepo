@@ -4,7 +4,7 @@ description: Clamp numerical values within the provided range
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge } from '@site/src/components'
 
 # 
 
@@ -102,21 +102,6 @@ Values used for initial state and internal settings are provided as a config
 object 
 
 
-### Config Example
-
-```ts
-const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
-```
-
-
-### Return Values
-
-<HeadlessTable code={2} items={[
-    ['@value','number', 'The current state of the clamped value'],
-    ['@setValue','Function', 'Set a new value, will be rejected if any type other than number and clamped within the provided range'],
-    ['@reset','Function','Reset the internal state to the initial values',],
-]}/>
-
 
 ### Interfaces
 ```ts
@@ -134,6 +119,21 @@ export interface I_UseClampReturn { // example
 ```
 
 
+
+### Config Example
+
+```ts
+const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
+```
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@value','number', 'The current state of the clamped value'],
+    ['@setValue','Function', 'Set a new value, will be rejected if any type other than number and clamped within the provided range'],
+    ['@reset','Function','Reset the internal state to the initial values',],
+]}/>
 
 
 
