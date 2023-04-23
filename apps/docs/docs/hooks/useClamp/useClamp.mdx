@@ -32,8 +32,8 @@ function ClampedCounter(props) {
   
   const [value, setValue, reset] = useClamp({
     value: 0,
-    min: 1,
-    max: 10
+    min: 4,
+    max: 7
   })
 
   return (
@@ -58,8 +58,8 @@ function ClampedCounter(props) {
   
   const [value, setValue, reset] = useClamp({
     value: 0,
-    min: 0,
-    max: 10
+    min: -2,
+    max: 2
   })
 
   return (
@@ -70,8 +70,8 @@ function ClampedCounter(props) {
             <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
         </div>
         <div style={column}>
-            <button style={button} onClick={() => setValue(10)}>Set 10</button>
-            <button style={button} onClick={() => setValue(0)}>Set 0</button>
+            <button style={button} onClick={() => setValue(3)}>Set 3</button>
+            <button style={button} onClick={() => setValue(-7)}>Set -7</button>
             <button style={button} onClick={reset}>Reset</button>
         </div>
     </div>
