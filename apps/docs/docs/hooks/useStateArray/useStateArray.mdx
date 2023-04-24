@@ -1,23 +1,18 @@
 ---
 title: useStateArray
+hide_title: true
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 import DemoComponent from './demo_useStateArray'
-import { getHookDataByTitle } from '/utils/getHooks'
-const data = getHookDataByTitle('useStateArray')
 
 
-# 
- 
-<Card>
 <MainText>
-<h1>{data.title}</h1>
-{data.description}
+<h1>useStateArray</h1>
+Manage array state with common state altering methods.
 </MainText>
-</Card>
 
 
 
@@ -113,9 +108,11 @@ console.log(value) // [1, 2, 3, 9]
 
 
 
-<!--=========================================================================-->
 
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 ## Demo
 
@@ -136,9 +133,11 @@ console.log(value) // [1, 2, 3, 9]
 
 
 
-<!--=========================================================================-->
 
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 ## API 
 
@@ -156,7 +155,7 @@ const myArr = useStateArray(['one','two','three'])
 
 ### Interfaces
 
-```ts
+```tsx
 type T_useStateArrayConfig = any[];
 
 type T_useStateArrayReturn = {
@@ -189,31 +188,6 @@ type T_useStateArray = (T_useStateArrayConfig) => T_useStateArrayReturn
 
 
 
-<!-- 
-
-### Return Values
-
-<HeadlessTable noLink code items={{
-  'array':['Function','The current state of the array'],
-  'set':['Function','Set the array state to a new value. Accepts a callback function invoked with the current array as an argument.'],
-  'clear':["Function",""],
-  'reset':["Function",""],
-  'filter':["Function",""],
-  'push':["Function",""],
-  'pop':["Function",""],
-  'copyWithin':["Function",""],
-  'fill':["Function",""],
-  'reduce':["Function",""],
-  'reduceRight':["Function",""],
-  'reverse':["Function",""],
-  'sort':["Function",""],
-  'shift':["Function",""],
-  'unshift':["Function",""],
-  'splice':["Function",""],
-  'flat':["Function",""],
-  'insert':["Function",""],
-  'remove':["Function",""],
-}}/> -->
 
 
 
@@ -227,12 +201,12 @@ type T_useStateArray = (T_useStateArrayConfig) => T_useStateArrayReturn
 
 
 
-
-
-<!--=========================================================================-->
-<!--ignore-return-values-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
+
+
 
 ## Hook Methods
 
@@ -262,7 +236,6 @@ arr.reset()  // [1, 2, 3]
 </Card>
 <Card>
 
-<!-- added to demo ----------------->
 ### clear
 Set the state to an empty array.
 
@@ -321,7 +294,6 @@ arr.push([8,9,10])  // [1, 2, 3, 7, 4, 5, 6, [8, 9, 10] ]
 
 
 
-<!-- added to demo ----------------->
 ### unshift
 Adds new elements to the beginning of an array, and returns the new length
 
@@ -580,28 +552,39 @@ arr.remove(1) // [1, 3]
 
 
 
-<!--=========================================================================-->
 
+
+<br />
 <hr />
+{/* ============================================================================ */}
+
+
 
 
 ## Internal
+
+<StatusBadge status={1} />
 
 This hook internally uses the `useState` hook to store the array and provides 
 a wrapper around common array modification methods. 
 
 Methods in `useStateArray` do not provide access to the current state for callback 
-functions.
+functions like a typical `React SetStateAction` function.
+
+
+
+<RelatedTable hooks={[
+  'useState'
+]} />
 
 
 
 
 
-
-
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Related Hooks

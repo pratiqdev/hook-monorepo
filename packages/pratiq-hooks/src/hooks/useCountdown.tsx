@@ -4,53 +4,128 @@ const log = extend('local_useCountdown')
 
 
 
-export type UseCountdownConfig = {
+export interface I_UseCountdownConfig {
   duration: number;
   interval?: number;
   callbacks?: { [key: string]: Function };
 }
 
+export interface I_UseCountdownSettings {
+  duration: number;
+  interval: number;
+  callbacks: { [key: string]: Function };
+}
 
 
+export interface I_CountdownTimeObject {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  realSeconds: number;
+  milliseconds: number;
+  total: number;
+}
 
+export interface I_UseCountdownReturn {
+  time: I_CountdownTimeObject;
+  start: Function;
+  stop: Function;
+  reset: Function;
+  done: boolean;
+  started: boolean;
+  running: boolean;
+  interval: number;
+  duration: number;
+};
 
 
 
 /**
- * useCountdown
+ * [@pratiq/hooks - useCountdown](https://hooks.pratiq.dev/docs/hooks/useCountdown)
  * 
- * Countdown timer with optional callbacks.
- * 
- * @interface I_UseCountdownConfig
+ * Countdown timer with controls and optional callbacks.
  * 
  * @param duration {number} - Duration of the countdown in milliseconds
  * @param interval {number} - Time in milliseconds between each timer refresh
  * @param callbacks {object} - An object containing callback functions
+ *  
+ * ---
+ *  
+ * @returns 
  * 
- * @returns object containing state and functions
+ * | keys | type | description |
+ * |---|---|---|
+ * | time |  `Object` | An object containing the current time in different intervals
+ * | time.total | `number` | The total number of milliseconds
+ * | time.days | `number` |  The remainder of days
+ * | time.hours | `number` |  The remainder of hours after the overflow of days
+ * | time.minutes | `number` | The remainder of minutes after the overflow of hours
+ * | time.seconds | `number` |  The remainder of seconds after the overflow of minutes
+ * | time.milliseconds | `number` | The remainder of milliseconds after the overflow of seconds
+ * | time.realSeconds | `number` | The intuitive count of seconds remaining
+ * | done | `boolean` | True if the timer is finished (time.total === 0)
+ * | running | `boolean` | True if the timer is currently running
+ * | started | `boolean` | True if the timer has been started
+ * | start | `()=>void` | Start or resume the timer
+ * | stop | `()=>void` | Stop or pause the timer
+ * | reset | `()=>void` | Stops the timer and resets to the initial time
+ * | interval | `number` | The interval, in ms, used to refresh the timer
+ * | duration | `number` | The duration, in ms, that the timer will run
+ * 
+ * 
+ * ---
+ * 
+ * @interface
+ * ```
+ * export interface I_UseCountdownConfig {   //  example
+ *   duration?: number;                        //  10_000
+ *   interval?: number;                        //  100
+ *   callbacks?: { [key: string]: Function };  //  { 5000: () => fn() }
+ * }
+ * 
+ * export interface I_CountdownTimeObject {
+ *   days: number;
+ *   hours: number;
+ *   minutes: number;
+ *   seconds: number;
+ *   realSeconds: number;
+ *   milliseconds: number;
+ *   total: number;
+ * }
+ * 
+ * export interface I_UseCountdownReturn{
+ *   time: <I_CountdownTimeObject>;
+ *   start: Function;
+ *   stop: Function;
+ *   reset: Function;
+ *   done: boolean;
+ *   started: boolean;
+ *   running: boolean;
+ *   interval: number;
+ *   duration: number;
+ * };
+ * ```
+ * 
+ * ---
+ * 
  * 
  * @example
- * const { 
- *  time,                           // current state of the countdown timer
- *  done,                           // is the countdown done
- *  running,                        // is the timer running
- *  started,                        // has the timer started
- *  start,                          // start the countdown
- *  stop,                           // stop (pause) the countdown
- *  reset,                          // reset state to initial values
- * } = useCountdown({
- *  duration: 10_000,               // total duration of the countdown
- *  interval: 10,                   // time (ms) between time refresh
- *  callbacks: {                    // object containing callback functions
- *    'start':() => log('started')  // invoked when timer started
- *    'end':  () => log('over')     // invoked when timer reaches 0
- *    7000:   () => log('7000ms')   // invoked at 7000ms (time state)
- *    3000:   () => log('3000ms')   // invoked at 3000ms (time state)
- *  },
+ * const timer = useCountdown({
+ *     duration: 10_000,           
+ *     interval: 10,              
+ *     callbacks: {                     
+ *         'start':() => console.log('started'),
+ *         'end':  () => console.log('over'),  
+ *         7000:   () => console.log('7000ms'),
+ *         3000:   () => console.log('3000ms'),
+ *     },
  * })
- * 
  */
-const useCountdown = (config: UseCountdownConfig) => {
+
+
+
+const useCountdown = (config: I_UseCountdownConfig = { duration: 10_000 }): I_UseCountdownReturn => {
   
   /** 
    *  1. Parse the config object and assign values to a settings object.  
@@ -60,8 +135,8 @@ const useCountdown = (config: UseCountdownConfig) => {
    * @interface I_UseCountdownConfig
    * @deps config
    */
-  const settings: UseCountdownConfig = useMemo(() => {
-    let interval = 100;
+  const settings: I_UseCountdownSettings = useMemo(() => {
+    let interval:number = 100;
     if (config.interval) {
       if (config.interval > 1000) interval = 1000;
       else if (config.interval < 1) interval = 1;
@@ -278,3 +353,30 @@ const useCountdown = (config: UseCountdownConfig) => {
 };
 
 export default useCountdown;
+
+
+
+
+/*
+ * 
+ * @example
+ * const { 
+ *  time,                           // current state of the countdown timer
+ *  done,                           // is the countdown done
+ *  running,                        // is the timer running
+ *  started,                        // has the timer started
+ *  start,                          // start the countdown
+ *  stop,                           // stop (pause) the countdown
+ *  reset,                          // reset state to initial values
+ * } = useCountdown({
+ *  duration: 10_000,               // total duration of the countdown
+ *  interval: 10,                   // time (ms) between time refresh
+ *  callbacks: {                    // object containing callback functions
+ *    'start':() => log('started')  // invoked when timer started
+ *    'end':  () => log('over')     // invoked when timer reaches 0
+ *    7000:   () => log('7000ms')   // invoked at 7000ms (time state)
+ *    3000:   () => log('3000ms')   // invoked at 3000ms (time state)
+ *  },
+ * })
+
+*/

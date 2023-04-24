@@ -1,35 +1,97 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import isBrowser from '../utils/isBrowser';
     
 /**
-* useClipboard()
-* ---
-* 
-* useState that returns if CSS prop/value is valid
-* 
-* @param {string} cssProp - the prop used to validate the value
-* @param {string} cssString - the prop used to validate the value
-* @returns A stateful value and true if valid
+ 
+A React hook that provides functionality to copy text to clipboard and reset the clipboard.
 
-* @example
-* 
+
+--- 
+
+@browser  
+__NO SSR__ 
+This hook relies on functions or properties only available in the browser. It will fail in SSR environments.
+
+---
+
+@returns 
+__clipboard__ `object`  
+An object containing the following properties:  
+
+__clipboard.copy__ `function`  
+A function that takes a string as an argument and copies it to the clipboard.  
+
+__clipboard.reset__ `function`  
+A function that clears the clipboard.  
+
+__clipboard.value__ `string`  
+The text that is currently on the clipboard.  
+
+__clipboard.success__ `boolean`  
+A boolean indicating whether the copy operation was successful.  
+
+__clipboard.flash__ `boolean`  
+A boolean indicating whether a visual cue (such as a flash) should be displayed to indicate a successful copy operation.  
+
+---
+
+@example
+const { copy, value, success, reset, flash } = useClipboard();
+
+// Copy text to clipboard
+copy('Hello World!');
+
+// Check if the copy operation was successful
+if (success) {
+    console.log('Text copied to clipboard:', value);
+}
+
+// Reset the clipboard
+reset();
 */
 
-const useClipboard = () => {
+// TODO - research using clipboard entries instead of most recent value
+
+export interface I_UseClipboardReturn {
+    value: string;
+    copy: Function;
+    success: boolean;
+    flash: boolean;
+    reset: Function;
+}
+
+const useClipboard = (): I_UseClipboardReturn => {
     const [value, setValue] = useState('')
     const [success, setSuccess] = useState(false)
+    const [flash, setFlash] = useState(false)
+
+    if(!isBrowser() || !navigator?.clipboard){
+        return {
+            copy: () => {},
+            value: '',
+            success: false,
+            flash: false,
+            reset: () => {}
+        }
+    }
 
 
-    const copyToClipboard = (text: string) => {
-        navigator.clipboard.writeText(text)
-        .then(() => {
-            setValue(text)
+
+    const copyToClipboard = async (text: string = ''): Promise<boolean> => {
+        try{
+            await navigator.clipboard.writeText(text)
+            let val = await navigator.clipboard.readText()
             setSuccess(true)
-        })
-        .catch(()=> {
-            setValue('')
-            setSuccess(false) 
-        })
-
+            setValue(val)
+            setFlash(true)
+            setTimeout(() => {
+                setFlash(false)
+            }, 1000)
+            return true
+        }catch(err){
+            setSuccess(false)
+            return false
+        }
     }
 
     const reset = () => {
@@ -42,7 +104,8 @@ const useClipboard = () => {
         copy:copyToClipboard, 
         value, 
         success, 
-        reset
+        reset,
+        flash,
     }
 }
 

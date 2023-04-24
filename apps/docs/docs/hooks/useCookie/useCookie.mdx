@@ -1,24 +1,18 @@
 ---
 title: useCookie
 description: Manage and store cookies in state
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useCookie'
 
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
-# 
 
-<Card>
 <MainText>
 <h1>useCookie</h1>
-Manage and store cookies in state
+Manage and store browser cookies in state
 </MainText>
-</Card>
-
-<!--meta-section-break-->
-
 
 
 
@@ -26,57 +20,44 @@ Manage and store cookies in state
 
 <Tabs>
 
-<TabItem value='simple' label='Simple'>
+<TabItem value='sim' label='Simple'>
 
-```js 
-import { useCookie } from '@pratiq/hooks'
-
-const [cookie, setCookie] = useCookie('COOKIE_KEY')
-
-<button onClick={() => setCookie('Alice')}>Set cookie 'Alice'</button>
-<button onClick={() => setCookie('Bobby', 100_000)}>Set cookie 'Bobby'</button>
-
-// cookie: null
+```tsx live
+function Cookies() {
+    const [cookie, setCookie]= useCookie('STANK_BUGS')
+    return (
+        <div style={{ display: 'flex', gap: '.5rem'}}>
+            <code>{cookie}</code>
+            <Button onClick={() => setCookie('Halyomorpha halys')}>Stinky Boi</Button>
+            <Button onClick={() => setCookie('Arilus cristatus')}>Angry Boi</Button>
+            <Button onClick={() => setCookie('Necrophila americana')}>Danger Boi</Button>
+            <Button onClick={() => setCookie('Staphylinus caesareus')}>Hairy Boi</Button>
+        </>
+    )
+}
 ```
 
 </TabItem>
 
-<TabItem value='advanced' label='Advanced'>
+<TabItem value='adv' label='Advanced'>
 
-```js
-import { useCookie } from '@pratiq/hooks'
-
-const [cookie, setCookie, removeCookie] = useCookie('COOKIE_KEY', 'Initial Value')
-
-<button onClick={() => setCookie('Alice')}>Set cookie 'Alice'</button>
-<button onClick={() => setCookie('Bobby', 100_000)}>Set cookie 'Bobby'</button>
-<button onClick={() => removeCookie()}>Remove cookie</button>
-
-// cookie: 'Initial Value'
+```tsx live
+function Cookies() {
+    const [cookie, setCookie, removeCookie]= useCookie('COOL_FRUITS')
+    return (
+        <div style={{ display: 'flex', gap: '.5rem'}}>
+            <code>{cookie}</code>
+            <Button onClick={() => setCookie('Nectarine')}>Nectarine</Button>
+            <Button onClick={() => setCookie('Tangerine')}>Tangerine</Button>
+            <Button onClick={() => setCookie('Dragonfruit')}>Dragonfruit</Button>
+            <Button onClick={() => setCookie('Elderberry')}>Elderberry</Button>
+            <Button onClick={removeCookie}>Remove Cookie</Button>
+        </>
+    )
+}
 ```
 
 </TabItem>
-
-<!-- 
-<TabItem value='full' label='Full'>
-
-```js
-import { useClamp } from '@pratiq/hooks'
-
-const [value, setValue, reset] = useClamp({
-    min: 0,
-    max: 10,
-    value: 7
-})
-
-value        // 7
-setValue(-1) // 0
-setValue(20) // 10
-reset()      // 7
-```
-
-</TabItem>
--->
 </Tabs>
 
 
@@ -84,41 +65,15 @@ reset()      // 7
 
 
 
-<!--=========================================================================-->
 
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
 
-## Demo
-
-<DemoComponent />
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
 
 ## API 
-
-Values used for initial state and internal settings are provided as standard arguments
-
-### Config Example
-
-```ts
-const {cookie, setCookie, removeCookie} = useCookie('KEY', 'Hello, World!')
-```
-
-
-### Return Values
-
-<HeadlessTable code={2} items={[
-    ['@cookie','string','The current value of internal state, set from the value of the cookie'],
-    ['@setCookie','Function','Set a new value of the cookie and internal state'],
-    ['@removeCookie','Function','Remove this cookie from cookies storage'],
-]} />
 
 
 ### Interfaces
@@ -135,12 +90,31 @@ export interface I_UseCookieReturn {
 ```
 
 
+### Config Example
+
+```ts
+const [cookie, setCookie, removeCookie] = useCookie('KEY', 'Hello, World!')
+```
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@cookie','string','The current value of internal state, set from the value of the cookie'],
+    ['@setCookie','SetStateAction','Set a new value of the cookie and internal state'],
+    ['@removeCookie','() => void','Remove this cookie from cookies storage'],
+]} />
 
 
 
-<!--=========================================================================-->
 
+
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Hook Methods
@@ -158,8 +132,6 @@ Set a cookie and store the current state.
 const [cookie, setCookie] = useCookie('MY_KEY')
 
 setCookie('Save this cookie @ "MY_KEY"')
-
-// cookie: 'Save this cookie @ "MY_KEY"'
 ```
 
 </Card>
@@ -175,8 +147,6 @@ Delete a cookie and empty the current state.
 const [cookie, setCookie, removeCookie] = useCookie('MY_KEY')
 
 removeCookie()
-
-// cookie: null
 ```
 
 </Card>
@@ -186,20 +156,25 @@ removeCookie()
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Internal
 
-This hook internally uses the `useState` hook to store the...
+<StatusBadge status={1} />
+
+This hook retrieves the value of a cookie, by the provided key, and sets the internal state of the 
+`cookie` value, or the `defaultValue` if provided. The `setCookie` function sets the value of the
+browser cookie, then uses the current value of the browser cookie to update the internal state.
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
 
 
 ## Related Hooks

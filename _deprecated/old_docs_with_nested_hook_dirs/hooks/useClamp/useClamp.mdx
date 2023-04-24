@@ -94,9 +94,10 @@ function ClampedCounter(props) {
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 ## API 
 
@@ -115,8 +116,8 @@ const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
 
 <HeadlessTable code={2} items={[
     ['@value','number', 'The current state of the clamped value'],
-    ['@setValue','Function', 'Set a new value, will be rejected if any type other than number and clamped within the provided range'],
-    ['@reset','Function','Reset the internal state to the initial values',],
+    ['@setValue','SetStateAction', 'Set a new value, will be rejected if any type other than number and clamped within the provided range'],
+    ['@reset','() => void','Reset the internal state to the initial values',],
 ]}/>
 
 
@@ -149,9 +150,10 @@ export interface I_UseClampReturn { // example
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Hook Methods
@@ -201,27 +203,26 @@ arr.reset()  // [1, 2, 3]
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Internal
 
-This hook internally uses the `useState` hook to store the array and provides 
-a wrapper around common array modification methods. 
-
-Methods in `useStateArray` do not provide access to the current state for callback 
-functions.
+This hook manually performs array manipulation and sets the related state values to provide
+a better interface to non-destructive array methods.
 
 <RelatedTable hooks={[
     'useState',
 ]}/>
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Related Hooks

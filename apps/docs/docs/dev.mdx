@@ -1,3 +1,6 @@
+---
+hide_title: true
+---
 import {version} from 'react'
 import StatusBadge from '@site/src/components/StatusBadge'
 import ClientBadge from '@site/src/components/ClientBadge'
@@ -5,7 +8,10 @@ import Button from '@site/src/components/Button'
 import { Card, HeadlessTable, MainText, IntroList, HooksByTags, RandomHookButton, HookWheel } from '/src/components/'
 
 
-# Development Status
+<div style={{ display: 'flex', alignItems:'center', marginBottom: '1rem' }}>
+    <h1 style={{ margin: 0, marginRight: '1rem' }}>Development Status</h1>
+    <div className='badge'>beta</div>
+</div>
 
 The hooks npm package `@pratiq/hooks`, the docusaurus app `@pratiq/docs` and common utils `@pratiq/utils`
 are all under active development within the new monorepo. Check the hook page within the documentation 
@@ -18,14 +24,15 @@ site to view its development status
 </div>
 
 
+
+
+
+
 ## Status Badges
 
-
-
-### Active Development
-
 This project is currently in development. Each hook documentation page displays its status and 
-information about its development status in a badge like:
+information about its development status in a badge. These badges will be removed once a hook is 
+well tested, fully documented and ready for production.
 
 <StatusBadge status={0} />
 <StatusBadge status={1} />
@@ -33,17 +40,20 @@ information about its development status in a badge like:
 <StatusBadge status={3} />
 <StatusBadge status={4} />
 
-These badges will be removed once a hook is well tested, fully documented and ready for production.
 
 
-### Server Side Rendering
+
+
+
+
+## Server Side Rendering
 
 Most hooks are targeted towards front-end development, with a focus on client-side rendering while 
 attempting to maintain full compatibility with server-side rendering.
 Some hooks have dependancies to global variables that are only available in the browser.
 These hooks will have the CSR badge:
 
-<ClientBadge />
-
 Hooks that return **components in CSR** will return *null in SRR*.  
 Hooks that return **data in CSR** will return *initial or default values of the hook in SSR*.
+
+<ClientBadge />

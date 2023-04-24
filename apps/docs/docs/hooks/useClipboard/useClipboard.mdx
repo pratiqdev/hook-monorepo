@@ -4,18 +4,17 @@ description: Copy and paste using the clients clipboard
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useClipboard'
 
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
 # 
 
-<Card>
 <MainText>
 <h1>useClipboard</h1>
 Copy and paste using the clients clipboard
 </MainText>
-</Card>
+
+
 
 <!--meta-section-break-->
 
@@ -26,30 +25,48 @@ Copy and paste using the clients clipboard
 
 <Tabs>
 
+
+
 <TabItem value='simple' label='Simple'>
 
-```js 
-import { useClipboard } from '@pratiq/hooks'
+```tsx live
+function Clipboard() {
+    const { copy, value } = useClipboard()
 
-const [copy, value] = useClipboard()
-
-<button onClick={() => copy('Hello!')}>Hello!</button>
+    return (
+        <div style={{display: 'flex', gap: '.5rem'}}>
+            <button onClick={() => copy('Some Text')}>Copy: "Some Text"</button>
+            <button onClick={() => copy('Other Text')}>Copy: "Other Text"</button>
+            <button onClick={() => copy('')}>Value: "{value}" (click to reset)</p>
+        </>
+    )
+}
 ```
 
 </TabItem>
 
-<TabItem value='advanced' label='Advanced'>
+<TabItem value='adv' label='Advanced'>
 
-```js
-import { useClipboard } from '@pratiq/hooks'
+```tsx live
+function Clipboard() {
+    const { value, copy, success, flash } = useClipboard('0x7D0f6e59f1d82D623A2830E8725cDcC9f66926b5')
 
-const [copy, value, success] = useClipboard()
-
-{success && <p>Copied: {value}</p>}
-{items.map(item => <button onClick={() => copy(item)}>{item}</button> )}
+    return (
+        <button 
+            onClick={() => copy('0x7D0f6e59f1d82D623A2830E8725cDcC9f66926b5')}
+            style={{
+                background: success ? '#0f02' : '#4444',
+                border: flash ? '3px solid #0f0' : '3px solid transparent',
+            }}
+        >
+            0x7D0f6e59f1d82D623A2830E8725cDcC9f66926b5
+        </button>
+    )
+}
 ```
 
 </TabItem>
+
 </Tabs>
 
 
@@ -57,29 +74,28 @@ const [copy, value, success] = useClipboard()
 
 
 
-<!--=========================================================================-->
 
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
 
-## Demo
-
-<DemoComponent />
-
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
 
 ## API 
 
-Values used for initial state and internal settings are provided as a config
-object 
+### Interfaces
+```ts
+export interface I_UseClipboardReturn {
+    value: string;
+    copy: Function;
+    success: boolean;
+    flash: boolean;
+    reset: Function;
+}
 
+const useClipboard = () => I_UseClipboardReturn 
+```
 
 ### Config Example
 
@@ -99,25 +115,15 @@ const { copy, value, success, reset } = useClipboard()
 ]}/>
 
 
-### Interfaces
-```ts
-export interface I_UseClipboardReturn {
-    copy: Function;
-    value: string;
-    success: boolean;
-    reset: Function;
-}
-```
 
 
 
 
 
 
-
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
 
 
 ## Hook Methods
@@ -131,23 +137,74 @@ Copy the text argument to the clients clipboard
 (text:string) => void 
 ```
 ```ts
-const clip = useClipboard()
+const { copy } = useClipboard()
 
-clip.copy('Some text to copy')
+copy('Some text to copy')
 ```
 </Card>
+
+
 <Card>
 
-### reset
-Reset internal state to initial values
+### value
+The current value copied to the clipboard
 
 ```ts
 () => void 
 ```
 ```ts
-const clip = useClipboard()
+const { value } = useClipboard()
 
-clip.reset()
+console.log(value)
+```
+
+</Card>
+
+<Card>
+
+### success
+True if the value was sucesfully copied to the clipboard
+
+```ts
+() => void 
+```
+```ts
+const { success } = useClipboard()
+
+console.log(success ? 'copied!' : 'not?')
+```
+
+</Card>
+
+<Card>
+
+### flash
+True if the value was sucesfully copied to the clipboard, and automatically reset to `false` after
+1 second
+
+```ts
+() => void 
+```
+```ts
+const { flash } = useClipboard()
+
+<button style={{color: flash ? 'green' : 'grey'}}>Copy!</button>
+```
+
+</Card>
+
+<Card>
+
+### reset
+Empty the clipboard by setting an empty string.
+
+```ts
+() => void 
+```
+```ts
+const { flash } = useClipboard()
+
+<button style={{color: flash ? 'green' : 'grey'}}>Copy!</button>
 ```
 
 </Card>
@@ -156,22 +213,24 @@ clip.reset()
 
 
 
-
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
 
 
 ## Internal
 
-This hook internally uses the `useState` hook to store the current value of the clipboard
-and success state.
+<StatusBadge status={0} />
+
+This hook retrieves the value from the clipboard, by the provided key, and sets the internal state of the 
+`cookie` value, or the `defaultValue` if provided. The `setCookie` function sets the value of the
+browser cookie, then uses the current value of the browser cookie to update the internal state.
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
 
 
 ## Related Hooks

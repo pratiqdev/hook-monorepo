@@ -8,16 +8,13 @@ import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge }
 
 # 
 
-<Card className="fade_card">
 <MainText>
 <h1>useClamp</h1>
 Clamp numerical values within the provided range
 </MainText>
-</Card>
 
 <!--meta-section-break-->
 
-<StatusBadge status={1} />
 
 ## Usage
 
@@ -90,10 +87,10 @@ function ClampedCounter(props) {
 
 
 
+<br />
+<hr />
 
 <!--=========================================================================-->
-
-<hr />
 
 ## API 
 
@@ -146,10 +143,10 @@ const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
 
+<!--=========================================================================-->
 
 ## Hook Methods
 
@@ -199,12 +196,15 @@ reset()  // [1, 2, 3]
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
 
+<!--=========================================================================-->
 
 ## Internal
+
+<StatusBadge status={1} />
+
 
 This hook internally uses the `useState` hook to store the array and provides 
 a wrapper around common array modification methods. 
@@ -216,10 +216,10 @@ functions.
     'useState',
 ]}/>
 
+<br />
+<hr />
 
 <!--=========================================================================-->
-
-<hr />
 
 
 ## Related Hooks

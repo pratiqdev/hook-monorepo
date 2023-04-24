@@ -3,19 +3,7 @@ import isBrowser from '../utils/isBrowser'
 import extend from '../utils/logger'
 const log = extend('local_useCookie')
 
-/**
-* useClipboard()
-* ---
-* 
-* useState that returns if CSS prop/value is valid
-* 
-* @param {string} cssProp - the prop used to validate the value
-* @param {string} cssString - the prop used to validate the value
-* @returns A stateful value and true if valid
-
-* @example
-* 
-*/
+/** ADD JSDOC */
 
 const useCookie = (key: string, initialValue?: string) => {
     const empty = [

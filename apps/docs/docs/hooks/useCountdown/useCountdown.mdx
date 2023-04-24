@@ -1,21 +1,19 @@
 ---
 title: useCountdown
 description: Run a countdown timer with state and optional callbacks 
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import DemoComponent from './demo_useCountdown'
 
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
-# 
 
-<Card>
 <MainText>
 <h1>useCountdown</h1>
 Run a countdown timer with state and optional callbacks 
 </MainText>
-</Card>
 
 <!--meta-section-break-->
 
@@ -28,73 +26,70 @@ Run a countdown timer with state and optional callbacks
 
 <TabItem value='simple' label='Simple'>
 
-```js 
-const { time, start, stop } = useCountdown({ duration: 10_000 })
+```tsx live
+function FinalCountdown() {
+    const { time, start, stop } = useCountdown({ duration: 10_000 })
 
-<p>{time.realSeconds}</p>
+    return (
+        <span>
+            <button disabled>{time.realSeconds}</button>
 
-<button onClick={start}>Start</button>
-<button onClick={stop}>Stop</button>
-```
-
-</TabItem>
-
-<TabItem value='advanced' label='Advanced'>
-
-```js
-const { 
-    time,                    
-    done,                        
-    start,                     
-    stop,                             
-    reset,                               
-} = useCountdown({
-    duration: 10_000,           
-    interval: 10,              
-})
-
-<p>{time.realSeconds}</p>
-
-<button onClick={start}>Start</button>
-<button onClick={stop}>Stop</button>
-```
-
-</TabItem>
-
-<TabItem value='full' label='Full'>
-
-```js
-const [log, setLog] = useState('no-log')
-const { 
-    time,                    
-    done,                        
-    running,                    
-    started,                     
-    start,                     
-    stop,                             
-    reset,                               
-} = useCountdown({
-    duration: 10_000,           
-    interval: 10,              
-    callbacks: {                     
-        'start':() => setLog('started'),
-        'end':  () => setLog('over'),  
-        7000:   () => setLog('7000ms'),
-        3000:   () => setLog('3000ms'),
-    },
-})
-
-<p>{running ? 'Running' : 'Stopped'}</p>
-{done
-    ? <p>Done</p>
-    : <p>{time.hours}:{time.minutes}:{time.seconds}</p>
+            <button onClick={start} style={{background: '#6f66'}}>Start</button>
+            <button onClick={stop} style={{background: '#f666'}}>Stop</button>
+        </span>
+    )
 }
+```
 
-<p>{log}</p>
+</TabItem>
 
-<button onClick={start}>Start</button>
-<button onClick={stop}>Stop</button>
-<button onClick={reset}>Stop</button>
+
+
+<TabItem value='adv' label='Advanced'>
+
+```tsx live
+function FinalCountdown() {
+    const [log, setLog] = useState('no-log')
+    const { 
+        time,                    
+        done,                        
+        running,                    
+        started,                     
+        start,                     
+        stop,                             
+        reset,                               
+    } = useCountdown({
+        duration: 10_000,           
+        interval: 10,              
+        callbacks: {                     
+            'start':() => setLog('10_000ms => started'),
+            'end':  () => setLog('0ms      => over'),  
+            9000:   () => setLog('9_000ms  => watch `time.seconds` VS `time.realSeconds`'),
+            4000:   () => setLog('4_000ms'),
+            3000:   () => setLog('3_000ms'),
+            2000:   () => setLog('2_000ms'),
+            1000:   () => setLog('1_000ms'),
+        },
+    })
+
+    return (
+        <>
+            <p>{running ? 'Running' : 'Stopped'}</p>
+            {done
+                ? <p>Done</p>
+                : <p>{time.hours}:{time.minutes}:{time.seconds}</p>
+            }
+
+            <p>{log}</p>
+            <p>Seconds: {time.seconds}</p>
+            <p>realSeconds: {time.realSeconds}</p>
+
+            <button onClick={start}>Start</button>
+            <button onClick={stop}>Stop</button>
+            <button onClick={reset}>Reset</button>
+        </>
+    )
+}
 ```
 
 </TabItem>
@@ -106,33 +101,53 @@ const {
 
 
 
-<!--=========================================================================-->
 
+
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
 
-## Demo
-
-<DemoComponent />
-
-
-
-
-
-
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
 
 ## API 
 
-Values used for initial state and internal settings are provided as a config
-object 
+
+### Interfaces
+
+```ts
+export interface I_UseCountdownConfig {     //  example
+  duration?: number;                        //  10_000
+  interval?: number;                        //  100
+  callbacks?: { [key: string]: Function };  //  { 5000: () => fn() }
+}
+
+export interface I_CountdownTimeObject {
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    realSeconds: number;
+    milliseconds: number;
+    total: number;
+}
+
+export interface I_UseCountdownReturn{
+    time: I_CountdownTimeObject;
+    start: Function;
+    stop: Function;
+    reset: Function;
+    done: boolean;
+    started: boolean;
+    running: boolean;
+    interval: number;
+    duration: number;
+};
+
+const useCountdown = (config: I_UseCountdownConfig = { duration: 10_000 }): I_UseCountdownReturn
+```
+
+
 
 
 ### Config Example
@@ -156,58 +171,30 @@ const timer = useCountdown({
 
 <HeadlessTable code={3} items={[
     ['@time','', 'Object','An object containing the current time in different intervals'],
-    ['','@days','number',''],
-    ['','@hours','number',''],
-    ['','@minutes','number',''],
-    ['','@seconds','number',''],
-    ['','@realSeconds','number',''],
-    ['','@milliseconds','number',''],
-    ['','@total','number',''],
-    ['@done','','boolean',''],
-    ['@running','','boolean',''],
-    ['@started','','boolean',''],
-    ['@start','','Function',''],
-    ['@stop','','Function',''],
-    ['@reset','','Function',''],
-    ['@interval','','number',''],
-    ['@duration','','number',''],
+    ['','@days','number','The remainder of days'],
+    ['','@hours','number','The remainder of hours after the overflow of days'],
+    ['','@minutes','number','The remainder of minutes after the overflow of hours'],
+    ['','@seconds','number','The remainder of seconds after the overflow of minutes'],
+    ['','@realSeconds','number','The remainder of milliseconds after the overflow of seconds'],
+    ['','@milliseconds','number','The intuitive count of seconds remaining'],
+    ['','@total','number','The total number of milliseconds'],
+    ['@done','','boolean','True if the timer is finished (time.total === 0)'],
+    ['@running','','boolean','True if the timer is currently running'],
+    ['@started','','boolean','True if the timer has been started'],
+    ['@start','','Function','Start or resume the timer'],
+    ['@stop','','Function','Stop or pause the timer'],
+    ['@reset','','Function','Stops the timer and resets to the initial time'],
+    ['@interval','','number','The interval, in ms, used to refresh the timer'],
+    ['@duration','','number','The duration, in ms, that the timer will run'],
 ]}/>
 
+:::note What are Real Seconds?
+The value provided at `timer.time.realSeconds` is the intuitive count of seconds remaining.
 
-
-
-
-### Interfaces
-
-```ts
-export interface I_UseCountdownConfig {        // example
-  duration?: number;                        // 10_000
-  interval?: number;                        // 100
-  callbacks?: { [key: string]: Function };  // { 5000: () => fn() }
-}
-
-export interface I_CountdownTimeObject {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-    realSeconds: number;
-    milliseconds: number;
-    total: number;
-}
-
-export interface I_UseCountdownReturn{
-    time: <I_CountdownTimeObject>;
-    start: Function;
-    stop: Function;
-    reset: Function;
-    done: boolean;
-    started: boolean;
-    running: boolean;
-    interval: number;
-    duration: number;
-  };
-```
+Imagine shouting "3, 2, 1, GO!" where 1 represents 1 second remaining.  
+`time.realSeconds` shows `1` until the timer actually hits `0` (zero milliseconds).  
+`time.seconds` would show `0` because there is 1000ms or less remaining (can be fully represented as milliseconds)  
+:::
 
 
 
@@ -219,9 +206,10 @@ export interface I_UseCountdownReturn{
 
 
 
-<!--=========================================================================-->
 
+<br />
 <hr />
+{/* ============================================================================ */}
 
 
 ## Hook Methods
@@ -279,14 +267,20 @@ timer.reset()
 
 
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Internal
 
-This hook internally uses the `useState`, `useEffect`, `useRef` and `useMemo` hook to .....
+<StatusBadge status={1} />
+
+This hook uses a polling method to repeatedly calculate the elapsed time of the timer by subtracting 
+the start-time from the current-time at the provided interval. Any callbacks provided will be invoked 
+when their key is less than or equal to the current time during each refresh interval. It provides many
+status values to monitor the state of the countdown timer. 
 
 <RelatedTable hooks={[
     'useState',
@@ -295,9 +289,10 @@ This hook internally uses the `useState`, `useEffect`, `useRef` and `useMemo` ho
     'useMemo'
 ]}/>
 
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Related Hooks

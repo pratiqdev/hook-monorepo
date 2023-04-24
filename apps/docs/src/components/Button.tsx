@@ -4,7 +4,7 @@ import Link from '@docusaurus/Link'
 const Button = (props:any) => {
     if(props.href){
         return (
-            <Link href={props.href} {...props.style}>
+            <Link href={props.href}>
                 <button className='standard-button' {...props.style}>
                     {props.children}
                 </button>
@@ -12,7 +12,7 @@ const Button = (props:any) => {
         )
     }
     return (
-        <button  className='standard-button' {...props.style}>
+        <button  className='standard-button' {...props}>
             {props.children}
         </button>
     )

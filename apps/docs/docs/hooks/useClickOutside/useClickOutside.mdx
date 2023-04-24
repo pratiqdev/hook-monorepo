@@ -4,84 +4,58 @@ description: Listen for click events outside the boundary of an element
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useClickOutside'
 
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
 # 
 
-<Card>
 <MainText>
 <h1>useClickOutside</h1>
 Listen for click events outside the boundary of an element
 </MainText>
-</Card>
 
 <!--meta-section-break-->
 
 
-<StatusBadge status={0} />
+
 
 
 
 ## Usage
 
+
+
 <Tabs>
 
-<TabItem value='simple' label='Simple'>
+<TabItem value='sim' label="Simple">
 
-```tsx
-import { useClickOutside } from '@pratiq/hooks'
+```tsx live 
+function ClickOutside() {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const clickOut = useClickOutside(() => setIsOpen(false) )
 
-const ref = useClickOutside(()=>{
-    // callback invoked on click outside event
-})
+    return (
+        <>
+            <button ref={clickOut} onClick={()=> setIsOpen(true)}>
+                Menu ({isOpen ? 'open' : 'closed'})
+            </button>
 
-<p ref={ref}>Click Here! (or not)</p>
-```
-
-</TabItem>
-
-<TabItem value='advanced' label='Advanced'>
-
-```tsx 
-import { useClickOutside } from '@pratiq/hooks'
-
-const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-const ref = useClickOutside(()=>{
-    setIsMenuOpen(false)
-})
-
-<button onClick={()=> setIsMenuOpen(true)}>Open Menu</button>
-<div id='menu' ref={ref}></div>
-```
+            {isOpen &&
+                <div ref={clickOut} >
+                    <Button onClick={() => setIsOpen(false)}>Close</Button>
+                    <Button>Menu Option 1</Button>
+                    <Button>Menu Option 2</Button>
+                    <Button>Menu Option 3</Button>
+                </div>
+            }
+        </>
+    )
+}
+``` 
 
 </TabItem>
 
-<TabItem value='full' label='Full'>
 
-```tsx 
-import { useClickOutside } from '@pratiq/hooks'
-
-const [isMenuOpen, setIsMenuOpen] = useState(false)
-const customRef = useRef(null)
-
-useClickOutside(()=>{
-    setIsMenuOpen(false)
-}, customRef)
-
-<button onClick={()=> setIsMenuOpen(true)}>Open Menu</button>
-
-<div id='menu' ref={customRef}>
-    <a href='#'>Link</a>
-    <a href='#'>Link</a>
-    <a href='#'>Link</a>
-</div>
-
-```
-
-</TabItem>
 </Tabs>
 
 
@@ -93,39 +67,13 @@ useClickOutside(()=>{
 
 
 
-<!--=========================================================================-->
 
+<br />
 <hr />
 
-## Demo
-
-<DemoComponent />
-
-
-
-
-
-
-
-
-
-
-
 <!--=========================================================================-->
-
-<hr />
 
 ## API 
-
-
-### Config Example
-
-```ts
-const myRef = useRef(null)
-cosnt clickOut = useClickOutside(() => {}, myRef)
-```
-
-
 
 
 ### Interfaces
@@ -135,9 +83,33 @@ type T_UseClickOutside = (callback: (e:React.MouseEvent) => void) => (el:any) =>
 ```
 
 
+
+### Config Example
+
+```ts
+const clickOut = useClickOutside((e) => { })
+```
+
+
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@clickOut','Function', 'A function that registers a react ref on the current element'],
+]}/>
+
+
+
+
+
+
+
+<br />
+<hr />
+
 <!--=========================================================================-->
 
-<hr />
 
 
 ## Hook Methods
@@ -145,13 +117,14 @@ type T_UseClickOutside = (callback: (e:React.MouseEvent) => void) => (el:any) =>
 <Card>
 
 ### clickOut
-Register a react ref on an element using the ref prop
+Register a react ref on any number of elements using the `ref` prop. Any elements without the `clickOut`
+ref will trigger the callback.
 
 ```ts
 () => void 
 ```
 ```tsx
-cosnt clickOut = useClickOutside(() => {}, myRef)
+cosnt clickOut = useClickOutside((e) => { })
 
 <div ref={clickOut}>Click outside of this div...</div>
 <div ref={clickOut}>...or this one!</div>
@@ -159,12 +132,18 @@ cosnt clickOut = useClickOutside(() => {}, myRef)
 
 </Card>
 
+
+
+<br />
+<hr />
+
 <!--=========================================================================-->
 
-<hr />
 
 
 ## Internal
+
+<StatusBadge status={0} />
 
 Registers an event listener on the provided ref, or creates a new ref to attach 
 listeners to.
@@ -172,9 +151,12 @@ listeners to.
 
 
 
+
+<br />
+<hr />
+
 <!--=========================================================================-->
 
-<hr />
 
 
 ## Related Hooks
