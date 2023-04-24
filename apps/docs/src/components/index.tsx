@@ -17,6 +17,7 @@ import HookWheel from './HookWheel'
 import Icons from './Icons'
 import StatusBadge from './StatusBadge'
 import ClientBadge from './ClientBadge'
+import Button from './Button'
 
 export {
     Card,
@@ -37,5 +38,6 @@ export {
     HookWheel,
     Icons,
     StatusBadge,
-    ClientBadge
+    ClientBadge,
+    Button
 }

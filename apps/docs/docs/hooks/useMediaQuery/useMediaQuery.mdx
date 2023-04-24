@@ -10,7 +10,7 @@ import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/component
 
 # 
 
-<Card>
+<Card className='fade_card'>
 <MainText>
 <h1>useMediaQuery</h1>
 Register multiple media queries for handling complex layouts.
@@ -42,6 +42,50 @@ const isMobile = useMediaQuery('max-width: 900px')
 ## Demo
 
 <DemoComponent />
+
+
+
+
+
+
+
+
+
+
+<!-- ======================================================================= -->
+<hr />
+
+## Typical Use Cases
+
+To create consistent breakpoints and responsive styles, as well as reduce repetition and
+improve performance - define a set of media queries in an external file, then import where needed.
+
+
+
+```jsx title='my-code'
+import { useMediaQuery } from "@pratiq/hooks";
+
+const mq = () => useMediaQuery({
+    'sm': '(max-width: 1000px)',
+    'md': '(min-width: 1001px) and (max-width: 1200px)',
+    'lg': '(min-width: 1201px) and (max-width: 1400px)',
+    'xl': '(min-width: 1401px)',
+})
+
+export default mq
+```
+
+```jsx
+import mq from './my-media-query'
+
+
+```
+
+
+
+
+
+
 
 
 

@@ -13,6 +13,7 @@
 - useStateToggle
 - useUpdateEffect
 - useValidCss
+- useCssVariables
 - useVibration
 
 ## Possible Hooks

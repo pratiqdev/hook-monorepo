@@ -63,8 +63,8 @@ const config = {
       navbar: {
         // title: '@pratiq/hooks',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/mj-hook.png'
+          alt: '@pratiq/hooks',
+          src: 'img/logo.svg'
         },
         items: [
           {
