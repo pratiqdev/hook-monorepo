@@ -28,6 +28,7 @@ import useStateWithValidation from './hooks/useStateWithValidation'
 import useTemperature from './hooks/useTemperature'
 import useWindow from './hooks/useWindow'
 import useStorage, { useSessionStorage, useLocalStorage } from './hooks/useStorage'
+import useUpdateEffect from './hooks/useUpdateEffect'
 
 export {
     useAsync,
@@ -62,5 +63,7 @@ export {
 
     useStorage,
     useLocalStorage,
-    useSessionStorage
+    useSessionStorage,
+
+    useUpdateEffect
 }

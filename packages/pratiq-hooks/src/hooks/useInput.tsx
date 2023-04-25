@@ -1,6 +1,7 @@
 import React, {useMemo, useState, useCallback, useEffect, useRef, CSSProperties } from 'react'
 import extend from '../utils/logger'
 import isBrowser from '../utils/isBrowser'
+import useUpdateEffect from './useUpdateEffect';
 
 // const log = extend('local_useInput')
 const log = console.log
@@ -62,6 +63,8 @@ export type T_UseInputReturn = {
 };
 
 export type T_UseInputConfig = {
+
+    reset?: any;
     /** The type of HTML input element to render. */
     type?: string;
 
@@ -253,6 +256,7 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
         onHover: config.onHover                     ?? null,
         onFocus: config.onFocus                     ?? null,
         onBlur: config.onBlur                       ?? null,
+        reset: config.reset                         ?? [],
     }), [config])
 
     //+ ///////////////////////////////////////////////////////////////// STATE
@@ -315,6 +319,7 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
 
 
     const handleReset = () => {
+        // shouldUpdate.current = true
         log('handleReset')
         setIsValid(settings.validOnDefault)
         setIsEmpty(value?.toString().length === 0)
@@ -348,6 +353,10 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
 
 
     const getStorage = () => {
+        if(!shouldLoadStorage.current){
+            log('getStorage cancelled by: shouldLoadStorage.current = false')
+            return
+        }
         log('getStorage')
         if(!settings.storageObject || !settings.storageKey) return null;
         const found = settings.storageObject.getItem(settings.storageKey)
@@ -452,6 +461,8 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
 
 
     }, [isHovered, isFocused, isValid, isEmpty, isActive, wasValidated, value])
+
+    const shouldLoadStorage = useRef(true)
     
 
     
@@ -478,6 +489,19 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
         
         initRef.current = true
     },[value, settings.validateOnChange, settings.saveOnChange])
+
+
+    useUpdateEffect(() => {
+        shouldLoadStorage.current = false
+        log('handleReset')
+        setIsValid(settings.validOnDefault)
+        setIsEmpty(value?.toString().length === 0)
+        setValue('')
+        setWasValidated(false)
+        setInvalidMessage('')
+        removeStorage()
+        initRef.current = false
+    }, [config.reset])
 
 
 

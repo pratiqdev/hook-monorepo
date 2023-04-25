@@ -1,3 +1,7 @@
+---
+hide_title: true
+---
+
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
@@ -6,29 +10,69 @@ import ExampleCode from './code.ts'
 
 import { Card, MainText, RelatedTable } from '/src/components'
 
-# Form
-
+<MainText>
+<h1>Form</h1>
 An example of creating a simple form
-
-
-## Hooks Used
+</MainText>
 
 <RelatedTable hooks={['useInput', 'useCountdown']} />
 
 
-<hr/>
+```tsx live noInline
+function LabelInput ({ binder }) {
 
-## Example
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <label htmlFor={binder.name}>
+                {binder.name}
+            </label>
+            <input id={binder.name} {...binder} />
+            <small style={{ color: '#a00'}}>
+                {invalidMessage}&nbsp;
+            </small>
+            <button onClick={reset}>Reset</button>
+        </div>
+    )
+}
+function LongForm() {
 
-<ExampleComponent />
+    const [trig, setTrig] = useState(false)
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
+
+
+    const input = useInput({ 
+        value: 'abcd',
+        reset: trig,
+        name: 'Username',
+        storageKey: 'LONG_FORM_USERNAME',
+        saveOnChange: false,
+        validator: /^[a-z0-9]*$/,
+        validateOnChange: true,
+        invalidMessage: 'Only lowercase letters and numbers allowed...'
+    })
+
+    return (
+        <form onSubmit={handleSubmit}>
+
+
+            <button type='reset' onClick={input.reset}>RESET</button>
+
+            <input {...input.bind} />
+
+            <LabelInput input={input}>
 
 
 
 
-<hr/>
 
-## Code
+  
+        </form>
+    )
+}
 
-<CodeBlock language='tsx'>
-{ExampleCode}
-</CodeBlock>
+render()
+```

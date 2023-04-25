@@ -21,4 +21,5 @@ const ReactLiveScope = {
   styles,
   ...components
 };
+
 export default ReactLiveScope;

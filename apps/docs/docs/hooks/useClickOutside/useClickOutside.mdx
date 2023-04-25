@@ -40,6 +40,7 @@ function ClickOutside() {
                 Menu ({isOpen ? 'open' : 'closed'})
             </button>
 
+
             {isOpen &&
                 <div ref={clickOut} >
                     <Button onClick={() => setIsOpen(false)}>Close</Button>
