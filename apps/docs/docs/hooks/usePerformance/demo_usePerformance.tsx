@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 // import { useInput } from '@pratiq/hooks'
 import CodeBlock from '@theme/CodeBlock'
 import { usePerformance } from '@pratiq/hooks'
@@ -16,28 +16,38 @@ const DemoComponent = (props:any) => {
     })
 
     const [last, setLast] = useState<any>({})
+    const toRef = useRef(null)
 
     const loopt = ()=> {
+        clearTimeout(toRef.current)
         perf.tick()
-        setTimeout(()=>{
+        toRef.current = setTimeout(()=>{
             loopt()
-        }, 500)
+        }, Math.random() * 100)
     }
+   
+    const handleReset = () => {
+        perf.reset()
+        clearTimeout(toRef.current)
+    }
+
+    const findLast = useCallback(() => {
+        setLast(() => perf.data.pop())
+    },[perf])
+
+    
 
     
     useEffect(()=>{
-        console.log('last:', perf.totalTicks < 100 ? perf.totalTicks : 100)
-        setLast(perf.data[perf.totalTicks <= 100 ? perf.totalTicks : 100])
+        findLast()
+        // console.log('last:', perf.totalTicks < 100 ? perf.totalTicks : 100)
+        // setLast(perf.data[perf.totalTicks <= 100 ? perf.totalTicks : 100])
     },[perf.totalTicks])
     
 
     
 
 
-    const demoCode = 
-`
-${JSON.stringify(last, null, 2)}
-`
  
 
 
@@ -46,7 +56,7 @@ ${JSON.stringify(last, null, 2)}
 
             <button onClick={() => loopt()}>Loop</button>
             <button onClick={() => perf.tick()}>Tick</button>
-            <button onClick={() => perf.reset()}>Reset</button>
+            <button onClick={handleReset}>Reset</button>
 
             {/* <div style={{paddingBottom: '1rem', display: 'flex', flexDirection: 'column'}}>
                 <p>{db.loading ? 'Loading...' : db.error ? error.toString() : (!db.value) ? 'null-value' : JSON.stringify(db.value)}</p>
@@ -70,7 +80,8 @@ ${JSON.stringify(last, null, 2)}
                 ['@rollingTotalTime',perf.rollingTotalTime],
             ]}/>
 
-            <CodeBlock language='ts' className='demo-display' >{demoCode}</CodeBlock>
+            <CodeBlock language='ts' className='demo-display' >{JSON.stringify(perf.data, null, 2)}</CodeBlock>
+            <CodeBlock language='ts' className='demo-display' >{JSON.stringify(perf, null, 2)}</CodeBlock>
         </Layout>
     )
 }

@@ -45,6 +45,7 @@ const usePerformance = (config: I_PerfConfig) => {
     const tNow = useRef(0)
     const tpsTimeoutRef = useRef<any>(0)
     const initRef = useRef<any>(false)
+    const shouldTickRef = useRef<any>(false)
 
     let delta = useRef(0)
 
@@ -99,22 +100,26 @@ const usePerformance = (config: I_PerfConfig) => {
         // console.log('tNow:', tNow.current)
         if(!data.current.length){
             // console.log('>> empty data array, pushing( time: now , delta: 0)')
-            data.current.push({
+            data.current = [{
                 timeStamp: tNow.current,
                 delta: 0,
-            })
+            }]
+            console.log('first data:', data.current)
             // setInternalTrigger(b=>!b)
         }
         else{
             // console.log('>> one data entry, pushing( time: now , delta: realDelta)')
 
             delta.current = tNow.current - data.current[data.current.length - 1].timeStamp
-            data.current.push({
+            data.current = [...data.current, {
                 timeStamp: tNow.current,
                 delta: delta.current
-            })
+            }]
+            console.log('new data:', data.current)
+
+
             if(data.current.length > settings.capacity){
-                data.current.shift()
+                data.current = [...data.current.shift()]
             }
             // console.log('delta:', delta.current)
             last.current = settings.float 
@@ -176,18 +181,24 @@ const usePerformance = (config: I_PerfConfig) => {
         min.current = 0
         max.current = 0
         ticksPerSecond.current = 0
+        setInternalTrigger((b:boolean) => !b)
     }
 
 
-
+    const lastTriggerRef = useRef(false)
 
     useEffect(()=>{
-        if(initRef.current){
-            totalTicks.current ++
-            tick()
-        }else{
+        if(!initRef.current){
             initRef.current = true
+            return
         }
+
+        totalTicks.current ++
+        console.log('was triggered?')
+        tick()
+      
+
+            
     }, [trigger, tick])
 
 
@@ -203,7 +214,8 @@ const usePerformance = (config: I_PerfConfig) => {
         rollingTotalTime: rollingTotalTime.current,
         min: min.current,
         max: max.current,
-        last: last.current
+        last: last.current,
+        trigger
     }
 }
 

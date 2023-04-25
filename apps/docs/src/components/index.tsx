@@ -18,6 +18,7 @@ import Icons from './Icons'
 import StatusBadge from './StatusBadge'
 import ClientBadge from './ClientBadge'
 import Button from './Button'
+import Contribute from './Contribute'
 
 export {
     Card,
@@ -39,5 +40,6 @@ export {
     Icons,
     StatusBadge,
     ClientBadge,
-    Button
+    Button,
+    Contribute,
 }

@@ -110,7 +110,7 @@ pre {
   padding: .5rem 1rem;
   font-size: 1rem;
   letter-spacing: .1rem;
-  background: #4464;
+  background: #23f8;
   border-radius: 100px;
   font-family: monospace
 }
@@ -1253,6 +1253,30 @@ th tr:hover, thead tr:hover{
 }
 
 
+.contribute {
+  padding: 2rem !important;
+  background: linear-gradient(
+    135deg, 
+    rgb(229, 229, 255),
+    rgb(158, 186, 255),
+    rgb(179, 200, 255),
+    rgb(129, 165, 255)
+  );
+  font-size: .8rem;
+  max-width: 30rem;
+  margin: 2rem auto;
+}
+
+.contribute h4, .contribute h3, .contribute a {
+  color: unset !important;
+  font-weight: bold;
+}
+
+.contribute a {
+  text-decoration: underline;
+}
+
+
 
 
 
@@ -1429,3 +1453,8 @@ pre {
   color: #8888;
   font-family: monospace;
 } */
+
+
+.main-text {
+  margin-bottom: 1rem !important;
+}

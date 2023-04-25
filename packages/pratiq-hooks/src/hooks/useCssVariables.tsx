@@ -8,13 +8,17 @@ import {useState, useCallback, useEffect} from 'react'
 
 
 
-const useCssVariables = (match: string = '--', element?: HTMLElement) => {
+const useCssVariables = (match: string = '--', element?: HTMLElement | React.RefObject<HTMLElement>) => {
     const [actual, setActual] = useState({})
 
     const update = useCallback(() => {
-        let el: HTMLElement
+        let el: any;
         if(element){
-            el = element
+            if('current' in element){
+                el = element.current
+            }else{
+                el = element
+            }
         }
         else{
             if(typeof document !== 'object' || !('documentElement' in document)) return [{}, () => {}]

@@ -1,9 +1,10 @@
 # @pratiq/hooks
 
+Collection of custom hooks for React.
+
 ![badge](https://img.shields.io/badge/npm-v1.1.0-red)
 ![badge](https://img.shields.io/badge/License-MIT-blue)
 
-Collection of custom hooks for React.
 
 
 

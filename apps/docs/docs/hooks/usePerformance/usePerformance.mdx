@@ -1,3 +1,6 @@
+---
+hide_title: true
+---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import DemoComponent from './demo_usePerformance'
@@ -5,11 +8,10 @@ import { Card, MainText, RelatedTable, HeadlessTable } from '/src/components'
 import { getHookDataByTitle } from '/utils/getHooks'
 const data = getHookDataByTitle('usePerformance')
 
-<Card>
 <MainText>
-{data.description}
+<h1>usePerformance</h1>
+Track the performance stats of rapid-fire events
 </MainText>
-</Card>
 
 
 <!--meta-section-break-->
