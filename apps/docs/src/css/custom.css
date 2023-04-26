@@ -939,6 +939,10 @@ a:hover{
   font-family: monospace;
 }
 
+.demo-preview pre {
+  margin-bottom: 0;
+}
+
 
 
 .status-badge {
