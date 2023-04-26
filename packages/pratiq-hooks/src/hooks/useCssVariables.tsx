@@ -17,8 +17,6 @@ export type T_UseCssVariablesReturn = [
     update: () => void
 ]
 
-export type UseCssVariables = (match?:string, element?: RefOrElement) => T_UseCssVariablesReturn
-
 
 /**
  * [@pratiq/hooks - useCssVariables](https://hooks.pratiq.dev/docs/hooks/useCssVariables)
@@ -56,7 +54,7 @@ export type UseCssVariables = (match?:string, element?: RefOrElement) => T_UseCs
  *      update: () => void
  * ]
  * 
- * export type UseCssVariables = (match?:string, element?: RefOrElement) => T_UseCssVariablesReturn
+ * useCssVariables(match: string = '', element?: RefOrElement): T_UseCssVariablesReturn
  * ```
  * ---
  * 
@@ -67,7 +65,7 @@ export type UseCssVariables = (match?:string, element?: RefOrElement) => T_UseCs
 
 
 
-const useCssVariables:UseCssVariables = (match: string = '', element?: RefOrElement) => {
+const useCssVariables = (match: string = '', element?: RefOrElement): T_UseCssVariablesReturn => {
     const [actual, setActual] = useState({})
 
     const update = useCallback(() => {

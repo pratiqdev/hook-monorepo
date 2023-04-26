@@ -1,20 +1,21 @@
 ---
 title: useClickOutside
 description: Listen for click events outside the boundary of an element
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
-# 
+
 
 <MainText>
 <h1>useClickOutside</h1>
 Listen for click events outside the boundary of an element
 </MainText>
 
-<!--meta-section-break-->
+
 
 <StatusBadge status={1} />
 
@@ -69,10 +70,10 @@ function ClickOutside() {
 
 
 
+
 <br />
 <hr />
-
-<!--=========================================================================-->
+{/* ============================================================================ */}
 
 ## API 
 
@@ -106,10 +107,10 @@ const clickOut = useClickOutside((e) => { })
 
 
 
+
 <br />
 <hr />
-
-<!--=========================================================================-->
+{/* ============================================================================ */}
 
 
 
@@ -135,10 +136,10 @@ cosnt clickOut = useClickOutside((e) => { })
 
 
 
+
 <br />
 <hr />
-
-<!--=========================================================================-->
+{/* ============================================================================ */}
 
 
 
@@ -146,17 +147,39 @@ cosnt clickOut = useClickOutside((e) => { })
 
 <StatusBadge status={0} />
 
-Registers an event listener on the provided ref, or creates a new ref to attach 
-listeners to.
+<small>
+The `useClickOutside` hook takes a `callback` function as input and returns a `clickOut` function. 
+The `clickOut` function is used to add an element to an array `refArr` of references to DOM elements 
+that should trigger the `callback` function if a click event occurs outside of them.
 
+The `handler` function is the function that is actually called when a click event occurs on the 
+`window`. It loops through each element in the `refArr` and checks if the event target is inside 
+any of them. If the event target is not inside any of the elements, then the `callback` function 
+is called.
+
+The `useEffect` hook adds an event listener to the `window` that listens for click events and 
+triggers the `handler` function. The `useEffect` hook also returns a function that removes the 
+event listener when the component is unmounted.
+
+The `isBrowser` function is a check to see if the code is running in a browser environment, and 
+if it is not, then the hook returns an empty function.
+
+Overall, the `useClickOutside` hook provides a way to detect when a click event occurs outside of 
+a specified set of DOM elements and trigger a callback function. The hook uses event listeners and 
+an array of references to the DOM elements to accomplish this.
+</small>
+
+
+<RelatedTable hooks={[
+  'useCallback', 'useEffect', 'useMemo', 'useRef' 
+]} />
 
 
 
 
 <br />
 <hr />
-
-<!--=========================================================================-->
+{/* ============================================================================ */}
 
 
 

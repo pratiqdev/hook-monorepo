@@ -78,6 +78,8 @@ export interface I_UseCountdownReturn {
  * 
  * @interface
  * ```
+ * useCountdown(config: I_UseCountdownConfig): I_UseCountdownReturn
+ * 
  * export interface I_UseCountdownConfig {   //  example
  *   duration?: number;                        //  10_000
  *   interval?: number;                        //  100

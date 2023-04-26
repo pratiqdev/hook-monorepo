@@ -3,7 +3,10 @@ import isBrowser from '../utils/isBrowser'
 import extend from '../utils/logger'
 const log = extend('local_useCookie')
 
-/** ADD JSDOC */
+/** 
+ * [@pratiq/hooks - useCookie](https://hooks.pratiq.dev/docs/hooks/useCookie)
+ * 
+ */
 
 const useCookie = (key: string, initialValue?: string) => {
     const empty = [

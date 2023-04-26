@@ -5,7 +5,6 @@ hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useCountdown'
 
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
@@ -116,6 +115,8 @@ function FinalCountdown() {
 ### Interfaces
 
 ```ts
+useCountdown(config: I_UseCountdownConfig): I_UseCountdownReturn
+
 export interface I_UseCountdownConfig {     //  example
   duration?: number;                        //  10_000
   interval?: number;                        //  100
@@ -143,8 +144,6 @@ export interface I_UseCountdownReturn{
     interval: number;
     duration: number;
 };
-
-const useCountdown = (config: I_UseCountdownConfig = { duration: 10_000 }): I_UseCountdownReturn
 ```
 
 

@@ -21,35 +21,37 @@ import { useState, useEffect } from 'react'
  * 
  * Countdown timer with controls and optional callbacks.
  * 
- * @param duration {number} - Duration of the countdown in milliseconds
- * @param interval {number} - Time in milliseconds between each timer refresh
- * @param callbacks {object}- An object containing callback functions
+ * @param
+ * | type | keys | description |
+ * |:--|:--|:--|
+ * | `number` | **duration** | The duration of the countdown in milliseconds
+ * | `number` | **interval** | The interval in milliseconds between each timer refresh
+ * | `object` | **callbacks** | An object containing callback functions
  *  
- * ---
  *  
  * @returns 
  * 
- * | keys | type | description |
+ * | type | keys | description |
  * |:--|:--|:--|
- * | time |  `Object` | An object containing the current time in different intervals
- * | time.total | `number` | The total number of milliseconds
- * | time.days | `number` |  The remainder of days
- * | time.hours | `number` |  The remainder of hours after the overflow of days
- * | time.minutes | `number` | The remainder of minutes after the overflow of hours
- * | time.seconds | `number` |  The remainder of seconds after the overflow of minutes
- * | time.milliseconds | `number` | The remainder of milliseconds after the overflow of seconds
- * | time.realSeconds | `number` | The intuitive count of seconds remaining
- * | done | `boolean` | True if the timer is finished (time.total === 0)
- * | running | `boolean` | True if the timer is currently running
- * | started | `boolean` | True if the timer has been started
- * | start | `()=>void` | Start or resume the timer
- * | stop | `()=>void` | Stop or pause the timer
- * | reset | `()=>void` | Stops the timer and resets to the initial time
- * | interval | `number` | The interval, in ms, used to refresh the timer
- * | duration | `number` | The duration, in ms, that the timer will run
+ * | `Object` | **time** | An object containing the current time in different intervals
+ * | `number` | **time.total** | The total number of milliseconds
+ * | `number` | **time.days** |   The remainder of days
+ * | `number` | **time.hours** |  The remainder of hours after the overflow of days
+ * | `number` | **time.minutes** | The remainder of minutes after the overflow of hours
+ * | `number` | **time.seconds** |  The remainder of seconds after the overflow of minutes
+ * | `number` | **time.milliseconds** | The remainder of milliseconds after the overflow of seconds
+ * | `number` | **time.realSeconds** | The intuitive count of seconds remaining
+ * | `boolean` | **done** |  True if the timer is finished (time.total === 0)
+ * | `boolean` | **running** | True if the timer is currently running
+ * | `boolean` | **started** | True if the timer has been started
+ * | `()=>void` | **start** | Start or resume the timer
+ * | `()=>void` | **stop** | Stop or pause the timer
+ * | `()=>void` | **reset** | Stops the timer and resets to the initial time
+ * | `number` | **interval** | The interval, in ms, used to refresh the timer
+ * | `number` | **duration** | The duration, in ms, that the timer will run
  * 
  * 
- * ---
+ * ___________________________________________
  * 
  * @interface
  * ```

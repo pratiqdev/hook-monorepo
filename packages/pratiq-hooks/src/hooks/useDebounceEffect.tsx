@@ -1,5 +1,6 @@
 import {useRef, useCallback, useEffect} from 'react'
 
+
 /**
  * useDebounce()
  * ---
@@ -17,7 +18,7 @@ import {useRef, useCallback, useEffect} from 'react'
  * useDebounce(myFunction, 1000, [count])
  */
 
-const useDebounceEffect = (callback: Function, dependencies: any[] = [], delay: number = 250, maxWait?: number) => {
+const useDebounceEffect = (callback: Function, dependencies: any[] = [], delay: number = 250, maxWait?: number):void => {
     const callbackRef = useRef<any>(callback)
     const timeoutRef = useRef<any>()
     const eventualRef = useRef<any>()

@@ -1,23 +1,20 @@
 ---
 title: useDebounceEffect
 description: Use effect with a debounced callback
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useDebounceEffect'
 
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
-# 
 
-<Card>
 <MainText>
 <h1>useDebounceEffect</h1>
 Use effect with a debounced callback
 </MainText>
-</Card>
 
-<!--meta-section-break-->
+
 
 
 
@@ -30,7 +27,7 @@ Use effect with a debounced callback
 
 ```js
 useDebounceEffect(()=>{
-    // calback invoked on any state change
+    // callback invoked on any state change
     // default debounce time is 250ms
 })
 ```
@@ -41,7 +38,7 @@ useDebounceEffect(()=>{
 
 ```js
 useDebounceEffect(()=>{
-    // calback invoked once on mount
+    // callback invoked once on mount
     // default debounce time is 250ms
 }, [])
 ```
@@ -53,7 +50,7 @@ useDebounceEffect(()=>{
 
 ```js
 useDebounceEffect(()=>{
-    // calback invoked once on mount
+    // callback invoked once on mount
     // and on dep change
     // debounce time is 1s
 }, [dep], 1000)
@@ -68,27 +65,25 @@ useDebounceEffect(()=>{
 
 
 
-<!--=========================================================================-->
 
+
+
+
+
+
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
 
-## Demo
-
-<DemoComponent />
-
-
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
 
 ## API 
 
+### Interfaces
+```tsx
+useDebounceEffect(callback: Function, dependencies?: any[], delay?: number, maxWait?: number): void
+```
 
 ### Config Example
 
@@ -98,20 +93,6 @@ useDebounceEffect(() => {
 }, [], 250)
 ```
 
-### Interfaces
-```ts
-type T_UseDebounceEffect = ( 
-    cb: () => void, 
-    deps: any[], 
-    delay: number 
-) => void
-```
-
-
-
-
-<!-- ignore-### Return Values -->
-<!-- ignore-## Hook Methods -->
 
 
 
@@ -123,22 +104,59 @@ type T_UseDebounceEffect = (
 
 
 
-<!--=========================================================================-->
 
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Internal
 
-<RelatedTable hooks={['useState', 'useRef', 'useEffect']} />
+
+<small>
+This hook, called `useDebounceEffect`, is designed to debounce the execution of a given function 
+`callback`. It delays the execution of the function by a certain `delay` time and will only execute 
+the function once this delay has passed. The hook also allows for an optional `maxWait` time. 
+If provided, this `maxWait` time represents the maximum amount of time the hook will wait before 
+executing the function, even if the delay time has not yet passed.
+
+The hook achieves this behavior by using three `useRef` hooks to keep track of the `callback`, the 
+`timeout`, and the `eventual` timeout (used for the optional `maxWait` feature). The `set` function, 
+created with `useCallback`, sets the timeout that will execute the `callback` function once the 
+delay has passed. The `clear` function cancels any existing timeout, preventing the execution of the 
+`callback` function. The `reset` function simply calls `clear` and then `set`, effectively 
+restarting the debounce process.
+
+The `useEffect` hooks are used to manage the lifecycle of the hook. The first `useEffect` sets the 
+`callbackRef.current` to the given `callback` function. The second `useEffect` sets up the initial 
+timeout with `set`, cancels it on cleanup with `clear`, and re-runs every time the `delay` or the 
+`set` and `clear` functions change. The third `useEffect` simply cancels any existing timeout on 
+cleanup. The fourth `useEffect` sets up the `reset` function to run every time any of the 
+`dependencies` (if provided) or `reset` itself change, and the final `useEffect` sets up the 
+initial timeout with `set` every time the `dependencies` change.
+
+Overall, this hook provides a way to debounce the execution of a function with a customizable 
+delay and optional maximum wait time, using React's hooks to manage the lifecycle of the timeout.
+</small>
+
+<RelatedTable hooks={['useState', 'useEffect', 'useCallback']} />
 
 
-<!--=========================================================================-->
 
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Related Hooks
 
 
-<RelatedTable hooks={['useErrorBoundary', 'useAsync', 'useFetch']} />
+<RelatedTable hooks={['useUpdateEffect', 'useInterval', 'useTimeout']} />
+
+
+<!-- ignore-### Return Values -->
+<!-- ignore-## Hook Methods -->

@@ -222,10 +222,18 @@ const { flash } = useClipboard()
 
 <StatusBadge status={0} />
 
-This hook retrieves the value from the clipboard, by the provided key, and sets the internal state of the 
-`cookie` value, or the `defaultValue` if provided. The `setCookie` function sets the value of the
-browser cookie, then uses the current value of the browser cookie to update the internal state.
+<small>
+The `useClipboard` hook returns an object with four properties: `copy`, `value`, `success`, and 
+`reset`. The `copy` function attempts to copy a given string to the user's clipboard using the 
+Clipboard API. If the copy is successful, the function sets the `success` state to `true`, sets 
+the `value` state to the copied text, sets the `flash` state to `true` to indicate a successful 
+copy, and returns `true`. If the copy fails, the function sets the `success` state to `false` and 
+returns `false`. The `reset` function resets the `value` and `success` states to their default 
+values and clears the user's clipboard. If the browser does not support the Clipboard API, the hook 
+returns empty values for all states and a no-op `copy` and `reset` function.
+</small>
 
+<RelatedTable hooks={['useState', 'useEffect']} />
 
 
 <br />

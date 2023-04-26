@@ -1,19 +1,18 @@
 ---
 title: useClamp
 description: Clamp numerical values within the provided range
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge } from '@site/src/components'
 
-# 
 
 <MainText>
 <h1>useClamp</h1>
 Clamp numerical values within the provided range
 </MainText>
 
-<!--meta-section-break-->
 
 <StatusBadge status={0} />
 
@@ -88,10 +87,10 @@ function ClampedCounter(props) {
 
 
 
+
 <br />
 <hr />
-
-<!--=========================================================================-->
+{/* ============================================================================ */}
 
 ## API 
 
@@ -144,10 +143,12 @@ const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
 
 
 
+
+
 <br />
 <hr />
+{/* ============================================================================ */}
 
-<!--=========================================================================-->
 
 ## Hook Methods
 
@@ -197,29 +198,60 @@ reset()  // [1, 2, 3]
 
 
 
+
+
 <br />
 <hr />
+{/* ============================================================================ */}
 
-<!--=========================================================================-->
 
 ## Internal
 
+<small>
+The `useClamp` hook takes a configuration object `config` as input, containing the minimum and 
+maximum values, and an initial `value` for a range that needs to be clamped. It returns an array 
+with the current `actual` value, a `handleValue` function, and a `reset` function.
 
+The `useMemo` hook initializes a `settings` object that contains the minimum and maximum values, 
+and the initial `value` from the configuration object `config`. The `useState` hook initializes 
+the `actual` value with the initial value from the `settings` object, and `wasInit` is a boolean 
+flag to track if the hook has already been initialized.
 
-This hook internally uses the `useState` hook to store the array and provides 
-a wrapper around common array modification methods. 
+The `handleValue` function is a `useCallback` function that receives a new value for the `actual` 
+state, either as a direct value or as a function that can return a new value. The function then 
+checks if the new value is within the minimum and maximum values, and updates the `actual` state 
+accordingly. 
 
-Methods in `useStateArray` do not provide access to the current state for callback 
-functions.
+The `reset` function simply calls the `handleValue` function with the initial `value` from the 
+`settings` object.
+
+The `useEffect` hook initializes the `actual` value by calling the `handleValue` function with the 
+initial `value` from the `settings` object. This effect only runs once on initialization, as the 
+`wasInit` flag is set to `true` after the first run.
+
+The `useEffect` hook also tracks changes to the `config`, `settings`, and `handleValue` functions. 
+If any of these change, the `handleValue` function is called again with the initial `value` from 
+the `settings` object.
+
+Overall, the `useClamp` hook returns an array of values and functions that allow for clamping a 
+value between a minimum and maximum range. The hook tracks changes to the configuration and updates 
+the value based on the new input.
+</small>
 
 <RelatedTable hooks={[
     'useState',
+    'useCallback', 
+    'useEffect', 
+    'useMemo', 
+    'useRef'
 ]}/>
+
+
 
 <br />
 <hr />
+{/* ============================================================================ */}
 
-<!--=========================================================================-->
 
 
 ## Related Hooks

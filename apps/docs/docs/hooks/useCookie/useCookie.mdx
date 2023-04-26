@@ -166,11 +166,26 @@ removeCookie()
 
 <StatusBadge status={1} />
 
+<small>
 This hook retrieves the value of a cookie, by the provided key, and sets the internal state of the 
 `cookie` value, or the `defaultValue` if provided. The `setCookie` function sets the value of the
 browser cookie, then uses the current value of the browser cookie to update the internal state.
 
+The useCookie hook is used to manage a cookie value in the browser. It checks if the code is running 
+on the client-side, and returns an array of `[null, noop, noop]` if it is not. If it is running on 
+the client-side, it sets up the initial value of the cookie by calling useState with the 
+initialValue parameter or an empty string if it is not provided.
 
+It provides three functions, handleCookie, removeCookie, and getCookie, which respectively allow the 
+user to set, remove, and retrieve the cookie value. handleCookie sets the cookie value, removeCookie 
+removes the cookie value, and getCookie retrieves the cookie value.
+
+The hook sets up an effect that runs when the component mounts to set the cookie value by calling 
+getCookie. Finally, it returns an array with the current value of the cookie, handleCookie, and 
+removeCookie.
+</small>
+
+<RelatedTable hooks={['useState', 'useEffect']} />
 
 <br />
 <hr />
