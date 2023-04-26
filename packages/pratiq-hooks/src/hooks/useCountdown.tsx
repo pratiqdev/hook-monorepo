@@ -29,6 +29,7 @@ export interface I_CountdownTimeObject {
 
 export interface I_UseCountdownReturn {
   time: I_CountdownTimeObject;
+  status: T_UseCountdownStatus;
   start: Function;
   stop: Function;
   reset: Function;
@@ -39,6 +40,11 @@ export interface I_UseCountdownReturn {
   duration: number;
 };
 
+export type T_UseCountdownStatus = 
+'ready' // the timer has NOT started yet
+| 'run' // the timer is running (!done, started)
+| 'idle' // the timer is stopped (!done, started, !running)
+| 'done' // the timer is done (done, started, !running)
 
 
 /**
@@ -196,16 +202,18 @@ const useCountdown = (config: I_UseCountdownConfig = { duration: 10_000 }): I_Us
   /** Ref to clear the timeout */
   const tRef = useRef<any>(null);
 
-  const [stopFireTime, setStopFireTime] = useState(0);
+  const [stopFireTime, setStopFireTime] = useState<number>(0);
 
-    /** 
-     * Handle time diffs and modifying time state.
-     * 
-     * Recursively set the time after settings.interval if ticking is true.
-     * If the time is less than the difference of now and initial time set the
-     * time to zero, clear the timeout and set ticking to false
-    */
+  const [status, setStatus] = useState<T_UseCountdownStatus>('ready')
 
+  
+  /** 
+   * Handle time diffs and modifying time state.
+   * 
+   * Recursively set the time after settings.interval if ticking is true.
+   * If the time is less than the difference of now and initial time set the
+   * time to zero, clear the timeout and set ticking to false
+  */
   const handleCountdown = () => {
     // if (!ticking) return;
     tRef.current = setTimeout(() => {
@@ -297,6 +305,15 @@ const useCountdown = (config: I_UseCountdownConfig = { duration: 10_000 }): I_Us
       }
   }, [time, cbs]);
 
+  useEffect(()=>{
+    setStatus(() => {
+      if(done) return 'done' 
+      else if (ticking) return 'run' // !done && !ticking
+      else if (started) return 'idle'
+      return 'ready'
+    })
+  },[done, started, ticking, time])
+
 
   /** Start the countdown */
   const start = () => {
@@ -347,6 +364,7 @@ const useCountdown = (config: I_UseCountdownConfig = { duration: 10_000 }): I_Us
     done,
     started,
     running: ticking,
+    status,
     // stopFireTime,
     // cbs,
     interval: settings.interval,

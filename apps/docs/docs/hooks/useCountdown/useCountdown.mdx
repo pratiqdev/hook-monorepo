@@ -5,7 +5,6 @@ hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
 
 
@@ -14,7 +13,6 @@ import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/
 Run a countdown timer with state and optional callbacks 
 </MainText>
 
-<!--meta-section-break-->
 
 <StatusBadge status={1} />
 
@@ -27,14 +25,19 @@ Run a countdown timer with state and optional callbacks
 
 ```tsx live
 function FinalCountdown() {
-    const { time, start, stop } = useCountdown({ duration: 10_000 })
+    const timer = useCountdown({ duration: 10_000 })
 
     return (
         <span>
-            <button disabled>{time.realSeconds}</button>
+            <div id='timer' className={timer.status} >
+                <p>{timer.time.realSeconds}</p>
+                <small>{timer.time.total}</small>
+            </div>
+      
 
-            <button onClick={start} style={{background: '#6f66'}}>Start</button>
-            <button onClick={stop} style={{background: '#f666'}}>Stop</button>
+            <button onClick={timer.start} disabled={timer.running} style={{background: '#6f66'}}>Start</button>
+            <button onClick={timer.stop} disabled={timer.done || !timer.running} style={{background: '#f666'}}>Stop</button>
+            <button onClick={timer.reset} disabled={!timer.started} style={{background: '#f648'}}>Reset</button>
         </span>
     )
 }
@@ -276,10 +279,28 @@ timer.reset()
 
 <StatusBadge status={1} />
 
+<small>
 This hook uses a polling method to repeatedly calculate the elapsed time of the timer by subtracting 
 the start-time from the current-time at the provided interval. Any callbacks provided will be invoked 
 when their key is less than or equal to the current time during each refresh interval. It provides many
 status values to monitor the state of the countdown timer. 
+
+This hook takes an optional configuration object `config` and returns an object of properties and functions.
+Internally, the hook parses the `config` object to create a `settings` object with default values 
+and validates the input values. The `settings` object is memoized using the `useMemo` hook to 
+prevent unnecessary re-renders when the `config` object changes.
+
+The hook uses several `useState` hooks to manage the timer state and callbacks. It also uses a 
+`useRef` hook to hold a reference to the timeout function that handles the countdown.
+
+When the timer is running, the `handleCountdown` function recursively sets the time after the 
+specified `interval` time. If the time is less than zero, the function clears the timeout and sets 
+the `done` state to true. If any `end` callback function is defined in the `config` object, it calls 
+that function.
+
+The `useEffect` hooks are used to call `handleCountdown` anytime `ticking` changes to `true` and 
+to accumulate any callbacks defined in the `config` object.
+</small>
 
 <RelatedTable hooks={[
     'useState',

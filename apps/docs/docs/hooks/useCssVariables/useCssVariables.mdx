@@ -164,9 +164,31 @@ update()
 
 <StatusBadge status={1} />
 
-This hook accesses the css properties of the given element, or the root document.documentElement
-if no element provided, by parsing and matching the computed style of the underlying element, or 
-returning the entire computed style object if `match === ''`.
+<small>
+This hook that allows you to retrieve CSS variables 
+rom a given element or from the root element of the page. It accepts two arguments: `match`, which 
+is a string that filters the CSS variables to return, and `element`, which is an optional reference 
+or element to retrieve CSS variables from. 
+
+Internally, the hook first initializes a state variable called `actual` using the `useState` hook. 
+The state variable is set to an empty object `{}`. The `useCallback` hook is then used to define a 
+function `update`, which is responsible for retrieving the CSS variables and updating the `actual` 
+state variable. 
+
+Within the `update` function, the hook checks if an `element` parameter was passed. If it was, it 
+checks if `element` is a ref or an element and sets the `el` variable accordingly. If `element` is 
+not provided, the hook checks if `document` is an object and if `documentElement` is present. If 
+both conditions are met, the `el` variable is set to `document.documentElement`. 
+
+Next, the hook checks if the `match` parameter is an empty string. If it is, the `actual` state 
+variable is set to the computed style of `el`. If `match` is not empty, the hook creates an empty 
+object called `cssMap` and iterates over the computed styles of `el`. It filters the computed styles 
+based on whether they include the `match` parameter and then adds the filtered styles to the `cssMap` 
+object. Finally, the `actual` state variable is set to `cssMap`.
+
+Lastly, the `useEffect` hook is used to call the `update` function whenever the `match` parameter 
+changes. The hook returns an array containing the `actual` state variable and the `update` function.
+</small>
 
 <RelatedTable hooks={[
     'useState',

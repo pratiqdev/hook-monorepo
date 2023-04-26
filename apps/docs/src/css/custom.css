@@ -30,6 +30,8 @@ html, body{
   min-height: 100% !important;
 }
 
+
+
 .footer__copyright{
   opacity: .5;
 }
@@ -1457,4 +1459,48 @@ pre {
 
 .main-text {
   margin-bottom: 1rem !important;
+}
+
+
+
+
+#timer {
+  position: relative;
+  border-radius: 1rem;
+  width: 4.5rem;
+  overflow: hidden;
+  background: #4444;
+  display: flex;
+  padding: 0 .7rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#timer * {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+#timer small {
+  font-size: .6rem;
+}
+#timer p {
+  font-size: 1rem;
+}
+
+
+
+.ready{
+  background: #0f02 !important;
+}
+
+.run{
+  background: #0f08 !important;
+}
+
+.idle{
+  background: rgba(255, 247, 0, 0.3) !important;
+}
+
+.done{
+  background: rgba(255, 98, 0, 0.3) !important;
 }
