@@ -1,55 +1,55 @@
 import Button from '@site/src/components/Button'
 import Card from '@site/src/components/Card'
+import Item from '@site/src/components/CardItem'
+import Link from '@docusaurus/Link'
+import { Download } from '@emotion-icons/boxicons-regular/Download'
+import { Play} from '@emotion-icons/bootstrap/Play'
+import { Search } from '@emotion-icons/boxicons-regular/Search'
+import { CursorText } from '@emotion-icons/bootstrap/CursorText'
+import { DockLeft } from '@emotion-icons/boxicons-regular/DockLeft'
+import { Bulb } from '@emotion-icons/boxicons-regular/Bulb'
+const flex = {display: 'flex', gap:10, alignItems:'center' }
+const items = [
+    {
+        title: 'Install the package',
+        text: 'from npm or a CDN to use with your project',
+        link: 'getting-started/installation',
+        icon: <Download size="22"/>
+    },
+    {
+        title: 'Get familiar',
+        text: 'with setting up and using some hooks',
+        link: 'getting-started/usage',
+        icon: <Play size='26' />
+    },
+    {
+        title: 'View examples',
+        text: 'to experiment with some common implementations',
+        link: 'examples',
+        icon: <Search size='22' />
+    },
+    {
+        title: 'Play with demos',
+        text: 'to see the hooks in action and test their methods',
+        link: 'hooks/useCountdown',
+        icon: <CursorText size='22' />
+    },
+    {
+        title: 'Look deeper',
+        text: 'into the API of each hook to understand its functions and features',
+        link: 'hooks/useCountdown#api',
+        icon: <DockLeft size='22' />
+    },
+    {
+        title: 'Cool ideas',
+        text: `are appreciated and PR's are welcome!`,
+        link: 'https://github.com/pratiqdev/hook-monorepo',
+        icon: <Bulb size='22' />
+    }
+    
+]
 
 
 # Getting Started
 
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="getting-started/installation"><b style={{fontSize: '1rem'}}>Install the package</b></Button> 
-from npm or a CDN to use with your project
-</div>
-</Card>
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="getting-started/usage"><b style={{fontSize: '1rem'}}>Get familiar</b></Button> 
-with setting up and using some hooks
-</div>
-</Card>
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="examples"><b style={{fontSize: '1rem'}}>View examples</b></Button> 
-to experiment with some common implementation
-</div>
-</Card>
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="hooks/useCountdown#demo"><b style={{fontSize: '1rem'}}>Play with demos</b></Button> 
-to see the hooks in action and test their methods
-</div>
-</Card>
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="hooks/useCountdown#api"><b style={{fontSize: '1rem'}}>Look deeper</b></Button> 
-into the API of each hook to understand its functions and features
-</div>
-</Card>
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="https://github.com/pratiqdev/hook-monorepo"><b style={{fontSize: '1rem'}}>Cool ideas</b></Button> 
-are appreciated and PR's are welcome!
-</div>
-</Card>
-
-<Card>
-<div style={{display: 'flex', gap:10, alignItems:'center'}}>
-<Button href="https://github.com/pratiqdev/hook-monorepo/issues"><b style={{fontSize: '1rem'}}>Found issues</b></Button> 
-can be reported directly on the GitHub page
-</div>
-</Card>
+<>{items.map(x => <Item {...x} />)}</>

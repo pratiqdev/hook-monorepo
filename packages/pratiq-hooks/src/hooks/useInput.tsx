@@ -321,7 +321,7 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
     const handleReset = () => {
         // shouldUpdate.current = true
         log('handleReset')
-        setIsValid(settings.validOnDefault)
+        setIsValid(settings.validOnDefault ? true : false)
         setIsEmpty(value?.toString().length === 0)
         setValue(settings.value)
         setWasValidated(false)
@@ -490,8 +490,8 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
         initRef.current = true
     },[value, settings.validateOnChange, settings.saveOnChange])
 
-
-    useUpdateEffect(() => {
+    //! Just changed this from 'useUpdateEffect'
+    useEffect(() => {
         shouldLoadStorage.current = false
         log('handleReset')
         setIsValid(settings.validOnDefault)
@@ -524,7 +524,7 @@ const useInput:T_UseInput = (config: T_UseInputConfig = {}) => {
         isHovered,
         isFocused,
         wasValidated,
-        invalidMessage,
+        invalidMessage: isValid ? '' : wasValidated ? invalidMessage : '',
 
         bind: {
             value,

@@ -1,49 +1,89 @@
 # Usage
 
-Just like `useAnyOther` hook, only better:
 
 
-```jsx
-const RequestForm = (props) => {
-  const {
-    value: name, 
-    bind: bindName, 
-    isValid: isNameValid
-  } = useInput({
-    value: 'John',
-    name: 'request-form-name'
-    validateOnChange: true,
-  })
 
-  const {
-    value: address, 
-    bind: bindAddress, 
-    isValid: isAddressValid 
-  } = useInput({
-    placeholder: '1234 Street Road',
-    name: 'request-form-address'
-    validateOnChange: true,
-    validOnDefault: false,
+## Example
+
+Each page provids a live code block where you can experiment.
+Live code blocks have access to all `@pratiq/hooks` as well
+as the standard react hooks.
+
+```jsx live noInline
+const col = { display: 'flex', flexDirection: 'column', gap: '.5rem' }
+
+const LoginCard = () => {
+
+  const username = useInput({
+    name: 'Username',
+    placeholder: 'Enter your username',
   })
 
   return(
-    <div>
-      <input {...bindName} />
-      <input {...bindAddress} />
-      <button disabled={!isNameValid || !isAddressValid}>
-        Submit
-      </button>
-      <p>{name} @ {address}</p>
+    <div style={{ ...col, width: '20rem'}}>
+
+      <div style={{...col, }}>
+        <label>{username.bind.name}</label>
+        <input {...username.bind} />
+      </div>
+
+      <button onClick={username.reset}>Reset</button>
     </div>
   )
 }
+
+render(<LoginCard />)
 ```
 
 
 
 
-## Advanced Usage
 
-Pages for individual hooks will contain more information about how to configure
-and use them. Examples and descriptions are also provided by JsDoc comments, if 
-your editor of choice supports it.
+
+<br />
+
+## Structure
+
+Just like `useAnyOther` hook, these often take an initial value as an argument, then return the state
+and a function to update it. It typically appears in an array like this:
+```jsx
+const [ value, setValue ] = useSomeHook('Initial value')
+```
+
+More complicated hooks will take a config object of parameters, usually including the initial value:
+```jsx
+useCountdown({ duration: 10_000 })
+```
+
+These hooks may also return an object of named properties instead of an array:
+```jsx
+const { time, start, stop, reset, ... } = useCountdown({ duration: 10_000 })
+```
+
+
+Each hook provides definitions for the config and return types like:
+```jsx
+export interface I_UseCountdownConfig = {}
+export interface I_UseCountdownReturn = {}
+useCountdown(config: I_UseCountdownConfig): I_UseCountdownReturn
+```
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+
+## Internal functions
+
+Each page contains a short readable explanation about what is 
+happening with the hook in the background, the choices or approach
+to this solution, as well as the hooks and functions used internally,
+or a reference to external dependencies if they are included.

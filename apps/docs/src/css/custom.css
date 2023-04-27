@@ -1029,7 +1029,7 @@ a:hover{
   flex: 1;
   min-width: 15rem;
   margin-bottom: 1rem;
-  padding-bottom: 0rem !important;
+  /* padding-bottom: 0rem !important; */
 }
 
 [data-theme='dark'] .card{
