@@ -1,23 +1,18 @@
 ---
 title: useErrorBoundary
-description: Wrap components in an error boundary and render a fallback component on error.
+description: Use any element as an error boundary and render a fallback component on errors
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useErrorBoundary'
-
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
 
-# 
 
-<Card>
 <MainText>
 <h1>useErrorBoundary</h1>
-Wrap components in an error boundary and render a fallback component on error.
+Use any element as an error boundary and render a fallback component on errors
 </MainText>
-</Card>
 
-<!--meta-section-break-->
 
 
 
@@ -26,78 +21,77 @@ Wrap components in an error boundary and render a fallback component on error.
 
 <Tabs>
 
-<TabItem value='simple' label='Simple'>
-
-```js 
-const ErrorBoundary = useErrorBoundary()
-
-<ErrorBoundary>
-    <ComponentThatMayThrow />
-</ErrorBoundary>
-```
-
-</TabItem>
 
 <TabItem value='advanced' label='Advanced'>
 
-```js
-const fallback = ({error, resetErrorBoundary}) => {
+```jsx live
+function CustomBoundary() {
+
+    const fallback = ({error, resetErrorBoundary}) => {
+        return (
+            <div className='error'>
+                <h3>Fallback Component</h3>
+                <p>Name: {error.name}</p>
+                <p>Message: {error.message}</p>
+            </div>
+        )
+    }
+
+    const ThrowError = () => {
+        throw new Error('An error!!')
+        return <div />
+    }
+
+
+    const ErrorBoundary = useErrorBoundary({ fallback })
+
     return (
-        <div style={{background: '#F004'}}>
-            <h3>Fallback Component</h3>
-            <p>Name: {error.name}</p>
-            <p>Message: {error.message}</p>
-            <p>Stack Length: {error.stack.length}</p>
-            <button onClick={resetErrorBoundary}>Try again</button>
-        </div>
+        <ErrorBoundary>
+            <ThrowError />
+        </ErrorBoundary>
     )
 }
-
-
-const ErrorBoundary = useErrorBoundary({ fallback })
-
-<ErrorBoundary>
-    <ComponentThatMayThrow />
-</ErrorBoundary>
 ```
 
 </TabItem>
 
 <TabItem value='full' label='Full'>
 
-```js
-const [shouldThrow, setShouldThrow] = useState(false)
+```js live
+function CustomBoundary() {
 
-const fallback = ({error, resetErrorBoundary}) => {
+    const [shouldThrow, setShouldThrow] = useState(false)
+
+    const fallback = ({error, resetErrorBoundary}) => {
+        return (
+            <div className='error'>
+                <h3>Fallback Component</h3>
+                <p>Name: {error.name}</p>
+                <p>Message: {error.message}</p>
+                <p>Stack Length: {error.stack.length}</p>
+                <button onClick={resetErrorBoundary}>Try again</button>
+            </div>
+        )
+    }
+
+    const ThrowError = () => {
+        throw new Error('An error!!')
+        return <div />
+    }
+
+    const ErrorBoundary = useErrorBoundary({
+        fallback,
+        handleError: (error: Error, info: React.ErrorInfo) => console.log('handleError:', { error, info }),
+        handleReset: () => setShouldThrow(false)
+    })
+
     return (
-        <div style={{background: '#F004'}}>
-            <h3>Fallback Component</h3>
-            <p>Name: {error.name}</p>
-            <p>Message: {error.message}</p>
-            <p>Stack Length: {error.stack.length}</p>
-            <button onClick={resetErrorBoundary}>Try again</button>
-        </div>
+        <ErrorBoundary>
+            {shouldThrow && <ThrowError />}
+            <button onClick={() => setShouldThrow(true)} >Throw!</button>
+        </ErrorBoundary>
     )
 }
-
-const handleError = (error: Error, info: React.ErrorInfo) => {
-    console.log('handleError:', { error, info })
-}
-
-const handleReset = () => {
-    setShouldThrow(false)
-}
-
-const ErrorBoundary = useErrorBoundary({
-    fallback,
-    handleError,
-    handleReset
-})
-
-<ErrorBoundary>
-    {shouldThrow && <ComponentThatWillThrow />}
-    <ComponentThatMayThrow />
-</ErrorBoundary>
 ```
 
 </TabItem>
@@ -108,22 +102,15 @@ const ErrorBoundary = useErrorBoundary({
 
 
 
-<!--=========================================================================-->
 
+
+
+
+
+<br />
 <hr />
+{/* ============================================================================ */}
 
-## Demo
-
-<DemoComponent />
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
 
 ## API 
 
@@ -165,34 +152,49 @@ type T_UseErrorBoundary = (config?: T_UseErrorBoundaryConfig) => React.JSXElemen
 
 
 
-<!-- ignore-hook-methods -->
 
 
 
 
 
 
-<!--=========================================================================-->
 
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Internal
 
-This hook internally uses the `useState` hook to store the array and provides 
-a wrapper around common array modification methods. 
+<small>
+The Catch function is a higher-order component that returns a new component with error handling 
+capabilities. It takes in an error handling component and an optional error handler function, and 
+returns a new component with a componentDidCatch lifecycle method that catches any errors thrown by 
+its child components. If an error is caught, it updates the state to include the error and calls 
+the error handler function if provided.
 
-Methods in `useStateArray` do not provide access to the current state for callback 
-functions.
+The useErrorBoundary hook uses the Catch function to create an error boundary component that can 
+be used to catch errors in child components. It takes in a configuration object with optional 
+children, fallback, handleError, and handleReset properties. If an error is caught by the boundary 
+component, it updates the state to include the error and returns either the provided fallback 
+component or a default error component. If there is no error, it simply returns the child components. 
+The hook returns a JSX element constructor that can be used as a wrapper around components that
+ need error handling capabilities.
+</small>
+
+<RelatedTable hooks={['useEffect', 'useRef', 'useMemo']} />
 
 
-
-<!--=========================================================================-->
-
+<br />
 <hr />
+{/* ============================================================================ */}
+
 
 
 ## Related Hooks
 
 
 <RelatedTable hooks={['useLogWall']} />
+
+<!-- ignore-hook-methods -->

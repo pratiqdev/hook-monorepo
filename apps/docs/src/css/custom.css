@@ -1508,3 +1508,14 @@ pre {
 .done{
   background: rgba(255, 98, 0, 0.3) !important;
 }
+
+
+.error {
+  padding: 1rem;
+  background: #f003;
+  border-radius: .25rem;
+}
+.error * {
+  color: #f44 !important;
+  margin: 0;
+}

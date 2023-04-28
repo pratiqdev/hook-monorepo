@@ -25,38 +25,54 @@ Use effect with a debounced callback
 
 <TabItem value='simple' label='Simple'>
 
-```js
-useDebounceEffect(()=>{
-    // callback invoked on any state change
-    // default debounce time is 250ms
-})
+```tsx live
+function Debounced() {
+    const [count, setCount] = useState(0)
+    const [active, setActive] = useState(0)
+
+
+    useDebounceEffect(()=>{
+        setActive(count)
+    }, [count])
+
+    return (
+        <button onClick={() => setCount(n => n + 1)}>
+            Click {count} ({active})
+        </button>
+    )
+}
 ```
 
 </TabItem>
 
 <TabItem value='advanced' label='Advanced'>
 
-```js
-useDebounceEffect(()=>{
-    // callback invoked once on mount
-    // default debounce time is 250ms
-}, [])
+```tsx live
+function Debounced() {
+    const [count, setCount] = useState(0)
+    const [active, setActive] = useState(0)
+
+
+    useDebounceEffect(()=>{
+        setActive(count)
+    }, 
+        [count], // deps to watch
+        500,     // debounce time
+        1000     // max wait time
+    )
+
+    return (
+        <button onClick={() => setCount(n => n + 1)}>
+            Click {count} ({active})
+        </button>
+    )
+}
 ```
 
 </TabItem>
 
 
-<TabItem value='full' label='Full'>
 
-```js
-useDebounceEffect(()=>{
-    // callback invoked once on mount
-    // and on dep change
-    // debounce time is 1s
-}, [dep], 1000)
-```
-
-</TabItem>
 
 </Tabs>
 
