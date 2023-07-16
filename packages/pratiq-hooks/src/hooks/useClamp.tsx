@@ -6,11 +6,14 @@ export interface I_UseClampConfig {
     value?: number;
 }
 
-export type T_UseClampReturn = [
+export type T_UseClampReturn = {
     value: number,
     setValue: SetStateAction<number>,
     reset: () => void,
-]
+    min: number | null;
+    max: number | null;
+    initialValue: number;
+}
 
 export type UseClamp = (config: I_UseClampConfig) => T_UseClampReturn
 
@@ -69,9 +72,9 @@ export type UseClamp = (config: I_UseClampConfig) => T_UseClampReturn
 const useClamp = (config: I_UseClampConfig): T_UseClampReturn => {
 
     const settings = useMemo(() => ({
-        min: config.min     ?? undefined,
-        max: config.max     ?? undefined,
-        value: config.value ?? 0,
+        min: config && typeof config.min === 'number' ? config.min : null,
+        max: config && typeof config.max === 'number' ? config.max : null,
+        value: config && typeof config.value === 'number' ? config.value : 0,
     }), [config])
 
     const [actual, setActual] = useState(settings.value)
@@ -104,7 +107,14 @@ const useClamp = (config: I_UseClampConfig): T_UseClampReturn => {
         wasInit.current = true
     }, [config, settings, handleValue])
 
-    return [actual, handleValue, reset]
+    return {
+        value: actual, 
+        setValue: handleValue, 
+        reset,
+        min: settings.min,
+        max: settings.max,
+        initialValue: settings.value
+    }
 }
 
 export default useClamp

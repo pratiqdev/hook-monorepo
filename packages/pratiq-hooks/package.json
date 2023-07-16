@@ -2,7 +2,8 @@
   "name": "@pratiq/hooks",
   "version": "1.1.11",
   "main": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "type": "module",
   "sideEffects": false,
   "license": "MIT",
   "files": [
@@ -10,7 +11,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "rm -rf ./dist && tsup",
     "dev": "tsup",
     "//_dev": "tsup src/index.ts --format esm --watch --dts --external react",
     "lint": "eslint \"src/**/*.ts*\"",

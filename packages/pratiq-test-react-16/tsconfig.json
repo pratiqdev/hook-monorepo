@@ -1,5 +1,6 @@
 {
   "extends": "@pratiq/config/react-library.json",
+  "include": [".", "../../_deprecated/metaCollector.js", "../../apps/docs/sidebars.js"],
   "compilerOptions": {
     "target": "ES2022",
     "checkJs": false,
@@ -7,7 +8,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "lib": ["ES2019","DOM"],
     "allowJs": true
     // "paths": {
