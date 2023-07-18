@@ -102,7 +102,7 @@ const demoComponent = (props:any) => {
         },
     ]
 
-    console.log(function four(){})
+    // console.log(function four(){})
 
 
 

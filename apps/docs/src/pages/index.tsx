@@ -193,7 +193,7 @@ export default function Home(): JSX.Element {
           {x.icon}
           </div>
            <div className={styles.feature_text}>
-            <h2 style={{letterSpacing:'.15rem'}}>{x.title}</h2>
+            <h2 style={{letterSpacing:'.15rem', fontWeight: 'semibold'}}>{x.title}</h2>
             <p >{x.description}</p>
           </div>
         </Card>
