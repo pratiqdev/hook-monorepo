@@ -20,30 +20,6 @@ import ClientBadge from './ClientBadge'
 import Button from './Button'
 import Contribute from './Contribute'
 
-const components = {
-    Card,
-    CopyText,
-    DemoLayout,
-    Display,
-    HeadlessTable,
-    MainText,
-    Method,
-    MethodInput,
-    Methods,
-    RelatedTable,
-    DemoGallery,
-    Nothingness,
-    IntroList,
-    HooksByTags,
-    RandomHookButton,
-    HookWheel,
-    Icons,
-    StatusBadge,
-    ClientBadge,
-    Button,
-    Contribute,
-}
-
 export {
     Card,
     CopyText,
@@ -67,6 +43,3 @@ export {
     Button,
     Contribute,
 }
-
-
-export default components
