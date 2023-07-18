@@ -20,7 +20,7 @@
     "patch": "npm version patch --no-git-tag-release",
     "pre": "pnpm install && pnpm run build && clear",
     "test-node": "pnpm run pre && pnpm --filter @pratiq/core run test-node",
-    "test": "pnpm run build && pnpm --filter=test-react-16 run test",
+    "test": "pnpm run build && pnpm --filter=test run test",
     "patchy": "npx changeset && npx changeset version "
   },
   "devDependencies": {
