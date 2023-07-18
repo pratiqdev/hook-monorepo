@@ -4,6 +4,7 @@
   "main": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
+  "type": "module",
   "license": "MIT",
   "files": [
     "dist/esm/**",
