@@ -15,5 +15,5 @@
         // "/src/components/*": ["./src/components/*"],
         // "@utils/*": ["utils/*"]
     // }
-  },
+  }
 }
