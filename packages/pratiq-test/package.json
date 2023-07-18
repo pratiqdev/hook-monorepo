@@ -14,7 +14,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test-node": "node tests/node/test_1",
     "test-unit": "mocha",
-    "test": "clear && cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ./jest.config.js --watch"
+    "test": "clear && cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ./jest.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
