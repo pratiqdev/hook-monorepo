@@ -17,6 +17,12 @@ const config = {
   projectName: '@pratiq/hooks', // Usually your repo name.
   trailingSlash: false,
 
+  
+
+  customFields: {
+    logLevel: 'debug',
+  },
+
   presets: [
     [
       'classic',

@@ -8,6 +8,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import {usePrismTheme} from '@docusaurus/theme-common';
 import styles from './styles.module.css';
+import ReactLiveScope from '../ReactLiveScope';
 
 
 function Playground({children, transformCode, ...props}) {
@@ -29,6 +30,7 @@ function Playground({children, transformCode, ...props}) {
         noInline={noInline}
         transformCode={transformCode ?? ((code) => `${code};`)}
         theme={prismTheme}
+        scope={ReactLiveScope}
         {...props}>
           <div className='demo-preview'>
             <BrowserOnly fallback={<div>Loading...</div>}>
