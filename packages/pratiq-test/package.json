@@ -16,7 +16,7 @@
     "test-unit": "mocha",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest -c ./jest.config.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
