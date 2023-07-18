@@ -26,7 +26,7 @@ Clamp numerical values within the provided range
 function ClampedCounter(props) {
   const { container, button, row, column, display } = styles.useClamp
   
-  const [value, setValue, reset] = useClamp({
+  const { value, setValue, reset } = useClamp({
     value: 0,
     min: 4,
     max: 7
@@ -52,7 +52,7 @@ function ClampedCounter(props) {
 function ClampedCounter(props) {
   const { container, button, row, column, display } = styles.useClamp
   
-  const [value, setValue, reset] = useClamp({
+  const { value, setValue, reset } = useClamp({
     value: 0,
     min: -2,
     max: 2
