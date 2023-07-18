@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 //@ts-ignore
-import extend from '../utils/logger'
+import extend from '../utils/logger.js'
 const log = extend('local_useMediaQuery')
 
 type T_StringMap = { [key:string]: string }

@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect, useMemo} from 'react'
-import isBrowser from '../utils/isBrowser'
-import extend from '../utils/logger'
+import isBrowser from '../utils/isBrowser.js'
+import extend from '../utils/logger.js'
 const log = extend('useKeyboard')
 
 /** 

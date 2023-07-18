@@ -1,6 +1,6 @@
 import React, {useMemo, useState, useCallback, useEffect, useRef, CSSProperties } from 'react'
-import extend from '../utils/logger'
-import isBrowser from '../utils/isBrowser'
+import extend from '../utils/logger.js'
+import isBrowser from '../utils/isBrowser.js'
 import useUpdateEffect from './useUpdateEffect';
 
 // const log = extend('local_useInput')

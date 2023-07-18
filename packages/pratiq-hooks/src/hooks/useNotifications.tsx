@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import isBrowser from '../utils/isBrowser'
+import isBrowser from '../utils/isBrowser.js'
 
 export type I_UseNotificationOptions = {// example
     title?: string;                     // 'Welcome!'

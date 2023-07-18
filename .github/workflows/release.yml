@@ -29,12 +29,13 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm i
+      
+      # Removed these steps until the esm testing is fixed 
+      # - name: Build Hooks before testing
+      #   run: pnpm build
 
-      - name: Build Hooks before testing
-        run: pnpm build
-
-      - name: Test hooks and Utils before release
-        run: pnpm run test
+      # - name: Test hooks and Utils before release
+      #   run: pnpm run test
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

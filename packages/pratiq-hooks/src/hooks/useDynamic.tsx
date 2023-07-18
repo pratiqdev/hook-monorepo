@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect, useMemo, lazy, useRef } from 'react';
 // @ts-ignore
-import debug from '../utils/logger'
+import debug from '../utils/logger.js'
 
 function renderLazyComponent(component:string) {
     //~ FOR DEMO PURPOSES ONLY                  

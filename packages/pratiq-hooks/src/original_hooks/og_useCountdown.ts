@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import extend from '../utils/logger'
+import extend from '../utils/logger.js'
 const log = extend('')
 
 

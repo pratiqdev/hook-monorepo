@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react'
-import isBrowser from '../utils/isBrowser'
+import isBrowser from '../utils/isBrowser.js'
     
 /**
 * useEventListener()

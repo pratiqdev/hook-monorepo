@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback, useMemo} from 'react'
-import extend from '../utils/logger'
+import extend from '../utils/logger.js'
 const log = extend('local_useTemperature')
 
 

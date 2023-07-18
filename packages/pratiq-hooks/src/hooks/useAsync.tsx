@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 //@ts-ignore
-import extend from '../utils/logger'
+import extend from '../utils/logger.js'
 const log = extend('useAsync')
 
 

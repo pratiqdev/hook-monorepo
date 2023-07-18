@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import isBrowser from '../utils/isBrowser'
+import isBrowser from '../utils/isBrowser.js'
 
 /**
 * useValidCss()
