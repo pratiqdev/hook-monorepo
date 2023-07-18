@@ -30,6 +30,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm i
 
+      - name: Build Hooks before testing
+        run: pnpm build
+
       - name: Test hooks and Utils before release
         run: pnpm run test
 
