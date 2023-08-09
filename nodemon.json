@@ -1,0 +1,13 @@
+{
+    "watch": [
+        "**/apps/**/*",
+        "**/packages/**/*"
+    ],
+    "ignore": [
+        "**/build/**/*",
+        "**/dist/**/*"
+    ],
+    "ext": "",
+    "exec": "turbo run build && turbo run test && pnpm --filter=docs dev",
+    "_exec": "turbo run build --parallel --no-cache --filter=utils --filter=hooks && turbo run test"
+}

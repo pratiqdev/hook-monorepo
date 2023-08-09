@@ -5,9 +5,10 @@
     "checkJs": false,
     "module": "ES2022",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "jsx": "react-jsx",
+    "jsx": "react",
     "lib": ["ES2019","DOM"],
     "allowJs": true
     // "paths": {

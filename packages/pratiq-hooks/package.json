@@ -1,8 +1,9 @@
 {
   "name": "@pratiq/hooks",
   "version": "1.1.11",
-  "main": "./dist/esm/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "sideEffects": false,
   "license": "MIT",
   "files": [
@@ -59,6 +60,6 @@
     "minifyWhitespace": false,
     "minifyIdentifiers": false,
     "minifySyntax": false,
-    "legacyOutput": true
+    "legacyOutput": false
   }
 }

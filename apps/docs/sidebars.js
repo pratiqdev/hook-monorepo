@@ -4,7 +4,16 @@ const IS_DEV = require('./utils/isDev.js')
 const debug = require('debug')
 const log = debug('@pq:sidebar')
 
-IS_DEV && log('>>>> DEV ENVIRONMENT')
+
+
+const NON_PROD_READY_HOOKS = [
+  'useAnimator',
+  'useCalculator',
+
+  'bufferedToast',
+  'refaze',
+  'reginald'
+]
 
 /**
  * Creating a sidebar enables you to:
@@ -17,38 +26,40 @@ IS_DEV && log('>>>> DEV ENVIRONMENT')
  Create as many sidebars as you want.
  */
 
+
 let ignoredFiles = []
 
 if (IS_DEV) {
   //! ignore during dev
   ignoredFiles = []
+  console.log('-'.repeat(80))
+  console.log('DEVELOPEMENT ENVIRONMENT')
+  console.log('-'.repeat(80))
 } else {
+  console.log('PRODUCTION ENVIRONMENT')
   //! ignore during prod
   ignoredFiles = [
-    'useAnimatour',
-    'bufferedToast',
-    'refaze',
-    'reginald'
+    ...NON_PROD_READY_HOOKS
   ]
 }
 
 const hookFiles = []
 const exampleFiles = []
 
-fs.readdirSync('./docs/hooks').forEach(_path => {
-  if (_path.includes('meta') || _path.includes('index.md') || _path.includes('.js') || ignoredFiles.some(path => _path === path)) {
-    log('>>> ignoring file:', _path)
+fs.readdirSync('./docs/hooks').forEach(_dir => {
+  if (_dir.includes('meta') || _dir.includes('index.md') || _dir.includes('.js') || ignoredFiles.some(path => _dir === path)) {
+    log('>>> ignoring file:', _dir)
     return
   };
 
 
-  fs.readdirSync('./docs/hooks/' + _path).forEach(path => {
+  fs.readdirSync('./docs/hooks/' + _dir).forEach(path => {
     if (path.includes('index.md')) {
       log('>> ignoring index file:', path)
       return
     }
     if (path.includes('.mdx')) {
-      hookFiles.push('hooks/' + _path.replace('.mdx', '') + '/' + path.replace('.mdx', ''))
+      hookFiles.push('hooks/' + _dir.replace('.mdx', '') + '/' + path.replace('.mdx', ''))
     }
   })
 })
