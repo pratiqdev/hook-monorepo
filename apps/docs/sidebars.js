@@ -9,6 +9,7 @@ const log = debug('@pq:sidebar')
 const NON_PROD_READY_HOOKS = [
   'useAnimator',
   'useCalculator',
+  'useFetch', // abandoned in favor of useSWR
 
   'bufferedToast',
   'refaze',

@@ -25,7 +25,9 @@ const cache: Record<string, { data: any; timestamp: number }> = {};
 const useFetch = (url: string = '', config: UseFetchConfig) => {
     console.log('useFetch v0.2')
 
-    const settings:UseFetchSettings = useMemo(() => ({
+    const {
+        options, watch, expire, initialData, autoLoad
+    }:UseFetchSettings = useMemo(() => ({
         options: config.options ?? {},
         watch: config.watch ?? [],
         expire: config.expire ?? 5_000,
@@ -36,20 +38,20 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
     const [loading, setLoading] = useState(false);
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState<any>(null);
-    const [data, setData] = useState<any>(settings.initialData);
+    const [data, setData] = useState<any>(initialData);
     const done = useRef(true);
     const abortController = useRef(new AbortController());
     const expireHandle: any = useRef();
 
-    const cacheKey = useMemo(() => `${url}_${settings.expire}_${JSON.stringify(settings.watch)}_${JSON.stringify(settings.options)}`, [url, settings.watch, settings.options, settings.expire]);
+    const cacheKey = useMemo(() => `${url}_${expire}_${JSON.stringify(watch)}_${JSON.stringify(options)}`, [url, watch, options, expire]);
     // console.log('cacheKey:', cacheKey)
 
     const handleExpire = () => {
         if (!done.current) {
             console.log('Force expiring request...')
             clearTimeout(expireHandle.current);
-            setError(`Request expired. Expiration set to ${settings.expire} ms`);
-            setData(settings.initialData);
+            setError(`Request expired. Expiration set to ${expire} ms`);
+            setData(initialData);
             setLoading(false);
             setLoaded(false);
             done.current = true;
@@ -98,10 +100,10 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
         setLoaded(false);
         setLoading(false);
         setError(null);
-        setData(settings.initialData);
+        setData(initialData);
     };
 
-    const reload = () => {
+    const reload = useCallback(() => {
         console.log('reloading...')
 
         if (!done.current) {
@@ -111,13 +113,19 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
             abortController.current = new AbortController();
             clearTimeout(expireHandle.current);
         }
+        console.log('Continuing to reload...')
 
+        setLoading(true);
+        setLoaded(false);
+        setError(null);
+        setData(initialData);
         done.current = false;
 
         // Check cache
         const cachedData = cache[cacheKey];
         if (cachedData) {
-            if (Date.now() - cachedData.timestamp < settings.expire) {
+            console.log('Checking cache...')
+            if (Date.now() - cachedData.timestamp < expire) {
                 console.log('>>> Cache hit:', cacheKey)
                 setData(cachedData.data); // Set cached data if available and not expired
                 setLoading(false)
@@ -128,26 +136,26 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
             }
             // delete expired entries
             console.log('>>> Cache miss:', cacheKey)
-            delete cache[cacheKey]
+            // delete cache[cacheKey]
         } 
 
-        setLoading(true);
-        setLoaded(false);
-        setError(null);
-        setData(settings.initialData);
+        // setLoading(true);
+        // setLoaded(false);
+        // setError(null);
+        // setData(initialData);
 
-        expireHandle.current = setTimeout(handleExpire, settings.expire); // Set expiration timeout
+        expireHandle.current = setTimeout(handleExpire, expire); // Set expiration timeout
 
         try {
-            settings.options.signal = abortController.current.signal;
+            options.signal = abortController.current.signal;
             console.log('Running fetch:', url)
-            fetch(url, { ...settings.options, signal: abortController.current.signal })
+            fetch(url, { ...options, signal: abortController.current.signal })
                 .then(errorIntercept)
                 .then(res => res.json())
                 .then(res => {
                     console.log('Request success. setting cache, state and clearing timeouts', res)
-                    clearTimeout(expireHandle.current);
                     cache[cacheKey] = { data: res, timestamp: Date.now() }
+                    clearTimeout(expireHandle.current);
                     handleValue(res);
                     done.current = true
                 })
@@ -157,16 +165,16 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
         } catch (err) {
             if ((err as any).name !== 'AbortError') handleError(err);
         }
-    };
+    }, [url, expire, options]); // Include the dependencies that the `reload` function relies on
 
     useEffect(() => {
-        settings.autoLoad && reload();
+        autoLoad && reload();
 
         return () => {
             abortController.current.abort();
             clearTimeout(expireHandle.current);
         };
-    }, [url, settings.watch, settings.options, settings.expire, settings.autoLoad, reload]);
+    }, [reload, autoLoad]);
 
 
     return { data, loading, loaded, error, reload, reset };
@@ -245,7 +253,7 @@ export default useFetch;
 //     const [loading, setLoading] = useState(false)
 //     const [loaded, setLoaded] = useState(false)
 //     const [error, setError] = useState<any>(null)
-//     const [data, setData] = useState<any>(settings.initialData)
+//     const [data, setData] = useState<any>(initialData)
 //     let done = useRef(true)
 //     let init = useRef(false)
 //     let triggerSignalRef = useRef<any>(null)
@@ -256,15 +264,15 @@ export default useFetch;
 
 //     // const abort_ctrl = new AbortController()
 //     //@ts-ignore
-//     // settings.options.signal = abort_ctrl.signal
+//     // options.signal = abort_ctrl.signal
 //     // sigRef.current = abort_ctrl.signal
 
 
 //     const handleExpire = () => {
 //         if(!done.current){
 //             clearTimeout(expireHandle.current)
-//             setError(`Request expired. Expiration set to ${settings.expire} ms`)
-//             setData(settings.initialData)
+//             setError(`Request expired. Expiration set to ${expire} ms`)
+//             setData(initialData)
 //             setLoading(false)
 //             setLoaded(false)
 //             done.current = true
@@ -291,7 +299,7 @@ export default useFetch;
 //                 else{ setError(true) }
 //             }catch(err){
 //                 setError(true)
-//                 setData(settings.initialData)
+//                 setData(initialData)
 //             }finally{ 
 //                 setLoading(false)
 //                 setLoaded(false)
@@ -315,7 +323,7 @@ export default useFetch;
 //         setLoaded(false)
 //         setLoading(false)
 //         setError(null)
-//         setData(settings.initialData)
+//         setData(initialData)
 
 //     }
 
@@ -325,31 +333,31 @@ export default useFetch;
 //         //     abortRef.current = new AbortController()
 //         //     clearTimeout(expireHandle.current)
 //         // }
-//         watchRef.current = JSON.stringify(settings.watch)
+//         watchRef.current = JSON.stringify(watch)
 //         done.current = false
 
 //         log('reload')
 //         clearTimeout(expireHandle.current)
-//         expireHandle.current = setTimeout(handleExpire, settings.expire);
+//         expireHandle.current = setTimeout(handleExpire, expire);
 //         setLoading(true)
 //         setLoaded(false)
 //         setError(null)
-//         setData(settings.initialData)
+//         setData(initialData)
 
-//         // console.log('reload...', settings.watch, url)
+//         // console.log('reload...', watch, url)
         
 //         try{
 //             //@ts-ignore
-//             settings.options.signal = abortRef.current.signal
-//             fetch(url, settings.options)
+//             options.signal = abortRef.current.signal
+//             fetch(url, options)
 //             .then(errorIntercept)
 //             .then(res => {
 //                 if (res && res.ok) { return res.json() }
 //                 else if(!res){ handleError('No response') }
 //             })
 //             .then(res => {
-//                 if(watchRef.current !== JSON.stringify(settings.watch)){
-//                     // console.log('mismatch:', {ref: watchRef.current, watch: settings.watch})
+//                 if(watchRef.current !== JSON.stringify(watch)){
+//                     // console.log('mismatch:', {ref: watchRef.current, watch: watch})
 //                     // abortRef.current.abort()
 //                     clearTimeout(expireHandle.current)
 //                 }else{
@@ -375,11 +383,11 @@ export default useFetch;
         
 //         return () => clearTimeout(expireHandle.current)
 //         // eslint-disable-next-line
-//     }, settings.watch)
+//     }, watch)
 
 //     useEffect(()=>{
 //         log('autoload')
-//         settings.autoLoad && reload()
+//         autoLoad && reload()
 //         init.current = true
 //     },[])
 
