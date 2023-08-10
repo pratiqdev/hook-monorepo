@@ -18,7 +18,6 @@ Copy and paste using the clients clipboard
 
 <!--meta-section-break-->
 
-<StatusBadge status={3} text={'Experimenting with clipboard history'} />
 
 
 ## Usage
@@ -31,13 +30,13 @@ Copy and paste using the clients clipboard
 
 ```tsx live
 function Clipboard() {
-    const { copy, value } = useClipboard()
+    const { copy, value, reset } = useClipboard()
 
     return (
         <div style={{display: 'flex', gap: '.5rem'}}>
             <button onClick={() => copy('Some Text')}>Copy: "Some Text"</button>
             <button onClick={() => copy('Other Text')}>Copy: "Other Text"</button>
-            <button onClick={() => copy('')}>Value: "{value}" (click to reset)</p>
+            <button onClick={() => reset()}>Value: "{value}" (click to reset)</p>
         </>
     )
 }
@@ -49,7 +48,7 @@ function Clipboard() {
 
 ```tsx live
 function Clipboard() {
-    const { value, copy, success, flash } = useClipboard('0x7D0f6e59f1d82D623A2830E8725cDcC9f66926b5')
+    const { value, copy, success, flash } = useClipboard('0x7D0f6e59f1d82D623A2830E8725cDcC9f66926b5', 250)
 
     return (
         <button 
@@ -100,7 +99,10 @@ const useClipboard = () => I_UseClipboardReturn
 ### Config Example
 
 ```ts
-const { copy, value, success, reset } = useClipboard()
+const { copy, value, success, reset } = useClipboard(
+    'Ayo', // initial value
+    1000,  // flash time
+)
 ```
 
 
@@ -111,6 +113,7 @@ const { copy, value, success, reset } = useClipboard()
     ['@copy','Function','The function used to copy text'],
     ['@value','string','The current value of the clipboard according to internal state'],
     ['@success','boolean','True if the text was copied to internal state and the clipboard succesfully'],
+    ['@flash','boolean','True if the text was copied successfully, then set to false after `flashTime`'],
     ['@reset','Function','Reset internal state and clear the clipboard'],
 ]}/>
 
@@ -144,54 +147,6 @@ copy('Some text to copy')
 </Card>
 
 
-<Card>
-
-### value
-The current value copied to the clipboard
-
-```ts
-() => void 
-```
-```ts
-const { value } = useClipboard()
-
-console.log(value)
-```
-
-</Card>
-
-<Card>
-
-### success
-True if the value was sucesfully copied to the clipboard
-
-```ts
-() => void 
-```
-```ts
-const { success } = useClipboard()
-
-console.log(success ? 'copied!' : 'not?')
-```
-
-</Card>
-
-<Card>
-
-### flash
-True if the value was sucesfully copied to the clipboard, and automatically reset to `false` after
-1 second
-
-```ts
-() => void 
-```
-```ts
-const { flash } = useClipboard()
-
-<button style={{color: flash ? 'green' : 'grey'}}>Copy!</button>
-```
-
-</Card>
 
 <Card>
 
@@ -220,7 +175,6 @@ const { flash } = useClipboard()
 
 ## Internal
 
-<StatusBadge status={0} />
 
 <small>
 The `useClipboard` hook returns an object with four properties: `copy`, `value`, `success`, and 
@@ -231,9 +185,13 @@ copy, and returns `true`. If the copy fails, the function sets the `success` sta
 returns `false`. The `reset` function resets the `value` and `success` states to their default 
 values and clears the user's clipboard. If the browser does not support the Clipboard API, the hook 
 returns empty values for all states and a no-op `copy` and `reset` function.
+
+No operations take place on mount as this goes against privacy and user consent guidelines. 
+Many browsers only support clipboard access when invoked by a user/browser interaction, and
+require the site to be served over a secure (encrypted) connection via HTTPS
 </small>
 
-<RelatedTable hooks={['useState', 'useEffect']} />
+<RelatedTable hooks={['useState']} />
 
 
 <br />

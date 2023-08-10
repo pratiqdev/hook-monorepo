@@ -3,8 +3,7 @@ import isBrowser from '../utils/isBrowser.js';
     
 /**
  
-A React hook that provides functionality to copy text to clipboard and reset the clipboard.
-
+React hook for copying text to, read from and reset the clipboard.
 
 --- 
 
@@ -50,22 +49,15 @@ if (success) {
 reset();
 */
 
-// TODO - research using clipboard entries instead of most recent value
 
-export interface I_UseClipboardReturn {
-    value: string;
-    copy: Function;
-    success: boolean;
-    flash: boolean;
-    reset: Function;
-}
 
-const useClipboard = (): I_UseClipboardReturn => {
-    const [value, setValue] = useState('')
+const useClipboard = (initialValue:string = '', flashTime: number = 1000): UseClipboardReturn => {
+    const [value, setValue] = useState(initialValue)
     const [success, setSuccess] = useState(false)
     const [flash, setFlash] = useState(false)
 
     if(!isBrowser() || !navigator?.clipboard){
+        console.log('no browser or clipboard:', { navigator, isBrowser: isBrowser() })
         return {
             copy: () => {},
             value: '',
@@ -75,20 +67,36 @@ const useClipboard = (): I_UseClipboardReturn => {
         }
     }
 
+    const readFromClipboard = async () => {
+        try {
+            // Bypass TypeScript's type checking by using "as any"
+            const text = await navigator.clipboard.readText();
+            return text;
+        } catch (err) {
+            console.error('Failed to read from clipboard. Some environments support writing, but not reading from the clipboard.');
+            return null;
+        }
+    }
+
 
 
     const copyToClipboard = async (text: string = ''): Promise<boolean> => {
         try{
+            console.log('writing text:', text)
             await navigator.clipboard.writeText(text)
-            let val = await navigator.clipboard.readText()
+            // const permissionStatus = await navigator.permissions.query({ name: 'clipboard-read' } as any);
+            let val = await readFromClipboard() ?? text
+            console.log('new text:', val)
+
             setSuccess(true)
             setValue(val)
             setFlash(true)
             setTimeout(() => {
                 setFlash(false)
-            }, 1000)
+            }, flashTime)
             return true
         }catch(err){
+            console.log('clipboard error:', err)
             setSuccess(false)
             return false
         }
@@ -108,5 +116,14 @@ const useClipboard = (): I_UseClipboardReturn => {
         flash,
     }
 }
+
+export type UseClipboardReturn = {
+    value: string;
+    copy: Function;
+    success: boolean;
+    flash: boolean;
+    reset: Function;
+}
+
 
 export default useClipboard

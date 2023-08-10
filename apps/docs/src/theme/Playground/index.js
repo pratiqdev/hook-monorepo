@@ -21,6 +21,10 @@ function Playground({children, transformCode, ...props}) {
   const prismTheme = usePrismTheme();
   const isBrowser = useIsBrowser();
   const noInline = props.metastring?.includes('noInline') ?? false;
+
+  // console.log('ReactLiveScope:', ReactLiveScope)
+
+
   return (
     <div className='demo-container'>
       {/* @ts-expect-error: type incompatibility with refs */}

@@ -76,7 +76,7 @@ const useClamp = (config: I_UseClampConfig): T_UseClampReturn => {
     const [min, setMin] = useState(config?.min);
     const [max, setMax] = useState(config?.max);
     const [expectedValue, setExpectedValue] = useState<number>(config?.value || 0);
-    
+     
     // Function to calculate the clamped value based on min, max, and expected value
     const clampValue = (value: number) => {
         if (typeof max === 'number' && value > max) return max;
@@ -88,8 +88,11 @@ const useClamp = (config: I_UseClampConfig): T_UseClampReturn => {
 
     const handleClamp = (cb: SetStateAction<number>) => {
         if(typeof cb === 'function'){
-            setClampedValue(clampValue(cb(clampedValue)))
+            let res = cb(clampedValue)
+            setExpectedValue(res)
+            setClampedValue(clampValue(res))
         }else{
+            setExpectedValue(cb)
             setClampedValue(clampValue(cb))
         }
     }

@@ -49,6 +49,12 @@ const useEventListener: T_UseEventListener = (event: string, callback: Function,
     }
 
     const toggle = () => hasListener ? removeListener() : addListener()
+
+    const listen = useRef((element: any) => {
+        if (!element) return;
+        elementRef.current = element;
+        addListener();
+    });
     
     useEffect(() => {
         callbackRef.current = callback

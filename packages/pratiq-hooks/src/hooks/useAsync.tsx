@@ -45,10 +45,12 @@ const log = extend('useAsync')
  *   // Supply default data while the promise is pending
  *   initialData?: any;
  *
- *   // Load automatically on mount 
+ *   // Invoke the callback function automatically on mount
  *   autoLoad?: boolean;
  *
- *   // An array of dependencies to watch and reload on change 
+ *   // An array of dependencies to watch.
+ *   // passed as arguments to the callback function
+ *   // unless new arguments are provided to `reload(...newArgs)`
  *   deps?: any[];
  * }
  *
@@ -61,6 +63,105 @@ const log = extend('useAsync')
  *   reset: Function;
  * }
  */
+
+
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+export type UseAsyncConfig = {
+    initialData?: any;
+    autoLoad?: boolean;
+    deps?: any[];
+};
+
+export type UseAsyncReturn = {
+    loading: boolean;
+    done: boolean;
+    error: any;
+    data: any; 
+    reload: Function;
+    reset: Function;
+};
+
+type UseAsyncType = (callback: (...args: any[]) => Promise<any>, config?: UseAsyncConfig) => UseAsyncReturn;
+
+const useAsync: UseAsyncType = (callback, config = {}) => {
+    const cache = useRef<Map<string, any>>(new Map());
+    const abortControllerRef = useRef<AbortController | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [done, setDone] = useState(false);
+    const [data, setData] = useState<any>(config.initialData ?? null);
+    const [error, setError] = useState<any>(null);
+
+    const settings = {
+        deps: config.deps || [],
+        initialData: config.initialData || null,
+        autoLoad: config.autoLoad || false,
+    };
+
+    const reset = (disableAutoLoad = false) => {
+        setDone(false);
+        setLoading(false);
+        setError(null);
+        setData(settings.initialData);
+        disableAutoLoad && (settings.autoLoad = false)
+    };
+
+    const reload = useCallback((...realDeps: any[]) => {
+        if (loading) return;
+
+        // Abort the previous request if exists
+        abortControllerRef.current?.abort();
+        abortControllerRef.current = new AbortController();
+
+        setLoading(true);
+        setDone(false);
+        setError(null);
+        setData(settings.initialData);
+
+        // If realDeps are not provided, use settings.deps instead
+        const deps = realDeps.length > 0 ? realDeps : settings.deps;
+        const depsKey = JSON.stringify(deps);
+
+        if (cache.current.has(depsKey)) {
+            setData(cache.current.get(depsKey));
+            setLoading(false);
+            setDone(true);
+            return;
+        }
+
+        callback(...deps, { signal: abortControllerRef.current.signal })
+            .then((responseData: any) => {
+                setData(responseData);
+                setError(null);
+                setLoading(false);
+                setDone(true);
+                cache.current.set(depsKey, responseData);
+            })
+            .catch((err: any) => {
+                if (err.name === 'AbortError') return; // Ignore aborted requests
+                setError(err);
+                setData(settings.initialData);
+                setLoading(false);
+                setDone(false)
+            })
+    }, [settings.deps, callback]);
+
+    useEffect(() => {
+        settings.autoLoad && reload(...settings.deps);
+    }, [settings.autoLoad, reload, settings.deps]);
+
+    return { data, loading, error, done, reload, reset };
+};
+
+
+
+
+export default useAsync
+
+
+
+
+
 // const useAsync: UseAsyncType = (_callback: Function, _config: UseAsyncConfig = {}) => {
 
 //     const empty = {
@@ -215,103 +316,6 @@ const log = extend('useAsync')
 //     return {data, loading, error, done, reload, reset};
 // };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-import { useCallback, useEffect, useRef, useState } from 'react';
-
-export type UseAsyncConfig = {
-    initialData?: any;
-    autoLoad?: boolean;
-    deps?: any[];
-};
-
-type UseAsyncReturn = {
-    loading: boolean;
-    done: boolean;
-    error: any;
-    data: any;
-    reload: Function;
-    reset: Function;
-};
-
-type UseAsyncType = (callback: (...args: any[]) => Promise<any>, config?: UseAsyncConfig) => UseAsyncReturn;
-
-const useAsync: UseAsyncType = (callback, config = {}) => {
-    const cache = useRef<Map<string, any>>(new Map());
-    const abortControllerRef = useRef<AbortController | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [done, setDone] = useState(false);
-    const [data, setData] = useState<any>(config.initialData ?? null);
-    const [error, setError] = useState<any>(null);
-
-    const settings = {
-        deps: config.deps || [],
-        initialData: config.initialData || null,
-        autoLoad: config.autoLoad || false,
-    };
-
-    const reset = (disableAutoLoad = false) => {
-        setDone(false);
-        setLoading(false);
-        setError(null);
-        setData(settings.initialData);
-        disableAutoLoad && (settings.autoLoad = false)
-    };
-
-    const reload = useCallback((...realDeps: any[]) => {
-        if (loading) return;
-
-        // Abort the previous request if exists
-        abortControllerRef.current?.abort();
-        abortControllerRef.current = new AbortController();
-
-        setLoading(true);
-        setDone(false);
-        setError(null);
-        setData(settings.initialData);
-
-        const depsKey = JSON.stringify(realDeps);
-
-        if (cache.current.has(depsKey)) {
-            setData(cache.current.get(depsKey));
-            setLoading(false);
-            setDone(true);
-            return;
-        }
-
-        callback(...realDeps, { signal: abortControllerRef.current.signal })
-            .then((responseData: any) => {
-                setData(responseData);
-                setError(null);
-                setLoading(false);
-                setDone(true);
-                cache.current.set(depsKey, responseData);
-            })
-            .catch((err: any) => {
-                if (err.name === 'AbortError') return; // Ignore aborted requests
-                setError(err);
-                setData(settings.initialData);
-                setLoading(false);
-                setDone(false)
-            })
-    }, [settings.deps, callback]);
-
-    useEffect(() => {
-        settings.autoLoad && reload(...settings.deps);
-    }, [settings.autoLoad, reload, settings.deps]);
-
-    return { data, loading, error, done, reload, reset };
-};
-
-
-
-
-export default useAsync
-
-
-
-
-
-
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

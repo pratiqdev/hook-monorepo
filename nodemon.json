@@ -8,6 +8,6 @@
         "**/dist/**/*"
     ],
     "ext": "",
-    "exec": "turbo run build && turbo run test && pnpm --filter=docs dev",
+    "exec": "turbo run test && pnpm --filter=docs run dev",
     "_exec": "turbo run build --parallel --no-cache --filter=utils --filter=hooks && turbo run test"
 }

@@ -44,21 +44,30 @@ function Eventful() {
 
 <TabItem value='advanced' label='Advanced'>
 
-```js
-import { useEventListener } from '@pratiq/hooks'
+```tsx live
+function Eventful(){
 
-const elementRef = useRef<any>(null)
-const [isEnabled, toggle] = useEventListener('click', (e) => {
-    // do work
-}, elementRef.current)
+    const elementRef = useRef<any>(null)
+    const [isEnabled, toggle] = useEventListener('click', (e) => {
+        console.log('CLICK:', e)
+    }, elementRef.current)
 
-<div ref={elementRef}>
-    Click Me!
-</div>
+    return(
+        <>
+            <Button ref={elementRef}>
+                Click Me!
+            </Button>
 
-<button onClick={remove}>
-    Optionally remove listener
-</button>
+            <Button ref={elementRef}>
+                Click Me!
+            </Button>
+
+            <Button onClick={toggle}>
+                Toggle
+            </Button>
+        </>
+    )
+}
 ```
 
 </TabItem>

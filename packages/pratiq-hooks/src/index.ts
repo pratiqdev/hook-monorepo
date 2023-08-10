@@ -29,6 +29,7 @@ import useTemperature from './hooks/useTemperature.js'
 import useWindow from './hooks/useWindow.js'
 import useStorage, { useSessionStorage, useLocalStorage } from './hooks/useStorage.js'
 import useUpdateEffect from './hooks/useUpdateEffect.js'
+import useTime from './hooks/useTime.js'
 
 export {
     useAsync,
@@ -65,5 +66,7 @@ export {
     useLocalStorage,
     useSessionStorage,
 
-    useUpdateEffect
+    useUpdateEffect,
+
+    useTime,
 }

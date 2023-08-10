@@ -12,7 +12,7 @@ const data = getHookDataByTitle('useFetch')
 
 //+ useAsync
 const DemoComponent = (props:any) => {
-    const [expiration, setExpiration] = useState(2000)
+    const [expiration, setExpiration] = useState(10_000)
     const [idx, setIdx] = useState(1)
 
     const response = useFetch(`https://jsonplaceholder.typicode.com/posts/${idx}`, {
