@@ -11,3 +11,4 @@ dist-ssr
 server/dist
 public/dist
 .turbo
+commit_msg.txt

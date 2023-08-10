@@ -129,7 +129,7 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
             // delete expired entries
             console.log('>>> Cache miss:', cacheKey)
             delete cache[cacheKey]
-        }
+        } 
 
         setLoading(true);
         setLoaded(false);
