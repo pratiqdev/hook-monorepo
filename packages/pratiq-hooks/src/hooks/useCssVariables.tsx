@@ -2,7 +2,7 @@ import {useState, useCallback, useEffect} from 'react'
     
 export type RefOrElement = HTMLElement | React.RefObject<HTMLElement>
 
-export interface I_UseCssVariablesConfig {
+export type UseCssVariablesConfig = {
     /** A string used to match css properties */
     match?: string;
     /** The element to parse styles from */
@@ -10,11 +10,13 @@ export interface I_UseCssVariablesConfig {
 }
 
 
-export type T_UseCssVariablesReturn = [
+export type UseCssVariablesReturn = [
     /** The object containing css properties and values */
-    cssMap: { [key:string]: string },
+    css: { [key:string]: string },
+    /** A function to update the css variables of the active element */
+    setCss: (variables: Record<string, string>) => void,
     /** A function to force refresh the css properties and values */
-    update: () => void
+    update: () => void,
 ]
 
 
@@ -65,10 +67,10 @@ export type T_UseCssVariablesReturn = [
 
 
 
-const useCssVariables = (match: string = '', element?: RefOrElement): T_UseCssVariablesReturn => {
-    const [actual, setActual] = useState({})
+const useCssVariables = (match: string = '', element?: RefOrElement): UseCssVariablesReturn => {
+    const [css, setCss] = useState({})
 
-    const update = useCallback(() => {
+    const refresh = useCallback(() => {
         let el: any;
         if(element){
             if('current' in element){
@@ -83,7 +85,7 @@ const useCssVariables = (match: string = '', element?: RefOrElement): T_UseCssVa
         }
 
         if(match === ''){
-            setActual(getComputedStyle(el))
+            setCss(getComputedStyle(el))
         }else{
             const cssMap:any = {}
             
@@ -91,16 +93,32 @@ const useCssVariables = (match: string = '', element?: RefOrElement): T_UseCssVa
             .filter(item => item.includes(match))
             .forEach(item => { cssMap[item] = getComputedStyle(el).getPropertyValue(item) })
             
-            setActual(cssMap)
+            setCss(cssMap)
         }
     }, [match])
 
+    const set = useCallback((variables) => {
+        if(!variables || typeof variables !== 'object') return;
+
+        const el: any = element && 'current' in element 
+            ? element.current 
+            : element ?? document.documentElement;
+
+        Object.keys(variables).forEach((key) => {
+            el.style.setProperty(key, variables[key]);
+        });
+    }, [element]);
+
     
     useEffect(() => {
-        update()
+        refresh()
     }, [match])
 
-    return [actual, update]
+    return [
+        css, 
+        setCss,
+        refresh
+    ]
 }
 
 export default useCssVariables

@@ -1,6 +1,7 @@
 ---
 title: useGeolocation
 description: Get up-to-date location data from the client device, set to react-state
+hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
@@ -8,16 +9,11 @@ import DemoComponent from './demo_useGeolocation'
 
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
 
-# 
-
-<Card>
 <MainText>
 <h1>useGeolocation</h1>
 Get up-to-date location data from the client device, set to react-state
 </MainText>
-</Card>
 
-<!--meta-section-break-->
 
 
 
@@ -34,63 +30,40 @@ The hook will return an error that contains the message: **"User denied geolocat
 
 
 
-<!--=========================================================================-->
 
 ## Usage
 
 <Tabs>
 <TabItem value='simple' label='Simple'>
 
-```js
-import { useGeolocation } from '@pratiq/hooks'
+```tsx live
+function ShowLocation(){
+    const {data} = useGeolocation()
 
-const {data} = useGeolocation()
-
-<p>Lat: {data?.latitude}</p>
-<p>Lon: {data?.longitude}</p>
+    // return <pre>{data?.latitude ?? '??'}  x  {data?.longitude ?? '??'}</pre>
+    return <pre>{JSON.stringify(data)}</pre>
+}
 ```
 
 </TabItem>
-<TabItem value='advanced' label='Advanced'>
 
-```js
-import { useGeolocation } from '@pratiq/hooks'
 
-const {data, error} = useGeolocation()
+<TabItem value='Advanced' label='Advanced'>
 
-{error
-? <p>{error}</p> 
-: <>
-    <p>Lat: {data.latitude}</p>
-    <p>Lon: {data.longitude}</p>
-</>}
+```tsx live
+function ShowLocation(){
+    const {data, error, active} = useGeolocation()
+
+    return <p>{data.accuracy}</p>
+}
 ```
 
 </TabItem>
-<TabItem value='full' label='Full'>
 
-```js
-import { useGeolocation } from '@pratiq/hooks'
-
-const geo = useGeolocation()
-
-<pre>{JSON.stringify(geo)}</pre>
-```
-
-</TabItem>
 </Tabs>
 
 
 
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-<DemoComponent />
 
 
 

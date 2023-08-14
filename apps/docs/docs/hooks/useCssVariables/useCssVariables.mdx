@@ -26,11 +26,7 @@ Clamp numerical values within the provided range
 function CssVariables() {
     const [css] = useCssVariables('--ifm-font-color')
 
-    return (
-        <div>
-            <pre>{JSON.stringify(css, null, 2)}</pre>
-        </div>
-    )
+    return  <pre>{JSON.stringify(css, null, 2)}</pre>
 }
 ```
 

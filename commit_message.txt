@@ -1,2 +1,1 @@
-Removed deps serialization in favor of prev request abort
-`
+Abandoning development on 'useFetch' in favor of 'useSWR'

@@ -23,17 +23,17 @@ const DemoComponent = (props:any) => {
         maximumAge
     })
 
-    const demoCode = 
-`const geo = useGeolocation({
-    enableHighAccuracy: ${enableHighAccuracy},
-    maximumAge: ${maximumAge},
-    timeout: ${timeout},
-})`
+//     const demoCode = 
+// `const geo = useGeolocation({
+//     enableHighAccuracy: ${enableHighAccuracy},
+//     maximumAge: ${maximumAge},
+//     timeout: ${timeout},
+// })`
 
    
 
     return(
-        <Layout {...metadata}>
+        <>
 
 
             <div style={{paddingBottom: '1rem', display: 'flex', flexDirection:'column'}}>
@@ -60,9 +60,9 @@ const DemoComponent = (props:any) => {
 
                     <div style={{margin:'1rem', marginTop:0}} >
                         <div style={{margin:'0rem', height:'6rem', width:'6rem', borderRadius:'50%', background: '#000', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                            <div style={{fontSize:'2rem', position:'absolute', color: '#889', fontWeight:'bold'}}>{data?.data?.direction ?? ''}</div>
-                            <div style={{position: 'absolute', fontSize:'.8rem'}}>{data?.data ? parseInt(data?.data?.heading) : ''}</div>
-                            <div style={{backgroundImage:`linear-gradient(red 25%, white 25%)`, height:'5.5rem', width:'.1rem', borderRadius:'50%', transform: `rotate(${data?.data?.heading}deg)`}} />
+                            <div style={{fontSize:'2rem', position:'absolute', color: '#889', fontWeight:'bold'}}>{data?.direction ?? ''}</div>
+                            <div style={{position: 'absolute', fontSize:'.8rem'}}>{data?.data ? parseInt(data?.heading) : ''}</div>
+                            <div style={{backgroundImage:`linear-gradient(red 25%, white 25%)`, height:'5.5rem', width:'.1rem', borderRadius:'50%', transform: `rotate(${data?.heading}deg)`}} />
                         </div>
                         
                     </div>
@@ -70,7 +70,7 @@ const DemoComponent = (props:any) => {
                 
 
                 {/* {data.error && <p>TYPE | {typeof data.error}</p>} */}
-                <HeadlessTable code={1} items={[
+                {/* <HeadlessTable code={1} items={[
                     ['geo','error', '', data?.error+''],
                     ['geo','active', '', data?.active+''],
                     ['','data','accuracy', data?.data?.accuracy+''],
@@ -83,10 +83,10 @@ const DemoComponent = (props:any) => {
                     ['','','timestamp', data?.data?.timestamp+''],
                     ['','','delta', data?.data?.delta+''],
                 ]}/>
+                
+            <CodeBlock language='ts' className='demo-display' >{demoCode}</CodeBlock> */}
             </div>
-
-            <CodeBlock language='ts' className='demo-display' >{demoCode}</CodeBlock>
-        </Layout>
+        </>
     )
 }
 

@@ -1,6 +1,9 @@
 import {useState, useEffect, useRef, useMemo} from 'react'
 import extend from '../utils/logger.js'
+import isBrowser from '../utils/isBrowser.js';
 const log = extend('local_useGeolocation')
+
+
 /**
 * useGeolocation()
 * ---
@@ -46,19 +49,27 @@ export interface I_UseGeoOptions {
 }
 
 
-export interface I_UseGeoData {         // example
+export type UseGeoData = {         // example
     accuracy: number | null;            // 5000 
     altitudeAccuracy: number | null;    // null
-    heading: number;                    // 55.115156546655356,       
-    latitude: number;                   // 43.210 
-    longitude: number;                  // -87.654 
-    speed: number;                      // 0 
-    timestamp: number;                  // 1234567890987, 
-    delta: number;                      // 842 
+    heading: number | null;                    // 55.115156546655356,       
+    latitude: number | null;                   // 43.210 
+    longitude: number | null;                  // -87.654 
+    speed: number | null;                      // 0 
+    timestamp: number | null;                  // 1234567890987, 
+    delta: number | null;                      // 842 
+    direction: string | null;           // 'NNW'
 } 
 
-const useGeolocation = (options: I_UseGeoOptions = {}) => {
-    const nullData = {
+export type UseGeoReturn = {
+    data: UseGeoData;
+    error: any;
+    active: boolean;
+}
+
+
+const useGeolocation = (options: I_UseGeoOptions = {}):UseGeoReturn => {
+    const nullData: UseGeoData = {
         accuracy: null,
         altitudeAccuracy: null,
         heading: null,
@@ -70,8 +81,10 @@ const useGeolocation = (options: I_UseGeoOptions = {}) => {
         delta: null,
     }
 
+    if (!isBrowser()) return { data:nullData, error: null, active: false } 
+
     const [error, setError] = useState<any>(null)
-    const [data, setData] = useState<any | I_UseGeoData>(nullData)
+    const [data, setData] = useState<UseGeoData>(nullData)
     const [isActive, setIsActive] = useState(false)
     const lastTime = useRef<any>(Date.now())
 
@@ -95,11 +108,7 @@ const useGeolocation = (options: I_UseGeoOptions = {}) => {
             337.5: 'NNW',
             360: 'N',
         }
-        let dir = 'N'
 
-        // Object.entries(map).forEach(([_heading, _direction]:any) => {
-        //     if()
-        // })
         let headings = Object.keys(map)
 
         var closest: string = headings.reduce((previousValue: string, currentValue: string, currentIndex: number, array: string[]):string => {
@@ -111,13 +120,6 @@ const useGeolocation = (options: I_UseGeoOptions = {}) => {
         return map[closest]
 
     }
-
-    useEffect(()=>{
-        log('MOUNTED -------------------')
-        return () => log('UNMOUNTED -------------')
-    }, [])
-
-
 
     useEffect(()=>{
         const successHandler = (e: any) => {
@@ -168,10 +170,6 @@ const useGeolocation = (options: I_UseGeoOptions = {}) => {
         )
         return () => navigator.geolocation.clearWatch(id)
     }, Object.values(options))
-
-    useEffect(()=>{ log('option change') },[options])
-    useEffect(()=>{ log('data change') },[data])
-    useEffect(()=>{ log('error change') },[error])
 
     return {data, error, active:isActive}
 
