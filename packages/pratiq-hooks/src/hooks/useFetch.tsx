@@ -1,6 +1,7 @@
 import {useState, useRef, useEffect, useMemo, useCallback} from 'react'
-import extend from '../utils/logger.js'
-const log = extend('local_useFetch')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useFetch')
 
 
 export type UseFetchConfig = {
@@ -23,7 +24,7 @@ export type UseFetchSettings = {
 const cache: Record<string, { data: any; timestamp: number }> = {};
 
 const useFetch = (url: string = '', config: UseFetchConfig) => {
-    console.log('useFetch v0.2')
+    log('useFetch v0.2')
 
     const {
         options, watch, expire, initialData, autoLoad
@@ -44,11 +45,11 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
     const expireHandle: any = useRef();
 
     const cacheKey = useMemo(() => `${url}_${expire}_${JSON.stringify(watch)}_${JSON.stringify(options)}`, [url, watch, options, expire]);
-    // console.log('cacheKey:', cacheKey)
+    // log('cacheKey:', cacheKey)
 
     const handleExpire = () => {
         if (!done.current) {
-            console.log('Force expiring request...')
+            log('Force expiring request...')
             clearTimeout(expireHandle.current);
             setError(`Request expired. Expiration set to ${expire} ms`);
             setData(initialData);
@@ -59,7 +60,7 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
     };
 
     const errorIntercept = (response: any) => {
-        console.log('Error intercept:', response)
+        log('Error intercept:', response)
 
         if (!response.ok) {
             setError(response.statusText);
@@ -70,7 +71,7 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
 
     const handleError = (e: any) => {
         if (!done.current) {
-            console.log('handleError:', e)
+            log('handleError:', e)
             clearTimeout(expireHandle.current);
             done.current = true;
             setError(e);
@@ -81,7 +82,7 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
 
     const handleValue = (v: any) => {
         if (!done.current) {
-            console.log('handleValue:', v)
+            log('handleValue:', v)
             clearTimeout(expireHandle.current);
             cache[cacheKey] = { data: v, timestamp: Date.now() }; // Cache the response
             done.current = true;
@@ -93,7 +94,7 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
     };
 
     const reset = () => {
-        console.log('resetting...')
+        log('resetting...')
 
         abortController.current.abort();
         abortController.current = new AbortController();
@@ -104,16 +105,16 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
     };
 
     const reload = useCallback(() => {
-        console.log('reloading...')
+        log('reloading...')
 
         if (!done.current) {
-            console.log('NOT DONE: abort and clear timeout')
+            log('NOT DONE: abort and clear timeout')
 
             abortController.current.abort();
             abortController.current = new AbortController();
             clearTimeout(expireHandle.current);
         }
-        console.log('Continuing to reload...')
+        log('Continuing to reload...')
 
         setLoading(true);
         setLoaded(false);
@@ -124,9 +125,9 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
         // Check cache
         const cachedData = cache[cacheKey];
         if (cachedData) {
-            console.log('Checking cache...')
+            log('Checking cache...')
             if (Date.now() - cachedData.timestamp < expire) {
-                console.log('>>> Cache hit:', cacheKey)
+                log('>>> Cache hit:', cacheKey)
                 setData(cachedData.data); // Set cached data if available and not expired
                 setLoading(false)
                 setLoaded(true)
@@ -135,7 +136,7 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
                 return
             }
             // delete expired entries
-            console.log('>>> Cache miss:', cacheKey)
+            log('>>> Cache miss:', cacheKey)
             // delete cache[cacheKey]
         } 
 
@@ -148,12 +149,12 @@ const useFetch = (url: string = '', config: UseFetchConfig) => {
 
         try {
             options.signal = abortController.current.signal;
-            console.log('Running fetch:', url)
+            log('Running fetch:', url)
             fetch(url, { ...options, signal: abortController.current.signal })
                 .then(errorIntercept)
                 .then(res => res.json())
                 .then(res => {
-                    console.log('Request success. setting cache, state and clearing timeouts', res)
+                    log('Request success. setting cache, state and clearing timeouts', res)
                     cache[cacheKey] = { data: res, timestamp: Date.now() }
                     clearTimeout(expireHandle.current);
                     handleValue(res);
@@ -344,7 +345,7 @@ export default useFetch;
 //         setError(null)
 //         setData(initialData)
 
-//         // console.log('reload...', watch, url)
+//         // log('reload...', watch, url)
         
 //         try{
 //             //@ts-ignore
@@ -357,7 +358,7 @@ export default useFetch;
 //             })
 //             .then(res => {
 //                 if(watchRef.current !== JSON.stringify(watch)){
-//                     // console.log('mismatch:', {ref: watchRef.current, watch: watch})
+//                     // log('mismatch:', {ref: watchRef.current, watch: watch})
 //                     // abortRef.current.abort()
 //                     clearTimeout(expireHandle.current)
 //                 }else{

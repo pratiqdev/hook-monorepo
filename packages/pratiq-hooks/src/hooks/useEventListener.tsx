@@ -1,5 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react'
-import isBrowser from '../utils/isBrowser.js'
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useEventListener')
     
 /**
 * useEventListener()
@@ -21,6 +23,7 @@ type T_UseEventListener = (event:string, callback:Function, element: any) => [
 
 const useEventListener: T_UseEventListener = (event: string, callback: Function, element: any) => {
     if(!isBrowser()) return [false, () => {}];
+    
     const [hasListener, setHasListener] = useState(false)
     
     const callbackRef = useRef<any>(callback)

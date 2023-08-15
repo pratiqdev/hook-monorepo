@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react'
-import isBrowser from '../utils/isBrowser.js'
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useGeolocation')
 
 /**
 * useValidCss()

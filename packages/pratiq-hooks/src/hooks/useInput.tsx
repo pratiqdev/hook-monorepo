@@ -1,10 +1,10 @@
 import React, {useMemo, useState, useCallback, useEffect, useRef, CSSProperties } from 'react'
-import extend from '../utils/logger.js'
-import isBrowser from '../utils/isBrowser.js'
-import useUpdateEffect from './useUpdateEffect';
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useInput')
 
 // const log = extend('local_useInput')
-const log = console.log
+// const log = console.log
 
 export enum StyleGroupNames {
     

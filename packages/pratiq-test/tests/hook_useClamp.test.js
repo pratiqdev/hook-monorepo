@@ -22,8 +22,8 @@ describe(heading('useClamp'), () => {
         expect(typeof hook.initialValue).eq('number')
         expect(typeof hook.setValue).eq('function')
         expect(typeof hook.reset).eq('function')
-        expect(hook.min).to.be.undefined
-        expect(hook.max).to.be.undefined
+        expect(hook.min).eq(Number.MIN_SAFE_INTEGER)
+        expect(hook.max).eq(Number.MAX_SAFE_INTEGER)
 
         expect(hook.value).eq(0)
         expect(hook.initialValue).eq(0)

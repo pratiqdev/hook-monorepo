@@ -1,7 +1,8 @@
 // import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 //@ts-ignore
-import extend from '../utils/logger.js'
-const log = extend('useAsync')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useAsync')
 
 
 // export type UseAsyncConfig = {

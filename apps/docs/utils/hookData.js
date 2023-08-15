@@ -172,10 +172,15 @@ const data = {
         title: 'useWindow',
         description: 'Get info about the current windows size, rotation, scroll depth, mouse position and more',
         tags: [E_Tags.device]
+    },
+    useTime: {
+        title: 'useTime',
+        description: 'Refresh and parse the current time using provided template and interval',
+        tags: [E_Tags.time]
     }
 
     
 }
 
 
-module.exports = data
+export default data

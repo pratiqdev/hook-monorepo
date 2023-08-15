@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import isBrowser from '../utils/isBrowser.js'
+import { isBrowser } from '@pratiq/utils'
 
 type T_UseClickOutside = (callback: (e: MouseEvent) => any) => (el:any) => unknown;
 

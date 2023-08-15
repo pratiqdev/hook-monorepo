@@ -1,7 +1,7 @@
 import {useState, useEffect, useRef, useMemo} from 'react'
-import extend from '../utils/logger.js'
-import isBrowser from '../utils/isBrowser.js';
-const log = extend('local_useGeolocation')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useGeolocation')
 
 
 /**

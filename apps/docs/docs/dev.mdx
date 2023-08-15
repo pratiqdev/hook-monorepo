@@ -5,7 +5,7 @@ import {version} from 'react'
 import StatusBadge from '@site/src/components/StatusBadge'
 import ClientBadge from '@site/src/components/ClientBadge'
 import Button from '@site/src/components/Button'
-import { Card, HeadlessTable, MainText, IntroList, HooksByTags, RandomHookButton, HookWheel } from '/src/components/'
+import { Card, HeadlessTable, MainText, IntroList, HooksByTags, HookWheel } from '/src/components/'
 
 
 <div style={{ display: 'flex', alignItems:'center', marginBottom: '1rem' }}>
@@ -25,22 +25,7 @@ site to view its development status
 
 
 
-{/* 
 
-
-## Status Badges
-
-This project is currently in development. Each hook that is actively being developed
-displays information about its development status in a badge. Inactive hooks/pages
-may not contain any badges and should still be considered **NOT READY FOR PRODUCTION**
-
-<StatusBadge status={0} />
-<StatusBadge status={1} />
-<StatusBadge status={2} />
-<StatusBadge status={3} />
-<StatusBadge status={4} />
-
- */}
 
 
 
@@ -57,3 +42,6 @@ Hooks that return **components in CSR** will return *null in SRR*.
 Hooks that return **data in CSR** will return *initial or default values of the hook in SSR*.
 
 <ClientBadge />
+
+
+<Contribute />

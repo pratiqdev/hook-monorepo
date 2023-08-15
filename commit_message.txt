@@ -1,1 +1,1 @@
-Abandoning development on 'useFetch' in favor of 'useSWR'
+Removing og standalone demo components in favor of tsx live

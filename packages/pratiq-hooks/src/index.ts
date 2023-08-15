@@ -30,6 +30,7 @@ import useWindow from './hooks/useWindow.js'
 import useStorage, { useSessionStorage, useLocalStorage } from './hooks/useStorage.js'
 import useUpdateEffect from './hooks/useUpdateEffect.js'
 import useTime from './hooks/useTime.js'
+import useEnvironment from './hooks/useEnvironment.js'
 
 export {
     useAsync,
@@ -69,4 +70,5 @@ export {
     useUpdateEffect,
 
     useTime,
+    useEnvironment
 }

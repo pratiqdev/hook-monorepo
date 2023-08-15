@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import extend from '../utils/logger.js'
-const log = extend('local_useCountdown')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useCookie')
 
 
 

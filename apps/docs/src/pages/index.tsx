@@ -1,63 +1,12 @@
-//@ts-nocheck
 import React from 'react';
-import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
-// import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import { Card, Icons, Button } from '@site/src/components'
-import { useMediaQuery } from '@pratiq/hooks'
+import { Card, Icons } from '@site/src/components'
 
 
 
-
-// function HomepageHeader() {
-//   const {siteConfig} = useDocusaurusContext();
-
-//   return (
-//     // <header className={clsx('hero hero--primary', styles.heroBanner)}>
-//       <header className={styles.container}>
-//         <Card className='homepage-card' style={{padding:'2rem', marginTop: '1rem', marginBottom: '1rem'}}>
-//           <h1 className="hero__title" style={{fontFamily:'monospace', width:'100%', textAlign:'center', letterSpacing:'.2rem', fontWeight:'normal', fontSize: mq(['1.4rem', '2rem', '2.4rem'])}}>{siteConfig.title}</h1>
-//           <p className="hero__subtitle" style={{width:'100%', textAlign:'center', padding:mq(['0 5%', '0 20%']), fontSize: mq(['1rem', '1.4rem', '1.8rem']) }}>
-//             A collection of hooks, high-order components and utilities for React and Node.js web development
-//           </p>
-//           <div className={styles.buttons} style={{display:'flex', flexDirection: mq(['column']), justifyContent:'space-between', alignItems:'stretch'}}>
-//             <Link
-//               className="button button--primary button--lg homepage-btn-main"
-//               style={{ margin: mq(['.5rem', '1rem']), flex:1, fontSize: mq(['1rem', '1.2rem']),  padding: mq(['.25rem', '.5rem'])}}
-//               to="docs/getting-started/installation">
-//               Getting Started
-//             </Link>
-//             {/* <div style={{flex: 1, display: 'flex', flexDirection: 'row'}}> */}
-//             <Link
-//               style={{ margin: mq(['.5rem', '1rem']), flex:1, fontSize: mq(['1rem', '1.2rem']), padding: mq(['.25rem', '.5rem'])}}
-//               className="button button--primary button--lg homepage-btn"
-//               to="docs/hooks/">
-//               Hooks
-//             </Link>
-//             {/* <Link
-//                 style={{ margin: mq(['.5rem', '1rem']), flex:1, fontSize: mq(['1rem', '1.2rem']), padding: mq(['.25rem', '.5rem'])}}
-//                 className="button button--primary button--lg homepage-btn"
-//                 to="docs/utilities/intro">
-//               Utilities
-//             </Link> */}
-//             {/* <Link
-//                 style={{ margin: mq(['.5rem', '1rem']), flex:1, fontSize: mq(['1rem', '1.2rem']), padding: mq(['.25rem', '.5rem'])}}
-//                 className="button button--primary button--lg homepage-btn"
-//                 to="docs/examples/intro">
-//                 Examples
-//               </Link> */}
-//             </div>
-//           {/* </div> */}
-
-
-//         </Card>
-//       </header>
-//     // </header>
-//   );
-// }
 
 
 
@@ -113,7 +62,7 @@ function HomepageHeader() {
 
 
 
-const FeatureList: FeatureItem[] = [
+const FeatureList: any[] = [
   {
     title: 'Use and Reuse',
     icon: <Icons icon='cycle' iconProps={{size:'4rem', color: 'primary'}} />,

@@ -1,6 +1,7 @@
 import {useState, useEffect, useCallback, useMemo} from 'react'
-import extend from '../utils/logger.js'
-const log = extend('local_useTemperature')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useTemperature')
 
 
 export interface I_UseTemperatureConfig { 

@@ -1,0 +1,228 @@
+---
+title: useExample
+description: This is an example of a hook documentation page
+hide_title: true
+prod_ready: false
+---
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, Contribute } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const { title, description } = getHookDataByTitle('useMediaQuery')
+
+<MainText>
+<h1>useExample</h1>
+{description}
+</MainText>
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='1' label='Basic'>
+
+```tsx live
+function Demo() {
+  const { value } = useClamp()
+  return <p>{value}</p>
+}
+```
+
+</TabItem>
+
+<TabItem value='2' label='2'>
+
+```tsx live
+function Demo() {
+  const { value } = useClamp()
+  return <p>{value}</p>
+}
+```
+
+</TabItem>
+
+<TabItem value='3' label='3'>
+
+```tsx live
+function Demo() {
+  const { value, setValue, reset } = useClamp()
+  return <p>{value}</p>
+}
+```
+
+</TabItem>
+
+<TabItem value='4' label='Full'>
+
+```tsx live
+function Demo() {
+ const [log, setLog] = useState('no-log')
+    const { 
+        time,                    
+        done,                        
+        running,                    
+        started,                     
+        start,                     
+        stop,                             
+        reset,                               
+    } = useCountdown({
+        duration: 10_000,           
+        interval: 10,              
+        callbacks: {                     
+            'start':() => setLog('10_000ms => started'),
+            'end':  () => setLog('0ms      => over'),  
+            9000:   () => setLog('9_000ms  => watch `time.seconds` VS `time.realSeconds`'),
+            4000:   () => setLog('4_000ms'),
+            3000:   () => setLog('3_000ms'),
+            2000:   () => setLog('2_000ms'),
+            1000:   () => setLog('1_000ms'),
+        },
+    })
+
+    return (
+        <>
+            <p>{running ? 'Running' : 'Stopped'}</p>
+            {done
+                ? <p>Done</p>
+                : <p>{time.hours}:{time.minutes}:{time.seconds}</p>
+            }
+
+            <p>{log}</p>
+            <p>Seconds: {time.seconds}</p>
+            <p>realSeconds: {time.realSeconds}</p>
+
+            <button onClick={start}>Start</button>
+            <button onClick={stop}>Stop</button>
+            <button onClick={reset}>Reset</button>
+        </>
+    )
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+
+
+## API
+
+### Interfaces
+
+```tsx
+useExample(config?: UseExampleConfig): UseExampleReturn
+
+export type UseExampleConfig = {};
+
+export type UseExampleReturn = {};
+```
+
+### Config Example
+
+```tsx
+const exm = useExample({
+    option: 13,
+    name: 'string',
+})
+```
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@value', 'number', 'The example value returned']
+]} />
+
+:::note About Returned Values
+Leave some notes if the returned values have unexpected behavior
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## Hook Methods
+
+<Card>
+
+### start
+Start the countdown, if not already started or done
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.start()
+```
+</Card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## Internal
+
+<small>
+
+</small>
+
+<RelatedTable hooks={[
+    'useState',
+    'useEffect',
+    'useRef'
+]} />
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## Related Hooks
+
+<RelatedTable hooks={['useInterval', 'useTime']} />

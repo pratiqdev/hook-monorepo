@@ -1269,7 +1269,7 @@ th tr:hover, thead tr:hover{
     rgb(129, 165, 255)
   );
   font-size: .8rem;
-  max-width: 30rem;
+  /* max-width: 30rem; */
   margin: 2rem auto;
 }
 

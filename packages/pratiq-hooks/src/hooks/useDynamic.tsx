@@ -1,6 +1,7 @@
 import React, { Suspense, useState, useEffect, useMemo, lazy, useRef } from 'react';
-// @ts-ignore
-import debug from '../utils/logger.js'
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useCookie')
 
 function renderLazyComponent(component:string) {
     //~ FOR DEMO PURPOSES ONLY                  

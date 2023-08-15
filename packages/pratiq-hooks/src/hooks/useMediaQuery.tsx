@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react'
 //@ts-ignore
-import extend from '../utils/logger.js'
-const log = extend('local_useMediaQuery')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useMediaQuery')
 
 type T_StringMap = { [key:string]: string }
 type T_BooleanMap = { [key:string]: boolean }

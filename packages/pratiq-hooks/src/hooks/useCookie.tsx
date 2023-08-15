@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
-import isBrowser from '../utils/isBrowser.js'
-import extend from '../utils/logger.js'
-const log = extend('local_useCookie')
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useCookie')
 
 /** 
  * [@pratiq/hooks - useCookie](https://hooks.pratiq.dev/docs/hooks/useCookie)

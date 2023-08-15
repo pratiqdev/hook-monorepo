@@ -19,8 +19,8 @@ const Contribute = (props: any) => (
             <Button href="https://github.com/pratiqdev/hook-monorepo">GitHub Repo</Button>
             <Button href="https://www.npmjs.com/package/@pratiq/hooks">NPM Package</Button>
             <Button href="https://github.com/pratiqdev/hook-monorepo/issues">Issues</Button>
-        </div>
-        <div style={{display: 'flex', gap: '.5rem', marginTop: '.5rem'}}>
+        {/* </div> */}
+        {/* <div style={{display: 'flex', gap: '.5rem', marginTop: '.5rem'}}> */}
             <Button href="/docs/dev">Development Status</Button>
             <Button href="https://www.npmjs.com/package/@pratiq/hooks">More ways to contribute</Button>
         </div>

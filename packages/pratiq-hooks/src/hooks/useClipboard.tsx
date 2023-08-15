@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import isBrowser from '../utils/isBrowser.js';
+import {isBrowser} from '@pratiq/utils';
     
 /**
  

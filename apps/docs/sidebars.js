@@ -1,12 +1,19 @@
 const fs = require('fs')
+// import fs from 'fs'
 require('./runner/index.js')
-const IS_DEV = require('./utils/isDev.js')
+// import runner from './runner'
+const { isDev, isBrowser, checkCurrentDevEnv } = require('@pratiq/utils/dist/index.cjs')
+// import { isDev, isBrowser } from '@pratiq/utils'
 const debug = require('debug')
+// import debug from 'debug'
 const log = debug('@pq:sidebar')
 
+// runner()
 
 
 const NON_PROD_READY_HOOKS = [
+  'useExample', // dev only
+
   'useAnimator',
   'useCalculator',
   'useFetch', // abandoned in favor of useSWR
@@ -30,7 +37,7 @@ const NON_PROD_READY_HOOKS = [
 
 let ignoredFiles = []
 
-if (IS_DEV) {
+if (checkCurrentDevEnv()) {
   //! ignore during dev
   ignoredFiles = []
   console.log('-'.repeat(80))
@@ -69,7 +76,7 @@ hookFiles.sort()
 
 
 // ~
-if (IS_DEV) {
+if (isDev) {
   hookFiles.push('hooks/meta')
 }
 

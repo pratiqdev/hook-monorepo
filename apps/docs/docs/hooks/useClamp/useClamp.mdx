@@ -7,7 +7,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge } from '@site/src/components'
 
-
+ 
 <MainText>
 <h1>useClamp</h1>
 Clamp numerical values within the provided range
@@ -97,13 +97,15 @@ function ClampedCounter(props) {
 
 ### Interfaces
 ```ts
-export interface I_UseClampConfig { // example
+export type UseClamp = (config: UseClampConfig) => UseClampReturn
+
+export type UseClampConfig { // example
     min?: number;                   // 0
     max?: number;                   // 99
     value?: number;                 // 7
 }
 
-export interface I_UseClampReturn { // example
+export type UseClampReturn { // example
     value: number;                  // 7
     setValue: Function;             // setValue(9)
     reset: Function;                // reset()

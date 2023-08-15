@@ -22,12 +22,14 @@
   "dependencies": {
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
+    "@pratiq/utils": "workspace:*",
     "chai": "^4.3.7",
     "mocha": "^10.2.0"
   },
   "devDependencies": {
     "@pratiq/config": "workspace:*",
     "@types/debug": "^4.1.7",
+    "@types/node": "^20.4.9",
     "@types/react": "^17.0.13",
     "debug": "^4.3.4",
     "eslint": "^7.32.0",

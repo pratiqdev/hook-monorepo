@@ -1,8 +1,8 @@
 import React, {useState, useCallback, useEffect, useMemo} from 'react'
-import isBrowser from '../utils/isBrowser.js'
-import extend from '../utils/logger.js'
-const log = extend('useKeyboard')
-
+import { isBrowser } from '@pratiq/utils'
+import debug from 'debug'
+const log = debug('@pq:useKeyboard')
+ 
 /** 
 * useKeyCombo()
 * ---
