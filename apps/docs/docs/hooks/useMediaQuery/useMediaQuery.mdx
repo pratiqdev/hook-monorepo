@@ -1,11 +1,17 @@
----
-title: useMediaQuery
-description: Register multiple media queries for handling complex layouts.
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useMediaQuery')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useMediaQuery</h1>

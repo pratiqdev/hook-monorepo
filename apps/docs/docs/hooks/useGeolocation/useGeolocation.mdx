@@ -1,11 +1,17 @@
----
-title: useGeolocation
-description: Get up-to-date location data from the client device, set to react-state
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useGeolocation')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useGeolocation</h1>

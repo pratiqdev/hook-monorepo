@@ -1,13 +1,17 @@
----
-title: useStateArray
-hide_title: true
----
-
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
-import DemoComponent from './demo_useStateArray'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useStateArray')
 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useStateArray</h1>
@@ -105,18 +109,6 @@ console.log(value) // [1, 2, 3, 9]
 
 
 
-
-
-
-
-<br />
-<hr />
-{/* ============================================================================ */}
-
-
-## Demo
-
-<DemoComponent />
 
 
 

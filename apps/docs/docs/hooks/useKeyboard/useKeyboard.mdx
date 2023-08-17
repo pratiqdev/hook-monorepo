@@ -1,11 +1,17 @@
----
-title: useKeyboard
-description: Easy access to keyboard events with built-in combo handling
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useKeyboard')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useKeyboard</h1>
@@ -56,17 +62,6 @@ const keyb = useKeyboard({
 
 
 
-
-
-
-
-
-<!-- ======================================================================= -->
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 

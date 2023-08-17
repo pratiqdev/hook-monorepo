@@ -1,12 +1,17 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useStateWithValidation'
 import {RelatedTable, HeadlessTable, Card, MainText} from '/src/components'
 import { getHookDataByTitle } from '/utils/getHooks'
-const data = getHookDataByTitle('useStateWithValidation')
+const {title, description, content, doc} = getHookDataByTitle('useStateWithValidation')
 
-<Card><MainText>{data.description}</MainText></Card>
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
 
+<MainText>
+{description}
+</MainText>
 
 
 ## Usage    
@@ -22,12 +27,6 @@ const { value, setValue, isValid, lastValidValue } = useStateWithValidation({
 ```
 
 
-<!-- ======================================================================= -->
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 

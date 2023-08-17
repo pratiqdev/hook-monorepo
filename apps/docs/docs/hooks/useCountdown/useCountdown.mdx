@@ -1,12 +1,17 @@
----
-title: useCountdown
-description: Run a countdown timer with state and optional callbacks 
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useCountdown')
 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useCountdown</h1>

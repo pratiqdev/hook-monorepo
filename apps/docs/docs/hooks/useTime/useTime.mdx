@@ -1,12 +1,17 @@
----
-title: useTime
-description: Refresh and parse the current time to the given format on the provided interval
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useTime')
 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useTime</h1>

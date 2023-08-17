@@ -31,7 +31,6 @@ const createMeta = () => {
 
   const requiredComponents = [
     '<RelatedTable',
-    '<DemoComponent'
   ]
 
   const deprecatedHeadings = [

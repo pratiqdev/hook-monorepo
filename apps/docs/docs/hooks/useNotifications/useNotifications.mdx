@@ -1,11 +1,18 @@
----
-title: useNotifications
-description: Send notifications to the client device for info, status updates, alerts or anything!
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useNotifications')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
+
 
 <MainText>
 <h1>useNotifications</h1>
@@ -34,17 +41,6 @@ Send notifications to the client device for info, status updates, alerts or anyt
 
 
 
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 

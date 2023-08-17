@@ -1,17 +1,18 @@
----
-title: useClamp
-description: Clamp numerical values within the provided range
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge } from '@site/src/components'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge, Contribute } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useClamp')
 
- 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
 <MainText>
-<h1>useClamp</h1>
-Clamp numerical values within the provided range
+{description}
 </MainText>
+
 
 
 

@@ -1,0 +1,155 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, Contribute } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useEnvironment')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='1' label='Basic'>
+
+```tsx live
+function Demo() {
+  const envData = useEnvironment()
+  return <pre>{JSON.stringify(envData, null, 2)}</pre>
+}
+```
+
+</TabItem>
+
+</Tabs>
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+
+
+## API
+
+### Interfaces
+
+```tsx
+useExample(config?: UseExampleConfig): UseExampleReturn
+
+export type UseExampleConfig = {};
+
+export type UseExampleReturn = {};
+```
+
+### Config Example
+
+```tsx
+const exm = useExample({
+    option: 13,
+    name: 'string',
+})
+```
+
+
+### Return Values
+
+<HeadlessTable code={2} items={[
+    ['@value', 'number', 'The example value returned']
+]} />
+
+:::note About Returned Values
+Leave some notes if the returned values have unexpected behavior
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## Hook Methods
+
+<Card>
+
+### start
+Start the countdown, if not already started or done
+
+```ts
+() => void 
+```
+```ts
+const timer = useCountdown({ duration: 10_000 })
+
+timer.start()
+```
+</Card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## Internal
+
+<small>
+
+</small>
+
+<RelatedTable hooks={[
+    'useState',
+    'useEffect',
+    'useRef'
+]} />
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## Related Hooks
+
+<RelatedTable hooks={['useInterval', 'useTime']} />

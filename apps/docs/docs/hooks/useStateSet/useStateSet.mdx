@@ -1,23 +1,12 @@
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useStateSet'
-import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { MainText } from '@site/src/components'
 import { getHookDataByTitle } from '/utils/getHooks'
-const data = getHookDataByTitle('useStateSet')
+const {title, description, content, doc} = getHookDataByTitle('useStateSet')
 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
 
-
-
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />
+<MainText>
+{description}
+</MainText>

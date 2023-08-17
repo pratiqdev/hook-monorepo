@@ -1,11 +1,17 @@
----
-title: useInterval
-description: Run a callback on an interval with automatic removal on component unmount
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useInterval')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useInterval</h1>
@@ -45,16 +51,6 @@ import { useInterval } from '@pratiq/hooks'
 
 
 
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 

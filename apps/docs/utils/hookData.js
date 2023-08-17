@@ -11,6 +11,8 @@ const E_Tags = {
 }
 
 
+
+
 const data = {
     
     useStateArray:{
@@ -181,6 +183,20 @@ const data = {
 
     
 }
+
+
+
+// const hookDirPath = '../node_modules/@pratiq/hooks/dist/hooks/'
+// const resolvedHookDirPath = path.resolve(hookDirPath)
+
+
+// const hookPaths = fs.readdirSync(resolvedHookDirPath)
+
+// hookPaths.forEach(filePath => {
+//     console.log('|| >>> ', filePath)
+// })
+
+
 
 
 export default data

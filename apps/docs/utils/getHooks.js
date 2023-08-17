@@ -1,9 +1,12 @@
-import hookData from './hookData.js'
+// import hookData from './hookData.js'
+import hookData from '@pratiq/hooks/meta.json'
 
 export const getHookDataByTitle = (title) => {
   const data = Object.values(hookData).find((x) => x.title === title)
-  const err = `No hook data found for title "${title}"`
-  return data || { title: err, description: err }
+  return data || { 
+    title: title, 
+    description: `No JSDoc data found for hook "${title}"` 
+  }
 }
 
 export const getHooksAlphabetized = () => Object.values(hookData).sort((a, b) => a.title > b.title ? 1 : -1)

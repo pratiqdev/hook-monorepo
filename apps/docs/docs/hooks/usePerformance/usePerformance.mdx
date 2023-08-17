@@ -3,10 +3,19 @@ hide_title: true
 ---
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_usePerformance'
 import { Card, MainText, RelatedTable, HeadlessTable } from '/src/components'
 import { getHookDataByTitle } from '/utils/getHooks'
-const data = getHookDataByTitle('usePerformance')
+const {title, description, content, doc} = getHookDataByTitle('usePerformance')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
+
 
 <MainText>
 <h1>usePerformance</h1>
@@ -14,7 +23,6 @@ Track the performance stats of rapid-fire events
 </MainText>
 
 
-<!--meta-section-break-->
 
 
 
@@ -51,13 +59,6 @@ import { usePerformance } from '@pratiq/hooks'
 
 
 
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 

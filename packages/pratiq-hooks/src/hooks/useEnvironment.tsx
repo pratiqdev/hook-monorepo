@@ -39,10 +39,17 @@ function useEnvironment() {
         supportsFileApi: false,
         supportsWebGL: false,
         supportsNotifications: false,
+        grantedNotifications: false
     });
 
     useEffect(() => {
-        const updateEnvironment = () => {
+        const updateEnvironment = async () => {
+            let grantedNoti = typeof navigator === 'object' 
+                ? (await navigator?.permissions?.query({ name: 'geolocation' })).state === 'granted'
+                    ? true
+                    : false
+                : false
+
             setEnvironment({
                 hasWindow: typeof window === 'object',
                 hasDocument: typeof document === 'object',
@@ -65,20 +72,21 @@ function useEnvironment() {
                     }
                 })(),
                 supportsNotifications: 'Notification' in window,
+                grantedNotifications: grantedNoti   
             });
         };
 
         updateEnvironment();
 
         // Optional: Update on specific events like resize, online/offline status change
-        window.addEventListener('resize', updateEnvironment);
-        window.addEventListener('online', updateEnvironment);
-        window.addEventListener('offline', updateEnvironment);
+        window?.addEventListener?.('resize', updateEnvironment);
+        window?.addEventListener?.('online', updateEnvironment);
+        window?.addEventListener?.('offline', updateEnvironment);
 
         return () => {
-            window.removeEventListener('resize', updateEnvironment);
-            window.removeEventListener('online', updateEnvironment);
-            window.removeEventListener('offline', updateEnvironment);
+            window?.removeEventListener?.('resize', updateEnvironment);
+            window?.removeEventListener?.('online', updateEnvironment);
+            window?.removeEventListener?.('offline', updateEnvironment);
         };
     }, []);
 

@@ -1,37 +1,29 @@
----
-title: useMousePosition
-description: Get the current coordinates of the cursor in the window or a selected element
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useMousePosition'
-
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useMousePosition')
 
-# 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
 
-<Card>
+<MainText>
+{description}
+</MainText>
+
+
 <MainText>
 <h1>useMousePosition</h1>
 Get the current coordinates of the cursor in the window or a selected element
 </MainText>
-</Card>
-
-<!--meta-section-break-->
 
 
 
 ## Usage
 
 
-<!-- ======================================================================= -->
-
-<hr />
-
-## Demo
-
-
-<DemoComponent />
 
 
 <!-- ======================================================================= -->

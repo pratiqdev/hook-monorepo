@@ -1,22 +1,14 @@
 import { useState, useEffect, SetStateAction } from 'react';
 
-export type UseClampConfig = {
-    min?: number;
-    max?: number;
-    value?: number;
-}
 
-export type UseClampReturn = {
-    value: number;
-    setValue: (cb: SetStateAction<number>) => void;
-    reset: () => void;
-    min: number;
-    max: number;
-    setMin: (min: number) => void;
-    setMax: (max: number) => void;
-    initialValue: number;
-    expectedValue: number;
-}
+
+/**
+ * useClamp
+ * 
+ * 
+ * @param config UseClampConfig
+ * @returns UseClampReturn
+ */
 
 const useClamp = (config: UseClampConfig = {}): UseClampReturn => {
     // Deconstruct values from config with default values
@@ -65,5 +57,24 @@ const useClamp = (config: UseClampConfig = {}): UseClampReturn => {
         expectedValue,
     };
 };
+
+export type UseClampConfig = {
+    min?: number;
+    max?: number;
+    value?: number;
+}
+
+export type UseClampReturn = {
+    value: number;
+    setValue: (cb: SetStateAction<number>) => void;
+    reset: () => void;
+    min: number;
+    max: number;
+    setMin: (min: number) => void;
+    setMax: (max: number) => void;
+    initialValue: number;
+    expectedValue: number;
+}
+
 
 export default useClamp;

@@ -1,13 +1,18 @@
----
-title: useCookie
-description: Manage and store cookies in state
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useCookie')
 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useCookie</h1>

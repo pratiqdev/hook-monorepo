@@ -1,27 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { isBrowser } from '@pratiq/utils'
 
-type T_UseClickOutside = (callback: (e: MouseEvent) => any) => (el:any) => unknown;
 
 /**
- * [@pratiq/hooks - useClickOutside](https://hooks.pratiq.dev/docs/hooks/useClickOutside)
+ * [useClickOutside](https://hooks.pratiq.dev/docs/hooks/useClickOutside)
  * 
  * Handle click events outside of referenced elements
- * 
+ * ________________________________________________________________________
  * @param
  * | type | keys | description |
  * |:--|:--|:--|
  * | `function` | **callback** | The callback function to invoke
  * 
- * 
  * @returns 
  * | type | keys | description |
  * |:--|:--|:--|
- * | `RefObject` | **clickOut** | A function used as a react ref for adding the current element  
- * 
- * 
- * ___________________________________________
- * 
+ * | `RefObject` | **clickOut** | A function used as a react ref for adding the current element
+ * ________________________________________________________________________
  * @interface
  * ```
  * export interface I_UseCountdownConfig {   //  example
@@ -52,9 +47,7 @@ type T_UseClickOutside = (callback: (e: MouseEvent) => any) => (el:any) => unkno
  *   duration: number;
  * };
  * ```
- * 
- * ___________________________________________
- * 
+ * ________________________________________________________________________
  * @example
  * const [isOpen, setIsOpen] = useState<boolean>(false)
  * const clickOut = useClickOutside(() => setIsOpen(false) )
@@ -62,7 +55,20 @@ type T_UseClickOutside = (callback: (e: MouseEvent) => any) => (el:any) => unkno
  */
 
 
-const useClickOutside: T_UseClickOutside = (callback: (e: MouseEvent) => any) => {
+
+export namespace UseClickOutside {
+    export type Callback = (e: MouseEvent) => any;
+    export type Return = (el: any) => unknown;
+
+    export interface Hook {
+        (callback: Callback): Return;
+        (callback: Callback, someOption: boolean): Return; // An overload with an additional parameter
+        // Add more overloads as needed...
+    }
+}
+
+
+const useClickOutside: UseClickOutside.Hook = (callback: UseClickOutside.Callback): UseClickOutside.Return => {
     if(!isBrowser()) return () => {};
 
     const refArr:any[] = []

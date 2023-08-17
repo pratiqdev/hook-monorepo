@@ -1,11 +1,17 @@
----
-title: useInput
-description: Store and manage complex objects in client-side storage using IndexedDB
-hide_title: true
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useInput')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
 
 <MainText>
 <h1>useInput</h1>
@@ -142,19 +148,6 @@ const {
 
 
 
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 

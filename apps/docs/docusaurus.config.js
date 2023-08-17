@@ -17,6 +17,8 @@ const config = {
   projectName: '@pratiq/hooks', // Usually your repo name.
   trailingSlash: false,
 
+
+
   
 
   customFields: {
@@ -147,6 +149,7 @@ const config = {
         copyright: 'Created by Michael Jannetta<br/>Unlicense 2022 - Pratiq Development, Inc.'
       },
       prism: {
+        defaultLanguage: 'typescript',
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme
       }

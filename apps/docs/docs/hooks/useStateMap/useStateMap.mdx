@@ -1,23 +1,22 @@
----
-title: useStateMap
-description: Manage ESMap objects with common state altering methods
----
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useStateMap'
-
 import { Card, MainText, RelatedTable, HeadlessTable } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, doc} = getHookDataByTitle('useStateMap')
 
-# 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
 
-<Card>
+<MainText>
+{description}
+</MainText>
+
 <MainText>
 <h1>useStateMap</h1>
 Manage ESMap objects with common state altering methods
 </MainText>
-</Card>
-
-<!--meta-section-break-->
 
 
 
@@ -56,19 +55,3 @@ value           // get the map
 </TabItem>
 
 </Tabs>
-
-
-
-
-
-
-
-
-
-<!--=========================================================================-->
-
-<hr />
-
-## Demo
-
-<DemoComponent />

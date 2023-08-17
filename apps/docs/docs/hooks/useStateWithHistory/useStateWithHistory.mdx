@@ -1,12 +1,18 @@
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
-import DemoComponent from './demo_useStateWithHistory'
 import {HeadlessTable, RelatedTable, Card, MainText} from '/src/components'
 import { getHookDataByTitle } from '/utils/getHooks'
-const data = getHookDataByTitle('useStateWithHistory')
+const {title, description, content, doc} = getHookDataByTitle('useClickOutside')
 
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
 
-<Card><MainText>{data.description}</MainText></Card>
+<MainText>
+{description}
+</MainText>
+
 
 
 
@@ -18,12 +24,6 @@ import { useStateWithValidation } from '@pratiq/hooks'
 const { value, setValue, history, pointer, forward, back, go } = useStateWithHistory('zap', 10)
 ```
 
-<!-- ======================================================================= -->
-<hr />
-
-## Demo
-
-<DemoComponent />
 
 
 
