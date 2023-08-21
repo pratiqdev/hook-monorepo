@@ -10,19 +10,18 @@ Last Check:
 ## TODO
 
 
-### 0 - add 'empty' return object to all hooks to return noops and null values instead of returning undefined
+### Add 'empty' return object to all hooks to return noops and null values instead of returning undefined
 
 
 
-### 1 - Refactor all interfaces to match
+### Refactor all interfaces to types, within namespace
 
-- same casing / underscore for interface names `I_BumpyCaps`
+- same casing / remove underscore for type names `I_SomeConfig` => `UseSomeConfig`
 - same naming conventions for variable names `enableSomeSetting: true`
 - commented examples in a column `// example`
-- interfaces use brackets `<I_UseInterfaces>`
 
 ```ts
-export interface I_Object {     // example
+export type SomeObject {        // example
     [key: string]: any;         // 'key': { a: 'value' }
 }
 
@@ -33,38 +32,15 @@ export interface I_UseThing {   // example
 ```
 
 
-### 2 - Replace all `console.log`
+### Replace all `console.log`
 
 All calls to `console.log()` should use `extend()` of `debug` exported from `utils/logger`
 
 
-### 3 - Convert Return Values to HeadlessTable
+### Convert Return Values to HeadlessTable
 
 All return value sections should match, use HeadlessTable component to display all return values and types
 
-
-### 4 - Refactor Interfaces and Config Examples
-
-See useNotifications for good example
-
-- add examples to interface codeblock
-- add names, types and descriptions to table
-- add return structure interface as well as 'hook methods'
-
-
-```ts
-export interface I_UseNotificationOptions { // example
-    dir?: string;                           // 'rtl'
-    actions?: <I_ActionObject[]>            // [ { action:'', title:'', icon:'' },  ]       
-}
-
-export interface I_UseNotificationReturn {
-    notify: Function; 
-    request: Function;
-    available: boolean; 
-    permission: boolean;
-}
-```
 
 
 

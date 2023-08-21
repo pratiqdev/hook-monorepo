@@ -6,7 +6,7 @@ const log = debug('@pq:runner')
 const runner = async () => {
   try {
     log('Running scripts...')
-    metaCollector()
+    // metaCollector()
     // metaReplacer()
   } catch (err) {
     console.log('Runner error:', err)

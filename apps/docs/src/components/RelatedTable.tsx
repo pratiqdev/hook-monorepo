@@ -1,8 +1,8 @@
 import React from 'react'
-import data from '../../utils/hookData'
+import hookData from '../../utils/getHooks'
 
 let simpleHookMap = {}
-Object.entries(data).forEach(([k,v]:any) => {
+Object.entries(hookData).forEach(([k,v]:any) => {
     simpleHookMap[v.title] = v.description
 })
 

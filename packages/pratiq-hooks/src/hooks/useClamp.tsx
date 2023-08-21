@@ -1,16 +1,68 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 
 
 
 /**
- * useClamp
+ * [useClamp](https://hooks.pratiq.dev/docs/hooks/useClamp)
  * 
+ * Clamp integer state within dynamic ranges
+ * ________________________________________________________________________
+ * @param
+ * | type       | keys                  | description                           |
+ * | :----------|:----------------------| :-------------------------------------|
+ * | `object`   | **[config]**          | Config object (optional)              |
+ * | `number`   | **[config.min]**      | The minimum clamping value (optional) |
+ * | `number`   | **[config.max]**      | The maximum clamping value (optional) |
+ * | `number`   | **[config.value]**    | The initial value to clamp (optional) |
  * 
- * @param config UseClampConfig
- * @returns UseClampReturn
+ * @returns 
+ * | type                               | keys                  | description                       |
+ * | :----------------------------------|:----------------------| :---------------------------------|
+ * | `object`                           | **value**             | The returned object               |
+ * | `number`                           | **value**             | The clamped value                 |
+ * | `Dispatch<SetStateAction<number>>` | **setValue**          | Function to set clamped value     |
+ * | `() => void`                       | **reset**             | Function to reset value           |
+ * | `number`                           | **min**               | Minimum clamping value            |
+ * | `number`                           | **max**               | Maximum clamping value            |
+ * | `Dispatch<SetStateAction<number>>` | **setMin**            | Function to set new minimum bound |
+ * | `Dispatch<SetStateAction<number>>` | **setMax**            | Function to set new maximum bound |
+ * | `number`                           | **initialValue**      | Initial value of the clamping     |
+ * | `number`                           | **expectedValue**     | Expected value of the clamping    |
+ * ________________________________________________________________________
+ * @interface
+ * ```
+ * export namespace UseClamp {
+ *   export type Config = {
+ *     min?: number;
+ *     max?: number;
+ *     value?: number;
+ *   }
+ *
+ *   export type Return = {
+ *     value: number;
+ *     setValue: Dispatch<SetStateAction<number>>;;
+ *     reset: () => void;
+ *     min: number;
+ *     max: number;
+ *     setMin: Dispatch<SetStateAction<number>>;
+ *     setMax: Dispatch<SetStateAction<number>>;
+ *     initialValue: number;
+ *     expectedValue: number;
+ *   }
+ *
+ *   export interface Hook {
+ *     (config: Config): Return;
+ *   }
+ * }
+ * ```
+ * ________________________________________________________________________
+ * @example
+ * const clamp = useClamp({ min: 1, max: 10, value: 5 })
+ * <button onClick={() => clamp.setValue(12)}>Clamp Value</button>
  */
 
-const useClamp = (config: UseClampConfig = {}): UseClampReturn => {
+
+const useClamp: UseClamp.Hook = (config: UseClamp.Config = {}): UseClamp.Return => {
     // Deconstruct values from config with default values
     const { min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER, value = 0 } = config;
 
@@ -58,23 +110,29 @@ const useClamp = (config: UseClampConfig = {}): UseClampReturn => {
     };
 };
 
-export type UseClampConfig = {
-    min?: number;
-    max?: number;
-    value?: number;
-}
 
-export type UseClampReturn = {
-    value: number;
-    setValue: (cb: SetStateAction<number>) => void;
-    reset: () => void;
-    min: number;
-    max: number;
-    setMin: (min: number) => void;
-    setMax: (max: number) => void;
-    initialValue: number;
-    expectedValue: number;
-}
+export namespace UseClamp {
+    export type Config = {
+        min?: number;
+        max?: number;
+        value?: number;
+    }
 
+    export type Return = {
+        value: number;
+        setValue: Dispatch<SetStateAction<number>>;
+        reset: () => void;
+        min: number;
+        max: number;
+        setMin: Dispatch<SetStateAction<number>>;
+        setMax: Dispatch<SetStateAction<number>>;
+        initialValue: number;
+        expectedValue: number;
+    }
+
+    export interface Hook {
+        (config: Config): Return;
+    }
+}
 
 export default useClamp;

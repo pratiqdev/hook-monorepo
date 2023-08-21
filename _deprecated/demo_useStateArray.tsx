@@ -6,7 +6,7 @@ import Method from '/src/components/Method'
 import { useStateArray } from '@pratiq/hooks'
 // import { useStateArray } from '@pratiq/hooks'
 import CodeBlock from '@theme/CodeBlock'
-import d from '../hookData'
+// import d from '../hookData'
 // const data = d.useStateArray
 import { getHookDataByTitle } from '/utils/getHooks'
 const data = getHookDataByTitle('useStateArray')

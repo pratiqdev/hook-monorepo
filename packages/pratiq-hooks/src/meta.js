@@ -34,7 +34,7 @@ const accumulateMeta = () => {
     const hookPaths = fs.readdirSync(resolvedHookDirPath)
 
     hookPaths.forEach(filePath => {
-        if(!filePath.includes('useClickOutside')) return;
+        // if(!filePath.includes('useClickOutside')) return;
 
         let hookName = filePath.replace('.tsx', '')
 

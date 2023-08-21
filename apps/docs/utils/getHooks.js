@@ -1,6 +1,7 @@
 // import hookData from './hookData.js'
 import hookData from '@pratiq/hooks/meta.json'
 
+
 export const getHookDataByTitle = (title) => {
   const data = Object.values(hookData).find((x) => x.title === title)
   return data || { 
@@ -32,3 +33,5 @@ export const getAllHooksByTags = () => {
   })
   return map
 }
+
+export default hookData
