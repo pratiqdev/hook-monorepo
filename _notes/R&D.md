@@ -20,7 +20,7 @@
 
 **useTime**
 Returns the current time on a custom interval, with optional callback
-```jsx
+```tsx
 const { time } = useTime({
     zone: 'ET', // OR '+5'
     format: (date:Date) => string | number

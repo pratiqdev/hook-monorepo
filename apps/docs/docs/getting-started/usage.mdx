@@ -1,3 +1,5 @@
+import {RelatedTable} from '/src/components'
+
 # Usage
 
 
@@ -9,7 +11,7 @@ Each page provids a live code block where you can experiment.
 Live code blocks have access to all `@pratiq/hooks` as well
 as the standard react hooks.
 
-```jsx live noInline
+```tsx live noInline
 const col = { display: 'flex', flexDirection: 'column', gap: '.5rem' }
 
 const LoginCard = () => {
@@ -46,26 +48,47 @@ render(<LoginCard />)
 
 Just like `useAnyOther` hook, these often take an initial value as an argument, then return the state
 and a function to update it. It typically appears in an array like this:
-```jsx
+```tsx
 const [ value, setValue ] = useSomeHook('Initial value')
 ```
 
 More complicated hooks will take a config object of parameters, usually including the initial value:
-```jsx
+```tsx
 useCountdown({ duration: 10_000 })
 ```
 
 These hooks may also return an object of named properties instead of an array:
-```jsx
+```tsx
 const { time, start, stop, reset, ... } = useCountdown({ duration: 10_000 })
 ```
 
 
 Each hook provides definitions for the config and return types like:
-```jsx
-export interface I_UseCountdownConfig = {}
-export interface I_UseCountdownReturn = {}
-useCountdown(config: I_UseCountdownConfig): I_UseCountdownReturn
+```tsx
+export namespace UseClamp {
+  export type Config = {
+    min?: number;
+    max?: number;
+    value?: number;
+    useExpected?: boolean;
+  }
+
+  export type Return = {
+    value: number;
+    setValue: Dispatch<SetStateAction<number>>;
+    reset: () => void;
+    min: number;
+    max: number;
+    setMin: Dispatch<SetStateAction<number>>;
+    setMax: Dispatch<SetStateAction<number>>;
+    initialValue: number;
+    expectedValue: number;
+  }
+
+  export interface Hook {
+    (config: Config): Return;
+  }
+}
 ```
 
 
@@ -87,3 +110,9 @@ Each page contains a short readable explanation about what is
 happening with the hook in the background, the choices or approach
 to this solution, as well as the hooks and functions used internally,
 or a reference to external dependencies if they are included.
+
+The internal section will list what hooks, hoc's and types are used in
+a simple table with links to current React documentation.
+
+
+<RelatedTable />

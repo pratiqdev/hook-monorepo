@@ -304,11 +304,11 @@ th:first-child, td:first-child{
   border-left: 0px solid transparent !important;
 }
 [data-theme='dark'] tr:nth-of-type(even){
-  background: #2238 !important;
+  background: #222c !important;
 }
 
 [data-theme='dark'] th{
-  background: #1128 !important;
+  background: #1120 !important;
 
 }
 
@@ -349,7 +349,7 @@ table{
 }
 
 [data-theme='dark'] table{
-  background: #4458 !important;
+  background: #4453 !important;
 }
 
 .footer-headless-table {
@@ -1518,4 +1518,14 @@ pre {
 .error * {
   color: #f44 !important;
   margin: 0;
+}
+
+
+
+
+.grid * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1,
 }

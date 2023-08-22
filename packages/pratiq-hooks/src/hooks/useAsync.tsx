@@ -1,5 +1,3 @@
-// import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
-//@ts-ignore
 import { isBrowser } from '@pratiq/utils'
 import debug from 'debug'
 const log = debug('@pq:useAsync')
@@ -42,27 +40,8 @@ const log = debug('@pq:useAsync')
  * @param config 
  * @returns {loading:boolean, error:any, data:any}
  * @example
- * export type UseAsyncConfig = {
- *   // Supply default data while the promise is pending
- *   initialData?: any;
- *
- *   // Invoke the callback function automatically on mount
- *   autoLoad?: boolean;
- *
- *   // An array of dependencies to watch.
- *   // passed as arguments to the callback function
- *   // unless new arguments are provided to `reload(...newArgs)`
- *   deps?: any[];
- * }
- *
- * export type UseAsyncReturn = {
- *   loading: boolean;
- *   done: boolean;
- *   error: any;
- *   data: any;
- *   reload: Function;
- *   reset: Function;
- * }
+ * but why tho.
+ * does it work?
  */
 
 

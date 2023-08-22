@@ -47,9 +47,11 @@ const HeadlessTable = (props: IHeadlessTable) => {
                                 style={{
                                     fontFamily: codeCols - 1 >= td_idx ? 'monospace' : 'inherit', 
                                     color: typeof x === 'string' && x.includes('@') ? '#88f' : 'inherit',
-                                    fontWeight: typeof x === 'string' && x.includes('@') ? 'bold' : 'inherit'
+                                    fontWeight: typeof x === 'string' && x.includes('@') ? 'bold' : 'inherit',
+                                    whiteSpace: 'nowrap',
+                                    wordBreak: 'keep-all',
                                 }} 
-                                dangerouslySetInnerHTML={{__html: typeof x === 'string' ? x.replace('@','') : x}} 
+                                dangerouslySetInnerHTML={{ __html: typeof x === 'string' ? x.replace('@', '').replace(/</g, '&lt;').replace(/>/g, '&gt;') : x}} 
                             />
                         )}
                     </tr>

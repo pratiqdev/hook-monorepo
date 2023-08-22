@@ -5,12 +5,12 @@ import {version} from 'react'
 import StatusBadge from '@site/src/components/StatusBadge'
 import ClientBadge from '@site/src/components/ClientBadge'
 import Button from '@site/src/components/Button'
-import { Card, HeadlessTable, MainText, IntroList, HooksByTags, HookWheel } from '/src/components/'
+import { Card, HeadlessTable, MainText, IntroList, HooksByTags, HookWheel, RelatedTable } from '/src/components/'
 
 
 <div style={{ display: 'flex', alignItems:'center', marginBottom: '1rem' }}>
     <h1 style={{ margin: 0, marginRight: '1rem' }}>Development Status</h1>
-    <div className='badge'>beta</div>
+    {/* <div className='badge'>beta</div> */}
 </div>
 
 The hooks npm package `@pratiq/hooks`, the docusaurus app `@pratiq/docs` and common utils `@pratiq/utils`
@@ -45,3 +45,8 @@ Hooks that return **data in CSR** will return *initial or default values of the 
 
 
 <Contribute />
+
+
+## React Hooks and Types
+
+<RelatedTable heading={false}  />

@@ -3,7 +3,7 @@ import hookData from '@pratiq/hooks/meta.json'
 
 
 export const getHookDataByTitle = (title) => {
-  const data = Object.values(hookData).find((x) => x.title === title)
+  const data = hookData[title]
   return data || { 
     title: title, 
     description: `No JSDoc data found for hook "${title}"` 

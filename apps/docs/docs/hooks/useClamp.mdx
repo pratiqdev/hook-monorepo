@@ -2,7 +2,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge, Contribute } from '@site/src/components'
 import { getHookDataByTitle } from '/utils/getHooks'
-const {title, description, content, doc} = getHookDataByTitle('useClamp')
+const {title, description, content, jsdoc, namespaceContent, example, params, returns } = getHookDataByTitle('useClamp')
 
 <head>
   <title>{title}</title>
@@ -22,7 +22,7 @@ const {title, description, content, doc} = getHookDataByTitle('useClamp')
 
 <TabItem value='sim' label="Simple">
 
-```jsx live 
+```tsx live 
 function ClampedCounter(props) {
   const { container, button, row, column, display } = styles.useClamp
   
@@ -48,28 +48,40 @@ function ClampedCounter(props) {
 
 <TabItem value='adv' label="Advanced">
 
-```jsx live 
+```tsx live 
 function ClampedCounter(props) {
   const { container, button, row, column, display } = styles.useClamp
   
-  const { value, setValue, reset } = useClamp({
+  const { value, setValue, reset, setMin, setMax, min, max, expectedValue } = useClamp({
     value: 0,
     min: -2,
-    max: 2
+    max: 2,
+    useExpected: true
   })
 
   return (
-    <div style={container}>
-        <div style={row}>
-            <button onClick={() => setValue(n => n - 1)} style={button}>-</button>
-            <p style={display}>{value}</p>
-            <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
-        </div>
+    <div style={{...container, width: '15rem'}} className='grid'>
+      <div style={row}>
         <div style={column}>
+          <button onClick={() => setMin(n => n + 1)} >+</button>
+          <div>{min}</div>
+          <button onClick={() => setMin(n => n - 1)} >-</button>
+        </div>
+        <button onClick={() => setValue(n => n - 1)} style={button}>-</button>
+        <div style={display}>{value}</div>
+        <button onClick={() => setValue(n => n + 1)} style={button}>+</button>
+        <div style={column}>
+          <button onClick={() => setMax(n => n + 1)} >+</button>
+          <div>{max}</div>
+          <button onClick={() => setMax(n => n - 1)} >-</button>
+        </div>
+
+         <div style={column}>
             <button style={button} onClick={() => setValue(3)}>Set 3</button>
             <button style={button} onClick={() => setValue(-7)}>Set -7</button>
             <button style={button} onClick={reset}>Reset</button>
         </div>
+      </div>
     </div>
   );
 }
@@ -97,40 +109,18 @@ function ClampedCounter(props) {
 
 
 ### Interfaces
-```ts
-export type UseClamp = (config: UseClampConfig) => UseClampReturn
 
-export type UseClampConfig { // example
-    min?: number;                   // 0
-    max?: number;                   // 99
-    value?: number;                 // 7
-}
-
-export type UseClampReturn { // example
-    value: number;                  // 7
-    setValue: Function;             // setValue(9)
-    reset: Function;                // reset()
-}
-```
-
-
+<pre><code>{namespaceContent}</code></pre>
 
 ### Config Example
 
-```ts
-const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
-```
+<pre><code>{example}</code></pre>
 
+<HeadlessTable code={params.code} items={params.items} />
 
 ### Return Values
 
-<HeadlessTable code={2} items={[
-    ['@value','number', 'The current state of the clamped value'],
-    ['@setValue','Function', 'Set a new value, will be rejected if any type other than number and clamped within the provided range'],
-    ['@reset','Function','Reset the internal state to the initial values',],
-]}/>
-
-
+<HeadlessTable code={returns.code} items={returns.items} />
 
 
 
@@ -157,12 +147,41 @@ const <I_UseClampReturn> = useClamp(<I_UseClampConfig>)
 Set the current state. Will be clamped
 
 ```ts
-(newState) => void 
+Dispatch<SetStateAction<number>>
 ```
 ```ts
-const [value setValue] = useClamp({ max: 10 })
+clamp.setValue(9)
+clamp.setValue(v => v + 1)
+```
 
-setValue(v => v + 1)  // [1, 2, 3]
+</Card>
+
+<Card>
+
+### setMin
+Set the minimum bounds of the clamp range. The value will be recalculated using `expectedValue`
+
+```ts
+Dispatch<SetStateAction<number>>
+```
+```ts
+setMin(2) 
+setMin(v => v - 1) 
+```
+
+</Card>
+
+<Card>
+
+### setMax
+Set the maximum bounds of the clamp range. The value will be recalculated using `expectedValue`
+
+```ts
+Dispatch<SetStateAction<number>>
+```
+```ts
+setMax(20) 
+setMax(v => v + 10) 
 ```
 
 </Card>
@@ -171,19 +190,17 @@ setValue(v => v + 1)  // [1, 2, 3]
 <Card>
 
 ### reset
-Reset the value to the initial value.
+Reset the value, min and max to initial values. Value will be clamped.
 
 ```ts
-() => void 
+() => void;
 ```
 ```ts
-const [value setValue, reset] = useClamp({ max: 10 })
-
-
-reset()  // [1, 2, 3]
+reset() 
 ```
 
 </Card>
+
 
 
 
@@ -237,12 +254,11 @@ value between a minimum and maximum range. The hook tracks changes to the config
 the value based on the new input.
 </small>
 
-<RelatedTable hooks={[
+<RelatedTable heading={false} hooks={[
     'useState',
-    'useCallback', 
     'useEffect', 
-    'useMemo', 
-    'useRef'
+    'SetStateAction',
+    'Dispatch'
 ]}/>
 
 

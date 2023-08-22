@@ -1,6 +1,57 @@
-import {useEffect, useState} from 'react'
-import {isBrowser} from '@pratiq/utils';
+import { useState } from 'react'
+import { isBrowser } from '@pratiq/utils';
     
+
+export type Return = {
+    value: string;
+    copy: Function;
+    success: boolean;
+    flash: boolean;
+    reset: Function;
+}
+/**
+ * [useClipboard](https://hooks.pratiq.dev/docs/hooks/useClipboard)
+ * 
+ * Copy text to and read from the clients clipboard
+ * ________________________________________________________________________
+ * @param
+ * | type       | keys                  | description 
+ * |:--         |:--                    |:--
+ * | `string`   | **[initialValue]**    | Initial value for the clipboard (optional)
+ * | `number`   | **[flashTime]**       | The delay in ms before flash boolean reset to false
+ * 
+ * @returns 
+ * | type                       | keys          | description 
+ * |:--                         |:--            |:--                                                              
+ * | `string`                   | **value**     | The current value of the clipboard
+ * | `(str:string) => boolean`  | **copy**      | Copy a string to the clipboard
+ * | `boolean`                  | **success**   | True if the value was copied successfully
+ * | `boolean`                  | **flash**     | True if successfully copied, resets to false after `flashTime` (default: 1000ms)
+ * ________________________________________________________________________
+ * @interface
+ * ```
+ * export namespace UseClipboard {
+ *     export type Return = {
+ *         value: string;
+ *         copy: Function;
+ *         success: boolean;
+ *         flash: boolean;
+ *         reset: Function;
+ *     }
+ *     export interface Hook {
+ *         (initialValue: string, flashTime: number): Return;
+ *     }
+ * }
+ * ```
+ * ________________________________________________________________________
+ * @example
+ * const { copy, value, success, reset, flash } = useClipboard();
+ * const codeSample = `...some code`
+ * <pre onClick={() => copy(codeSample)}>{codeSample}</pre>
+ */
+
+
+
 /**
  
 React hook for copying text to, read from and reset the clipboard.
@@ -51,7 +102,7 @@ reset();
 
 
 
-const useClipboard = (initialValue:string = '', flashTime: number = 1000): UseClipboardReturn => {
+const useClipboard: UseClipboard.Hook = (initialValue:string = '', flashTime: number = 1000): UseClipboard.Return => {
     const [value, setValue] = useState(initialValue)
     const [success, setSuccess] = useState(false)
     const [flash, setFlash] = useState(false)
@@ -117,12 +168,18 @@ const useClipboard = (initialValue:string = '', flashTime: number = 1000): UseCl
     }
 }
 
-export type UseClipboardReturn = {
-    value: string;
-    copy: Function;
-    success: boolean;
-    flash: boolean;
-    reset: Function;
+
+export namespace UseClipboard {
+    export type Return = {
+        value: string;
+        copy: Function;
+        success: boolean;
+        flash: boolean;
+        reset: Function;
+    }
+    export interface Hook {
+        (initialValue: string, flashTime: number): Return;
+    }
 }
 
 

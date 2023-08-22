@@ -20,7 +20,7 @@ Get info about the current windows size, rotation scroll depth, mouse position a
 
 <TabItem value='sim' label="Simple">
 
-```jsx live 
+```tsx live 
 function UseWindow() {
   const { width, height, x, y } = useWindow()
   return (
@@ -38,7 +38,7 @@ function UseWindow() {
 
 <TabItem value='adv' label="Advanced">
 
-```jsx live 
+```tsx live 
 function UseWindow() {
   const data = useWindow()
   return <pre>{JSON.stringify(data, null, 2)}</pre>

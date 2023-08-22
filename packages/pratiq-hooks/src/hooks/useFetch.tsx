@@ -11,7 +11,7 @@ export type UseFetchConfig = {
     initialData?: any;
     autoLoad?: boolean;
 }
-export type UseFetchSettings = {
+type UseFetchSettings = {
     watch: any[];
     expire: number;
     options: Record<string, any>;
