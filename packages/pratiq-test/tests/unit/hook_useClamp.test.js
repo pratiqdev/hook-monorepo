@@ -1,13 +1,13 @@
 /**
  * @jest-environment jsdom
  */
-import { useClamp, renderHook, act, expect, heading, useState } from './utils'
 
+import { useClamp, renderHook, act, expect, heading, useState } from '../utils'
 
 
 //+ describe what this group is testing
 describe(heading('useClamp'), () => {
-
+    
     test('1. Provides a hook', async () => {
         expect(typeof useClamp).eq('function')
     })

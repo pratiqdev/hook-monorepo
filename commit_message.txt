@@ -1,9 +1,0 @@
-Simplified overengineered build, test and meta pipeline.
-
-- removed runner, metaCollector, metaReplacer
-- removed hook file nesting
-- extraced file collection script
-- using JSDoc data instead of separate meta
-- switched to namespaces for hook types
-- updated JSDoc tables
-- using react.types where possible

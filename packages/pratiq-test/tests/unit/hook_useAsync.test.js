@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { useAsync, expect, heading, renderHook, act } from './utils';
+import { useAsync, expect, heading, renderHook, act } from '../utils';
 
 // Mocking the callback for the tests
 const mockCallback = (val, options) => {
