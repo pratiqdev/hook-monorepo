@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "jsx": "preserve",
     "lib": ["ES2019","DOM"],
-    "allowJs": true
+    "allowJs": false
     // "paths": {
         // "/src/components/*": ["./src/components/*"],
         // "@utils/*": ["utils/*"]

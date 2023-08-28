@@ -224,7 +224,80 @@ describe(heading('useClamp'), () => {
 
     })
 
-    
+
+    // Test case when useExpected is set to false (default case)
+    it('10. should use clampedValue when useExpected is false', () => {
+        const { result } = renderHook(() => useClamp({ min: 0, max: 10, value: 5 }));
+        expect(result.current.value).eq(5);
+
+        act(() => {
+            result.current.setValue(12); // set to a value greater than max
+        });
+
+        expect(result.current.value).eq(10); // Should be clamped to max
+        expect(result.current.expectedValue).eq(12); // Should be set to provided val
+
+        act(() => {
+            result.current.setValue(-2); // set to a value smaller than min
+        });
+
+        expect(result.current.value).eq(0); // Should be clamped to min
+        expect(result.current.expectedValue).eq(-2); // Should be set to provided val
+
+        act(() => {
+            // set to a value greater than max
+            result.current.setValue(20);
+        });
+
+        // Should not be clamped
+        expect(result.current.expectedValue).eq(20);
+        // Should still be clamped for output
+        expect(result.current.value).eq(10);
+
+        act(() => {
+            // set to a value greater than max
+            result.current.setValue(n => n - 1);
+        });
+
+        // Should use value for cb
+        expect(result.current.expectedValue).eq(9);
+
+        // unchanged because cb used value(10 => 10 - 1) = 9 instead of expected(20 => 20 - 1) = 19
+        expect(result.current.value).eq(9); 
+
+    });
+
+    // Test case when useExpected is set to true
+    it('11. should use expectedValue when useExpected is true', () => {
+        const { result } = renderHook(() => useClamp({ min: 0, max: 10, value: 5, useExpected: true }));
+        expect(result.current.value).eq(5);
+
+        act(() => {
+            // set to a value greater than max
+            result.current.setValue(20); 
+        });
+
+        // Should not be clamped
+        expect(result.current.expectedValue).eq(20); 
+        // Should still be clamped for output
+        expect(result.current.value).eq(10); 
+
+        act(() => {
+            // set to a value greater than max
+            result.current.setValue(n => n - 1); 
+        });
+
+        // Should use expectedValue for cb
+        expect(result.current.expectedValue).eq(19); 
+        
+        // unchanged because cb used expected(20 => 20 - 1) = 19 instead of value(10 => 10 - 1) = 9
+        expect(result.current.value).eq(10); 
+    });
+
+    // You can also test other functionalities (e.g., reset, setMin, setMax) in relation to useExpected here
+
+
+
 
 
 })

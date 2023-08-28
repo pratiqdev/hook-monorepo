@@ -7,11 +7,11 @@
     "example": "but why tho.\ndoes it work?",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useCalculator": {
@@ -22,11 +22,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useClamp": {
@@ -39,7 +39,6 @@
       "items": [
         [
           "@config",
-          "",
           "object?",
           "Config object (optional)"
         ],
@@ -68,13 +67,12 @@
           "Pass the expected value to the state setter callback (optional, default false)"
         ]
       ],
-      "code": 3
+      "code": 2
     },
     "returns": {
       "items": [
         [
           "@clamp",
-          "",
           "object",
           "The returned object"
         ],
@@ -125,39 +123,89 @@
           "@initialValue",
           "number",
           "Initial value of the clamping"
+        ],
+        [
+          "",
+          "@expectedValue",
+          "number",
+          "Expected value of the clamping"
         ]
       ],
-      "code": 3
+      "code": 2
     }
   },
   "useClickOutside": {
     "description": "Handle click events outside of referenced elements",
-    "jsdoc": "/**\n * [useClickOutside](https://hooks.pratiq.dev/docs/hooks/useClickOutside)\n * \n * Handle click events outside of referenced elements\n * ________________________________________________________________________\n * @param\n * | type       | keys          | description \n * |:--         |:--            |:--\n * | `function` | **callback**  | The callback function to invoke\n * \n * @returns \n * | type        | keys         | description \n * |:--          |:--           |:--                                                              \n * | `RefObject` | **clickOut** | A function used as a react ref for adding the current element\n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseClickOutside {\n *   export type Callback = (e: MouseEvent) => void;\n *   export type Return = (el: HTMLElement | null) => void;\n *   export interface Hook {\n *     (callback: Callback): Return;\n *   }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const [isOpen, setIsOpen] = useState<boolean>(false)\n * const clickOut = useClickOutside(() => setIsOpen(false))\n * <button ref={clickOut} onClick={() => setIsOpen(true)}>Open</button>\n */",
+    "jsdoc": "/**\n * [useClickOutside](https://hooks.pratiq.dev/docs/hooks/useClickOutside)\n * \n * Handle click events outside of referenced elements\n * ________________________________________________________________________\n * @param\n * | keys           | type          | description                       |\n * | :--            |:--            |:--                                |\n * | **callback**   | `() => void`  | The callback function to invoke   |\n * ________________________________________________________________________\n * @returns \n * | keys           | type                                  | description |\n * |:--             |:--                                    |:--                                                               |                           \n * | **clickOut**   | `(el: HTMLElement | null) => void`    | A function used as a react ref for adding the current element    |           \n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseClickOutside {\n *   export type Callback = (e: MouseEvent) => void;\n *   export type Return = (el: HTMLElement | null) => void;\n *   export interface Hook {\n *     (): Return;\n *     (callback: Callback): Return;\n *   }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const [isOpen, setIsOpen] = useState<boolean>(false)\n * \n * const clickOut = useClickOutside(() => {\n *  setIsOpen(false)\n * })\n * \n * <button ref={clickOut} onClick={() => setIsOpen(true)}>Open</button>\n * <button ref={clickOut}>Safe to Click</button>\n */",
     "namespaceTitle": "UseClickOutside",
-    "namespaceContent": "export namespace UseClickOutside {\n  export type Callback = (e: MouseEvent) => void;\n  export type Return = (el: HTMLElement | null) => void;\n  export interface Hook {\n    (callback: Callback): Return;\n  }\n}",
-    "example": "const [isOpen, setIsOpen] = useState<boolean>(false)\nconst clickOut = useClickOutside(() => setIsOpen(false))\n<button ref={clickOut} onClick={() => setIsOpen(true)}>Open</button>",
+    "namespaceContent": "export namespace UseClickOutside {\n  export type Callback = (e: MouseEvent) => void;\n  export type Return = (el: HTMLElement | null) => void;\n  export interface Hook {\n    (): Return;\n    (callback: Callback): Return;\n  }\n}",
+    "example": "const [isOpen, setIsOpen] = useState<boolean>(false)\n\nconst clickOut = useClickOutside(() => {\n setIsOpen(false)\n})\n\n<button ref={clickOut} onClick={() => setIsOpen(true)}>Open</button>\n<button ref={clickOut}>Safe to Click</button>",
     "params": {
-      "items": [],
-      "code": 1
+      "items": [
+        [
+          "@callback",
+          "() => void",
+          "The callback function to invoke"
+        ]
+      ],
+      "code": 2
     },
     "returns": {
-      "items": [],
-      "code": 1
+      "items": [
+        [
+          "@clickOut",
+          "(el: HTMLElement | null) => void",
+          "A function used as a react ref for adding the current element"
+        ]
+      ],
+      "code": 2
     }
   },
   "useClipboard": {
     "description": "Copy text to and read from the clients clipboard",
-    "jsdoc": "/**\n * [useClipboard](https://hooks.pratiq.dev/docs/hooks/useClipboard)\n * \n * Copy text to and read from the clients clipboard\n * ________________________________________________________________________\n * @param\n * | type       | keys                  | description \n * |:--         |:--                    |:--\n * | `string`   | **[initialValue]**    | Initial value for the clipboard (optional)\n * | `number`   | **[flashTime]**       | The delay in ms before flash boolean reset to false\n * \n * @returns \n * | type                       | keys          | description \n * |:--                         |:--            |:--                                                              \n * | `string`                   | **value**     | The current value of the clipboard\n * | `(str:string) => boolean`  | **copy**      | Copy a string to the clipboard\n * | `boolean`                  | **success**   | True if the value was copied successfully\n * | `boolean`                  | **flash**     | True if successfully copied, resets to false after `flashTime` (default: 1000ms)\n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseClipboard {\n *     export type Return = {\n *         value: string;\n *         copy: Function;\n *         success: boolean;\n *         flash: boolean;\n *         reset: Function;\n *     }\n *     export interface Hook {\n *         (initialValue: string, flashTime: number): Return;\n *     }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const { copy, value, success, reset, flash } = useClipboard();\n * const codeSample = `...some code`\n * <pre onClick={() => copy(codeSample)}>{codeSample}</pre>\n */",
+    "jsdoc": "/**\n * [useClipboard](https://hooks.pratiq.dev/docs/hooks/useClipboard)\n * \n * Copy text to and read from the clients clipboard\n * ________________________________________________________________________\n * @param\n * | keys                  | type       | description                                              |\n * |:--                    |:--         |:--                                                       |\n * | **[initialValue]**    | `string`   | Initial value for the clipboard (optional)               |\n * | **[flashTime]**       | `number`   | The delay in ms before flash boolean reset to false      |\n * ________________________________________________________________________\n * @returns\n * | keys                  | type                       | description                                              |\n * |:--                    |:--                         |:--                                                       |\n * | **value**             | `string`                   | The current value of the clipboard                       |\n * | **copy**              | `(str:string) => boolean`  | Copy a string to the clipboard                           |\n * | **success**           | `boolean`                  | True if the value was copied successfully                |\n * | **flash**             | `boolean`                  | True if successfully copied, resets to false after `flashTime` (default: 1000ms) |\n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseClipboard {\n *     export type Return = {\n *         value: string;\n *         copy: Function;\n *         success: boolean;\n *         flash: boolean;\n *         reset: Function;\n *     }\n *     export interface Hook {\n *         (initialValue: string, flashTime: number): Return;\n *     }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const { copy, value, success, reset, flash } = useClipboard();\n * const codeSample = `...some code`\n * <pre onClick={() => copy(codeSample)}>{codeSample}</pre>\n */",
     "namespaceTitle": "UseClipboard",
     "namespaceContent": "export namespace UseClipboard {\n    export type Return = {\n        value: string;\n        copy: Function;\n        success: boolean;\n        flash: boolean;\n        reset: Function;\n    }\n    export interface Hook {\n        (initialValue: string, flashTime: number): Return;\n    }\n}",
     "example": "const { copy, value, success, reset, flash } = useClipboard();\nconst codeSample = `...some code`\n<pre onClick={() => copy(codeSample)}>{codeSample}</pre>",
     "params": {
-      "items": [],
-      "code": 1
+      "items": [
+        [
+          "@initialValue",
+          "string?",
+          "Initial value for the clipboard (optional)"
+        ],
+        [
+          "@flashTime",
+          "number?",
+          "The delay in ms before flash boolean reset to false"
+        ]
+      ],
+      "code": 2
     },
     "returns": {
-      "items": [],
-      "code": 1
+      "items": [
+        [
+          "@value",
+          "string",
+          "The current value of the clipboard"
+        ],
+        [
+          "@copy",
+          "(str:string) => boolean",
+          "Copy a string to the clipboard"
+        ],
+        [
+          "@success",
+          "boolean",
+          "True if the value was copied successfully"
+        ],
+        [
+          "@flash",
+          "boolean",
+          "True if successfully copied, resets to false after `flashTime` (default: 1000ms)"
+        ]
+      ],
+      "code": 2
     }
   },
   "useCookie": {
@@ -168,11 +216,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useCountdown": {
@@ -183,11 +231,17 @@
     "example": "const timer = useCountdown({\n    duration: 10_000,           \n    interval: 10,              \n    callbacks: {                     \n        'start':() => console.log('started'),\n        'end':  () => console.log('over'),  \n        7000:   () => console.log('7000ms'),\n        3000:   () => console.log('3000ms'),\n    },\n})",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
-      "items": [],
-      "code": 1
+      "items": [
+        [
+          "@---",
+          "---",
+          "---"
+        ]
+      ],
+      "code": 2
     }
   },
   "useCssVariables": {
@@ -198,11 +252,17 @@
     "example": "const elementRef = useRef()\nconst [css, update] = useCssVariables('--cust', elementRef)",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
-      "items": [],
-      "code": 1
+      "items": [
+        [
+          "@:--",
+          ":--",
+          ":--"
+        ]
+      ],
+      "code": 2
     }
   },
   "useDebounceEffect": {
@@ -213,11 +273,11 @@
     "example": "useDebounce(myFunction, 1000, [count])",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useDynamic": {
@@ -228,11 +288,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useEnvironment": {
@@ -243,11 +303,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useErrorBoundary": {
@@ -258,11 +318,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useEventListener": {
@@ -273,11 +333,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useFetch": {
@@ -288,11 +348,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useGeolocation": {
@@ -303,11 +363,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useIDB": {
@@ -318,11 +378,11 @@
     "example": "",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useInput": {
@@ -333,11 +393,11 @@
     "example": "export interface I_useInputConfig {\n     // Attribute type - 'text' | 'number' | 'checkbox' | 'radio'\n     type?: string;\n\n     // Attribute name\n     name?: string;\n\n     // Custom class names or style objects with a key of style states\n     style?:  { [Property in StyleGroupNames]?: { [key: string]: CSSProperties | string } };\n\n     // Default style object - overridden by style state objects\n     rootStyle?: { [key: string]: CSSProperties | string };\n\n     // CSS classname of the html element\n     className?: string;\n\n     // Initial value of the input\n     value?: string;\n\n     // Input placeholder\n     placeholder?: string;\n\n     // Readonly attribute - prevents altering contents of input\n     readOnly?: boolean;\n\n     // Disabled attribute \n     disabled?: boolean;\n\n     // Message to return on invalid value state\n     invalidMessage?: string;\n\n     // Set isValid to true with initialValue\n     validOnDefault?: boolean;\n\n     // Validate value when focus is lost on the input element\n     validateOnBlur?: boolean;\n\n     // Validate value on any change\n     validateOnChange?: boolean;\n\n\n     //\n     validator?: (value: string) => boolean;\n     onValidated?: (value: string) => void;\n     onActive?: (value: string) => void;\n     onHover?: (value: string) => void;\n     onFocus?: (value: string) => void;\n     onBlur?: (value: string) => void;\n}\n *\nconst username = useInput({\n     placeholder: 'Username',\n     validateOnChange: true,\n     validator: (v) => /^[a-z0-9]+$/.test(v)\n})\n\n<input {...username.bind} />\n<p>Value: {username.value}</p>\n<p>Valid: {username.isValid}</p>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useInterval": {
@@ -348,11 +408,11 @@
     "example": "useTimeout(myFunction, 1000)\nconst {clear, reset} = useTimeout(myFunction, 1000)",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useKeyboard": {
@@ -363,11 +423,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useMediaQuery": {
@@ -378,11 +438,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useMousePosition": {
@@ -393,11 +453,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useNotifications": {
@@ -408,11 +468,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "usePerformance": {
@@ -423,11 +483,11 @@
     "example": "",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useStateArray": {
@@ -438,11 +498,11 @@
     "example": "",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useStateMap": {
@@ -453,11 +513,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useStateSet": {
@@ -468,11 +528,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useStateWithHistory": {
@@ -483,11 +543,11 @@
     "example": "",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useStateWithValidation": {
@@ -498,11 +558,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useStorage": {
@@ -513,11 +573,11 @@
     "example": "",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useTemperature": {
@@ -528,11 +588,11 @@
     "example": "",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useTime": {
@@ -543,11 +603,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useUpdateEffect": {
@@ -558,11 +618,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   },
   "useWindow": {
@@ -573,11 +633,11 @@
     "example": "<NO_EXAMPLE>",
     "params": {
       "items": [],
-      "code": 1
+      "code": 2
     },
     "returns": {
       "items": [],
-      "code": 1
+      "code": 2
     }
   }
 }

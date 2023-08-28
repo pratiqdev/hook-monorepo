@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { isBrowser } from '@pratiq/utils'
-
 
 /**
  * [useClickOutside](https://hooks.pratiq.dev/docs/hooks/useClickOutside)
@@ -8,14 +7,14 @@ import { isBrowser } from '@pratiq/utils'
  * Handle click events outside of referenced elements
  * ________________________________________________________________________
  * @param
- * | type       | keys          | description 
- * |:--         |:--            |:--
- * | `function` | **callback**  | The callback function to invoke
- * 
+ * | keys           | type          | description                       |
+ * | :--            |:--            |:--                                |
+ * | **callback**   | `() => void`  | The callback function to invoke   |
+ * ________________________________________________________________________
  * @returns 
- * | type        | keys         | description 
- * |:--          |:--           |:--                                                              
- * | `RefObject` | **clickOut** | A function used as a react ref for adding the current element
+ * | keys           | type                                  | description |
+ * |:--             |:--                                    |:--                                                               |                           
+ * | **clickOut**   | `(el: HTMLElement | null) => void`    | A function used as a react ref for adding the current element    |           
  * ________________________________________________________________________
  * @interface
  * ```
@@ -23,6 +22,7 @@ import { isBrowser } from '@pratiq/utils'
  *   export type Callback = (e: MouseEvent) => void;
  *   export type Return = (el: HTMLElement | null) => void;
  *   export interface Hook {
+ *     (): Return;
  *     (callback: Callback): Return;
  *   }
  * }
@@ -30,20 +30,25 @@ import { isBrowser } from '@pratiq/utils'
  * ________________________________________________________________________
  * @example
  * const [isOpen, setIsOpen] = useState<boolean>(false)
- * const clickOut = useClickOutside(() => setIsOpen(false))
+ * 
+ * const clickOut = useClickOutside(() => {
+ *  setIsOpen(false)
+ * })
+ * 
  * <button ref={clickOut} onClick={() => setIsOpen(true)}>Open</button>
+ * <button ref={clickOut}>Safe to Click</button>
  */
 
 
 
 
-const useClickOutside: UseClickOutside.Hook = (callback: UseClickOutside.Callback): UseClickOutside.Return => {
-    if(!isBrowser()) return (el: HTMLElement | null) => {};
+const useClickOutside: UseClickOutside.Hook = (callback: UseClickOutside.Callback = (e) => {}): UseClickOutside.Return => {
+    if(!isBrowser() || !callback) return (el: HTMLElement | null) => {};
 
     const refArr = useRef<(HTMLElement | null)[]>([]);
 
     const handler = (e: MouseEvent) => {
-        console.log(`Running handler...`)
+        // console.log(`Running handler...`)
         refArr.current.every(ref => !ref || !ref.contains(e.target as HTMLElement)) && callback(e)
     }
 
@@ -65,6 +70,7 @@ export namespace UseClickOutside {
     export type Callback = (e: MouseEvent) => void;
     export type Return = (el: HTMLElement | null) => void;
     export interface Hook {
+        (): Return;
         (callback: Callback): Return;
     }
 }

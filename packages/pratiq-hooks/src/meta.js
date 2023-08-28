@@ -76,48 +76,50 @@ const extractExample = (content = '') => {
 //     return uncommented
 // }
 
-
-
 const extractReturns = (content = '') => {
     let fullExample = content.split('* @returns')[1] || '<NO_RETURNS>';
-    let trimmedExample = fullExample.split('*/')[0]?.trim() 
+    let trimmedExample = fullExample.split('*/')[0]?.trim()
         || fullExample.split('* @')[0]?.trim()
-        || fullExample.split('* ___')[0]?.trim() 
-        || '<BAD_EXAMPLE_DELIMITER>';
+        || fullExample.split('* ___')[0]?.trim()
+        || '<BAD_RETURN_DELIMITER>';
 
-    const lines = trimmedExample.split('\n').map(line => line.trim()).slice(2); // slicing to skip the first two lines
+    const lines = trimmedExample.split('\n').map(line => line.trim()).slice(2);
 
     // Using regex to match the table structure
     const regex = /\|\s*`?([^`|]*)`?\s*\|\s*\**?(\[?[^\]*]*\]?)\**?\s*\|\s*([^|]*)\s*\|/;
 
     // Array to hold the parsed items
     const parsedItems = [];
-    let maxCodeDepth = 1
+    let maxCodeDepth = 2;
 
- 
-   
+    const handleNestedKeys = (keyParts, startIndex, resultArray) => {
+        if (startIndex >= keyParts.length) return;
+
+        resultArray.push('@' + keyParts[startIndex]);
+
+        handleNestedKeys(keyParts, startIndex + 1, resultArray.concat(''));
+    };
+
     lines.forEach(line => {
         const match = line.match(regex);
         if (match) {
             const [, key, type, description] = match;
-            const keyParts = key.trim().replace(/\[|\]|\*/g, '').split('.').map(k => '@' + k);
+            const keyParts = key.trim().replace(/\[|\]|\*/g, '').split('.');
             const result = [];
 
             if (keyParts.length === 1) {
-                // Add the key as-is if it's not a nested key
-                result.push(keyParts[0]);
-                result.push('');
+                result.push('@' + keyParts[0]);
             } else {
-                // Add an empty cell under '@clamp' if it's a nested key
                 result.push('');
-                result.push(...keyParts.slice(1));
-                if(keyParts.length > maxCodeDepth){
-                    maxCodeDepth = keyParts.length + 1
-                }
+                handleNestedKeys(keyParts, 1, result);
             }
 
-            let cleanType = type.trim().replace(/`/g, '')
-            // Add the type and description
+            let currentDepth = result.length / 2; // each key has 2 cells
+            if (currentDepth > maxCodeDepth) {
+                maxCodeDepth = currentDepth;
+            }
+
+            let cleanType = type.trim().replace(/`/g, '');
             result.push(cleanType, description.trim());
 
             parsedItems.push(result);
@@ -126,19 +128,73 @@ const extractReturns = (content = '') => {
         }
     });
 
-
-
-    parsedItems.pop()
-    content.includes('[useClamp]') && console.log('parsedItems:\n', parsedItems, maxCodeDepth)
-
-
-    
-
     return {
         items: parsedItems,
         code: maxCodeDepth
     };
 };
+
+// const extractReturns = (content = '') => {
+//     let fullExample = content.split('* @returns')[1] || '<NO_RETURNS>';
+//     let trimmedExample = fullExample.split('*/')[0]?.trim() 
+//         || fullExample.split('* @')[0]?.trim()
+//         || fullExample.split('* ___')[0]?.trim() 
+//         || '<BAD_RETURN_DELIMITER>';
+
+//     const lines = trimmedExample.split('\n').map(line => line.trim()).slice(2); // slicing to skip the first two lines
+
+//     // Using regex to match the table structure
+//     const regex = /\|\s*`?([^`|]*)`?\s*\|\s*\**?(\[?[^\]*]*\]?)\**?\s*\|\s*([^|]*)\s*\|/;
+
+//     // Array to hold the parsed items
+//     const parsedItems = [];
+//     let maxCodeDepth = 2
+
+ 
+   
+//     lines.forEach(line => {
+//         const match = line.match(regex);
+//         if (match) {
+//             const [, key, type, description] = match;
+//             const keyParts = key.trim().replace(/\[|\]|\*/g, '').split('.').map(k => '@' + k);
+//             const result = [];
+
+//             if (keyParts.length === 1) {
+//                 // Add the key as-is if it's not a nested key
+//                 result.push(keyParts[0]);
+//                 result.push('');
+//             } else {
+//                 // Add an empty cell under '@clamp' if it's a nested key
+//                 result.push('');
+//                 result.push(...keyParts.slice(1));
+//                 if(keyParts.length > maxCodeDepth){
+//                     maxCodeDepth = keyParts.length + 1
+//                 }
+//             }
+
+//             let cleanType = type.trim().replace(/`/g, '')
+//             // Add the type and description
+//             result.push(cleanType, description.trim());
+
+//             parsedItems.push(result);
+//         } else {
+//             console.log(`No match for line: ${line}`);
+//         }
+//     });
+
+
+
+//     // parsedItems.pop()
+//     console.log('parsedItems:\n', parsedItems, maxCodeDepth)
+
+
+    
+
+//     return {
+//         items: parsedItems,
+//         code: maxCodeDepth
+//     };
+// };
 
 
 
@@ -165,7 +221,7 @@ const extractParams = (content = '') => {
 
     // Array to hold the parsed items
     const parsedItems = [];
-    let maxCodeDepth = 1
+    let maxCodeDepth = 2
 
     lines.forEach(line => {
         const match = line.match(regex);
@@ -182,12 +238,14 @@ const extractParams = (content = '') => {
                 .replace(/\[|\]|\*/g, '')
                 .split('.')
                 .map(k => '@' + k);
+
+
             const result = [];
 
             if (keyParts.length === 1) {
                 // Add the key as-is if it's not a nested key
                 result.push(keyParts[0]);
-                result.push('');
+                // result.push('');
             } else {
                 // Add an empty cell under '@clamp' if it's a nested key
                 result.push('');

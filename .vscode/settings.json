@@ -3,4 +3,7 @@
     "files.autoSaveDelay": 60000,
     "editor.formatOnSave": false,
     "editor.formatOnPaste": true,
+    "cSpell.words": [
+        "pratiq"
+    ],
 }

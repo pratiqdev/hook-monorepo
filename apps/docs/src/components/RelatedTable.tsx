@@ -3,7 +3,7 @@ import hookData from '../../utils/getHooks'
 
 let simpleHookMap = {}
 Object.entries(hookData).forEach(([k,v]:any) => {
-    simpleHookMap[k] = v.description ?? '?'
+    simpleHookMap[k] = v.description === '<NO_DESCRIPTION>' ? 'No JSDoc description found...' : v.description
 })
 
 export const hookMap = {
@@ -86,7 +86,7 @@ const RelatedTable = (props: IRelatedTable) => {
                     return (
                         <tr key={x}>
                             <td><a target="_blank" href={x} style={{fontFamily:'monospace', fontWeight: 'bold', color:'#88f'}}>{x}</a></td>
-                            <td dangerouslySetInnerHTML={{ __html: encodeHTML(fullHookMap[x]) }} />
+                            <td dangerouslySetInnerHTML={{ __html: fullHookMap[x] }} />
                         </tr>
                     )
                 }else{
