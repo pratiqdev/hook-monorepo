@@ -14,6 +14,27 @@
       "code": 2
     }
   },
+  "useBrowser": {
+    "description": "Returns true after the first render / component mount.",
+    "jsdoc": "/**\n * [useBrowser](https://hooks.pratiq.dev/docs/hooks/useBrowser)\n * \n * Returns true after the first render / component mount.\n * \n * ________________________________________________________________________\n * @returns\n * | keys                  | type                           | description                                              |\n * |:--                    |:--                             |:--                                                       |\n * | **browser**           | `boolean`                      | True after first render/component mount                       |\n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseBrowser {\n *     export interface Hook {\n *         (): boolean;\n *     }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const browser = useBrowser();\n * \n * <p>{ browser ? 'In the browser' : 'Not in the browser' }</p>\n */",
+    "namespaceTitle": "UseBrowser",
+    "namespaceContent": "export namespace UseBrowser {\n    export interface Hook {\n        (): boolean;\n    }\n}",
+    "example": "const browser = useBrowser();\n\n<p>{ browser ? 'In the browser' : 'Not in the browser' }</p>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [
+        [
+          "@browser",
+          "boolean",
+          "True after first render/component mount"
+        ]
+      ],
+      "code": 2
+    }
+  },
   "useCalculator": {
     "description": "<NO_DESCRIPTION>",
     "jsdoc": "<NO_JSDOC>",
@@ -644,8 +665,5 @@
       "items": [],
       "code": 2
     }
-  },
-  "isBrowser": {
-    "description": "Check if the current environment is browser vs SSR"
   }
 }

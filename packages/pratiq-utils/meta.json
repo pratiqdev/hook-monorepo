@@ -1,0 +1,195 @@
+{
+  "debounce": {
+    "description": "Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked.",
+    "jsdoc": "/**\n * [debounce](https://hooks.pratiq.dev/docs/utils/debounce)\n * \n * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since the last time the debounced function was invoked.\n * ________________________________________________________________________________________________________\n * @param\n * | keys                      | type                         | description                           |\n * | :-------------------------|:-----------------------------| :-------------------------------------|\n * | **func**                  | `Debounce.Callback<T, R>`    | The function to debounce              |\n * | **wait**                  | `number`                     | The number of milliseconds to delay   |\n * | **[options]**             | `Debounce.Config`            | The options object (optional)         |\n * | **[options.leading]**     | `boolean`                    | Specify invoking on the leading edge  |\n * | **[options.maxWait]**     | `number`                     | Maximum time func is allowed to be delayed|\n * | **[options.trailing]**    | `boolean`                    | Specify invoking on the trailing edge |\n * ________________________________________________________________________________________________________\n * @returns \n * | keys                        | type                          | description                           |\n * |:----------------------------|:------------------------------|:--------------------------------------|\n * | **debouncedFunction**       | `Debounce.Return<T, R>`       | The debounced function                |\n * | **debouncedFunction.cancel**| `() => void`                  | Function to cancel the delayed func call|\n * | **debouncedFunction.flush** | `() => R | undefined`         | Function to immediately invoke func  |\n * ________________________________________________________________________________________________________\n * @interface\n * ```\n * export namespace Debounce {\n *   export type Callback<T extends any[], R> = (...args: T) => R;\n *\n *   export interface Config {\n *     leading?: boolean;\n *     maxWait?: number;\n *     trailing?: boolean;\n *   }\n *   \n *   export interface Return<T extends any[], R> {\n *     (...args: T): R | undefined;\n *     cancel: () => void;\n *     flush: () => R | undefined;\n *   }\n * }\n * ```\n * ________________________________________________________________________________________________________\n * @example\n * const debouncedSave = debounce(saveData, 200);\n * \n * function saveData(input) {\n *  // save logic\n * }\n * \n * <button onClick={debouncedSave}>Save</button>\n */",
+    "namespaceTitle": "Debounce",
+    "namespaceContent": "export namespace Debounce {\n  export type Callback<T extends any[], R> = (...args: T) => R;\n\n  export interface Config {\n    leading?: boolean;\n    maxWait?: number;\n    trailing?: boolean;\n  }\n  \n  export interface Return<T extends any[], R> {\n    (...args: T): R | undefined;\n    cancel: () => void;\n    flush: () => R | undefined;\n  }\n}",
+    "example": "const debouncedSave = debounce(saveData, 200);\n\nfunction saveData(input) {\n // save logic\n}\n\n<button onClick={debouncedSave}>Save</button>",
+    "params": {
+      "items": [
+        [
+          "@func",
+          "Debounce.Callback<T, R>",
+          "The function to debounce"
+        ],
+        [
+          "@wait",
+          "number",
+          "The number of milliseconds to delay"
+        ],
+        [
+          "@options",
+          "Debounce.Config?",
+          "The options object (optional)"
+        ],
+        [
+          "",
+          "@leading",
+          "boolean?",
+          "Specify invoking on the leading edge"
+        ],
+        [
+          "",
+          "@maxWait",
+          "number?",
+          "Maximum time func is allowed to be delayed"
+        ],
+        [
+          "",
+          "@trailing",
+          "boolean?",
+          "Specify invoking on the trailing edge"
+        ]
+      ],
+      "code": 2
+    },
+    "returns": {
+      "items": [
+        [
+          "@debouncedFunction",
+          "Debounce.Return<T, R>",
+          "The debounced function"
+        ],
+        [
+          "",
+          "@cancel",
+          "() => void",
+          "Function to cancel the delayed func call"
+        ],
+        [
+          "",
+          "@flush",
+          "() => R | undefined",
+          "Function to immediately invoke func"
+        ]
+      ],
+      "code": 2
+    }
+  },
+  "finder": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  },
+  "index": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  },
+  "isBrowser": {
+    "description": "Checks if the code is running in a browser environment.    This is a simple utility for client/server environments.  If you're building a UI component and want to trigger certain   client-only actions after mount, setting a boolean on the   first render can be more suitable. For example, this is often   done for things like animations that should only trigger once a  component is actually in the DOM. See `@pratiq/hooks/useBrowser`",
+    "jsdoc": "/**\n * [isBrowser](https://hooks.pratiq.dev/docs/utils/isBrowser)\n * \n * Checks if the code is running in a browser environment.\n * \n * This is a simple utility for client/server environments.\n * If you're building a UI component and want to trigger certain \n * client-only actions after mount, setting a boolean on the \n * first render can be more suitable. For example, this is often \n * done for things like animations that should only trigger once a\n * component is actually in the DOM. See `@pratiq/hooks/useBrowser`\n * ________________________________________________________________________________________________________\n * @returns \n * | keys       | type     | description                                 |\n * |:-----------|:---------|:--------------------------------------------|\n * | **boolean**| `boolean`| `true` if window is found, `false` otherwise     |\n * ________________________________________________________________________________________________________\n * \n * @example\n * \n * const result = isBrowser();\n * \n * if (result) {\n *   console.log('This code is running in a browser.');\n * } else {\n *   console.log('This code is not running in a browser.');\n * }\n */",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "const result = isBrowser();\n\nif (result) {\n  console.log('This code is running in a browser.');\n} else {\n  console.log('This code is not running in a browser.');\n}",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [
+        [
+          "@boolean",
+          "boolean",
+          "`true` if window is found, `false` otherwise"
+        ]
+      ],
+      "code": 2
+    }
+  },
+  "isDev": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  },
+  "isReact": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  },
+  "tinyId": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  },
+  "toSlug": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  },
+  "wait": {
+    "description": "<NO_DESCRIPTION>",
+    "jsdoc": "<NO_JSDOC>",
+    "namespaceTitle": "<NO_NAMESPACE>",
+    "namespaceContent": "<NO_TYPES>",
+    "example": "<NO_EXAMPLE>",
+    "params": {
+      "items": [],
+      "code": 2
+    },
+    "returns": {
+      "items": [],
+      "code": 2
+    }
+  }
+}

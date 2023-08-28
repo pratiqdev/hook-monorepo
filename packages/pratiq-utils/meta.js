@@ -284,17 +284,20 @@ const extractParams = (content = '') => {
 
 
 const accumulateMeta = () => {
+    try{
+    console.log('Accumulating metadata for "@pratiq/utils"')
     const meta = {}
-    const hookDirPath = './src/hooks/'
-    const resolvedHookDirPath = path.resolve(hookDirPath)
+    const hookDirPath = './src/'
 
 
-    const hookPaths = fs.readdirSync(resolvedHookDirPath)
+    const hookPaths = [
+        ...fs.readdirSync(path.resolve(hookDirPath)),
+    ]
 
     hookPaths.forEach(filePath => {
         // if(!filePath.includes('useClickOutside')) return;
 
-        let hookName = filePath.replace('.tsx', '')
+        let hookName = filePath.replace(/\.[^/.]+$/, '');
 
         let errors = []
         let jsdoc = '<NO_JSDOC>'
@@ -325,10 +328,9 @@ const accumulateMeta = () => {
         let params = extractParams(fileContent)
         let returns = extractReturns(fileContent)
 
-        let hookTitle = filePath.replace('.tsx', '')
 
 
-        meta[hookTitle] = {
+        meta[hookName] = {
             description,
             jsdoc,
             namespaceTitle,
@@ -341,9 +343,11 @@ const accumulateMeta = () => {
     })
 
 
-    
 
     fs.writeFileSync('./meta.json', JSON.stringify(meta, null, 2))
+}catch(err){
+    console.error('ERROR ACCUMULATING METADATA FOR "@pratiq/utils":', err)
+}
 }
 const meta = accumulateMeta()
 

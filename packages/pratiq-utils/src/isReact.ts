@@ -1,34 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-export const ClassComponent = (component: any) => {
+export const isClassComponent = (component: any) => {
     return (
         typeof component === 'function' && 
         !!component.prototype.isReactComponent
     )
 }
 
-export const FunctionComponent = (component: any) => {
+export const isFunctionComponent = (component: any) => {
     return (
         typeof component === 'function' && 
         String(component).includes('return React.createElement')
     )
 }
 
-export const ReactComponent = (component: any) => {
+export const isReactComponent = (component: any) => {
     return (
-        ClassComponent(component) || 
-        FunctionComponent(component)
+        isClassComponent(component) || 
+        isFunctionComponent(component)
     )
 }
 
-export const Element = (element: any) => {
+export const isElement = (element: any) => {
     return React.isValidElement(element);
 }
 
 export const DOMTypeElement = (element: any) => {
-    return Element(element) && typeof element.type === 'string';
+    return isElement(element) && typeof element.type === 'string';
 }
 
 export const CompositeTypeElement = (element: any) => {
-    return Element(element) && typeof element.type === 'function';
+    return isElement(element) && typeof element.type === 'function';
+}
+
+export const useClient = ():boolean => {
+    const [browser, setBrowser] = useState(() => false)
+    useEffect(() => {
+        setBrowser(true)
+    }, [])
+    return browser
 }

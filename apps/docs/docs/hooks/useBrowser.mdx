@@ -1,0 +1,129 @@
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import { Card, MainText, RelatedTable, HeadlessTable, StatusBadge, ClientBadge, Contribute } from '@site/src/components'
+import { getHookDataByTitle } from '/utils/getHooks'
+const {title, description, content, jsdoc, namespaceContent, example, params, returns } = getHookDataByTitle('useBrowser')
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
+
+<MainText>
+{description}
+</MainText>
+
+
+
+
+## Usage
+
+<Tabs>
+
+<TabItem value='sim' label="Simple">
+
+```tsx live 
+function ClampedCounter(props) {
+ return null
+}
+``` 
+
+</TabItem>
+
+
+</Tabs>
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+## API 
+
+
+
+### Interfaces
+
+<pre><code>{namespaceContent}</code></pre>
+
+### Config Example
+
+<pre><code>{example}</code></pre>
+
+<HeadlessTable code={params.code} items={params.items} />
+
+### Return Values
+
+<HeadlessTable code={returns.code} items={returns.items} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+
+## Internal
+
+<small>
+The `useBrowser` hook is designed to determine if the code is running in a browser environment or not. It returns a boolean `isBrowser` that is `true` if in a browser and `false` otherwise.
+
+Internally, the hook makes use of the useState and useEffect React hooks. The useState hook is used to initialize a isBrowser state variable with a value of false.
+
+A useEffect is leveraged to modify the isBrowser state to true once the component mounts. This is because useEffect runs after the component has been rendered, which ensures that it runs on the client-side, thereby confirming that the environment is a browser. This effect runs only once on initialization because it has an empty dependency array.
+
+The benefit of this approach is that it doesn't try to access the window or document objects during server-side rendering (SSR), avoiding potential reference errors. Instead, it relies on the component lifecycle to set the isBrowser flag, thereby ensuring that this check only occurs client-side.
+
+So, in essence, the useBrowser hook offers a React-centric way to determine if you're running in a browser environment, which is particularly useful for applications that need to be SSR-compatible.
+
+Overall, the useBrowser hook returns a boolean isBrowser, making it easier for other parts of the application to conditionally render or execute logic based on the runtime environment.
+</small>
+
+<RelatedTable heading={false} hooks={[
+'useState',
+'useEffect'
+]}/>
+
+
+
+<br />
+<hr />
+{/* ============================================================================ */}
+
+
+
+## Related Hooks
+
+
+<RelatedTable hooks={['useStateArray', 'useInput']} />
