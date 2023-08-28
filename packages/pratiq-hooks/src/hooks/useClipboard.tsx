@@ -14,24 +14,27 @@ import { isBrowser } from '@pratiq/utils';
  * | **[flashTime]**       | `number`   | The delay in ms before flash boolean reset to false      |
  * ________________________________________________________________________
  * @returns
- * | keys                  | type                       | description                                              |
- * |:--                    |:--                         |:--                                                       |
- * | **value**             | `string`                   | The current value of the clipboard                       |
- * | **copy**              | `(str:string) => boolean`  | Copy a string to the clipboard                           |
- * | **success**           | `boolean`                  | True if the value was copied successfully                |
- * | **flash**             | `boolean`                  | True if successfully copied, resets to false after `flashTime` (default: 1000ms) |
+ * | keys                  | type                           | description                                              |
+ * |:--                    |:--                             |:--                                                       |
+ * | **value**             | `string`                       | The current value of the clipboard                       |
+ * | **reset**             | `() => void`                   | Reset to the initial value                           |
+ * | **copy**              | `(value:string) => boolean`    | Copy a string to the clipboard                           |
+ * | **success**           | `boolean`                      | True if the value was copied successfully                |
+ * | **flash**             | `boolean`                      | True if successfully copied, resets to false after `flashTime` (default: 1000ms) |
  * ________________________________________________________________________
  * @interface
  * ```
  * export namespace UseClipboard {
  *     export type Return = {
  *         value: string;
- *         copy: Function;
+ *         copy: (value: string) => Promise<boolean>;
  *         success: boolean;
  *         flash: boolean;
- *         reset: Function;
+ *         reset: () => void;
  *     }
  *     export interface Hook {
+ *         (): Return;
+ *         (initialValue: string): Return;
  *         (initialValue: string, flashTime: number): Return;
  *     }
  * }
@@ -119,7 +122,7 @@ export namespace UseClipboard {
         copy: (value: string) => Promise<boolean>;
         success: boolean;
         flash: boolean;
-        reset: Function;
+        reset: () => void;
     }
     export interface Hook {
         (): Return;

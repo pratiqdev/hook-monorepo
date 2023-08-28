@@ -340,6 +340,11 @@ const accumulateMeta = () => {
         // console.log('|| >>> ', filePath)
     })
 
+
+    meta["isBrowser"] = {
+        description: "Check if the current environment is browser vs SSR"
+    }
+
     fs.writeFileSync('./meta.json', JSON.stringify(meta, null, 2))
 }
 const meta = accumulateMeta()

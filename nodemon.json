@@ -5,7 +5,11 @@
     ],
     "ignore": [
         "**/build/**/*",
-        "**/dist/**/*"
+        "**/dist/**/*",
+        "**/.turbo/**/*",
+        "**/.docusaurus/**/*",
+        "**/.changeset/**/*",
+        "**/_deprecated/**/*"
     ],
     "ext": "",
     "exec": "turbo run test",

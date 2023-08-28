@@ -163,9 +163,9 @@
   },
   "useClipboard": {
     "description": "Copy text to and read from the clients clipboard",
-    "jsdoc": "/**\n * [useClipboard](https://hooks.pratiq.dev/docs/hooks/useClipboard)\n * \n * Copy text to and read from the clients clipboard\n * ________________________________________________________________________\n * @param\n * | keys                  | type       | description                                              |\n * |:--                    |:--         |:--                                                       |\n * | **[initialValue]**    | `string`   | Initial value for the clipboard (optional)               |\n * | **[flashTime]**       | `number`   | The delay in ms before flash boolean reset to false      |\n * ________________________________________________________________________\n * @returns\n * | keys                  | type                       | description                                              |\n * |:--                    |:--                         |:--                                                       |\n * | **value**             | `string`                   | The current value of the clipboard                       |\n * | **copy**              | `(str:string) => boolean`  | Copy a string to the clipboard                           |\n * | **success**           | `boolean`                  | True if the value was copied successfully                |\n * | **flash**             | `boolean`                  | True if successfully copied, resets to false after `flashTime` (default: 1000ms) |\n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseClipboard {\n *     export type Return = {\n *         value: string;\n *         copy: Function;\n *         success: boolean;\n *         flash: boolean;\n *         reset: Function;\n *     }\n *     export interface Hook {\n *         (initialValue: string, flashTime: number): Return;\n *     }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const { copy, value, success, reset, flash } = useClipboard();\n * const codeSample = `...some code`\n * <pre onClick={() => copy(codeSample)}>{codeSample}</pre>\n */",
+    "jsdoc": "/**\n * [useClipboard](https://hooks.pratiq.dev/docs/hooks/useClipboard)\n * \n * Copy text to and read from the clients clipboard\n * ________________________________________________________________________\n * @param\n * | keys                  | type       | description                                              |\n * |:--                    |:--         |:--                                                       |\n * | **[initialValue]**    | `string`   | Initial value for the clipboard (optional)               |\n * | **[flashTime]**       | `number`   | The delay in ms before flash boolean reset to false      |\n * ________________________________________________________________________\n * @returns\n * | keys                  | type                           | description                                              |\n * |:--                    |:--                             |:--                                                       |\n * | **value**             | `string`                       | The current value of the clipboard                       |\n * | **reset**             | `() => void`                   | Reset to the initial value                           |\n * | **copy**              | `(value:string) => boolean`    | Copy a string to the clipboard                           |\n * | **success**           | `boolean`                      | True if the value was copied successfully                |\n * | **flash**             | `boolean`                      | True if successfully copied, resets to false after `flashTime` (default: 1000ms) |\n * ________________________________________________________________________\n * @interface\n * ```\n * export namespace UseClipboard {\n *     export type Return = {\n *         value: string;\n *         copy: (value: string) => Promise<boolean>;\n *         success: boolean;\n *         flash: boolean;\n *         reset: () => void;\n *     }\n *     export interface Hook {\n *         (): Return;\n *         (initialValue: string): Return;\n *         (initialValue: string, flashTime: number): Return;\n *     }\n * }\n * ```\n * ________________________________________________________________________\n * @example\n * const { copy, value, success, reset, flash } = useClipboard();\n * const codeSample = `...some code`\n * <pre onClick={() => copy(codeSample)}>{codeSample}</pre>\n */",
     "namespaceTitle": "UseClipboard",
-    "namespaceContent": "export namespace UseClipboard {\n    export type Return = {\n        value: string;\n        copy: Function;\n        success: boolean;\n        flash: boolean;\n        reset: Function;\n    }\n    export interface Hook {\n        (initialValue: string, flashTime: number): Return;\n    }\n}",
+    "namespaceContent": "export namespace UseClipboard {\n    export type Return = {\n        value: string;\n        copy: (value: string) => Promise<boolean>;\n        success: boolean;\n        flash: boolean;\n        reset: () => void;\n    }\n    export interface Hook {\n        (): Return;\n        (initialValue: string): Return;\n        (initialValue: string, flashTime: number): Return;\n    }\n}",
     "example": "const { copy, value, success, reset, flash } = useClipboard();\nconst codeSample = `...some code`\n<pre onClick={() => copy(codeSample)}>{codeSample}</pre>",
     "params": {
       "items": [
@@ -190,8 +190,13 @@
           "The current value of the clipboard"
         ],
         [
+          "@reset",
+          "() => void",
+          "Reset to the initial value"
+        ],
+        [
           "@copy",
-          "(str:string) => boolean",
+          "(value:string) => boolean",
           "Copy a string to the clipboard"
         ],
         [
@@ -639,5 +644,8 @@
       "items": [],
       "code": 2
     }
+  },
+  "isBrowser": {
+    "description": "Check if the current environment is browser vs SSR"
   }
 }
